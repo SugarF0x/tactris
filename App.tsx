@@ -1,20 +1,72 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import { StatusBar } from 'expo-status-bar'
+import {
+  GestureResponderEvent,
+  LayoutChangeEvent,
+  LayoutRectangle,
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from 'react-native'
+import React, {useRef} from "react";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
-});
+  item: {
+    margin: 16,
+    backgroundColor: 'red',
+    width: 100,
+    height: 100
+  }
+})
+
+const children = [
+  <TouchableOpacity style={styles.item} />,
+  <TouchableOpacity style={styles.item} />,
+  <TouchableOpacity style={styles.item} />,
+  <TouchableOpacity style={styles.item} />
+]
+
+interface Pos {
+  x: number
+  y: number
+}
+
+function isWithin(pos: Pos, target: LayoutRectangle): boolean {
+  if (!(target.x < pos.x && target.x + target.width > pos.x)) return false
+  return target.y < pos.y && target.y + target.width > pos.y
+}
+
+export default function App() {
+  function handleMove(e: GestureResponderEvent) {
+    const { pageX: x, pageY: y } = e.nativeEvent
+    const pos: Pos = { x, y }
+
+    for (const [id, item] of Object.entries(itemLayouts.current)) {
+      if (!isWithin(pos, item)) continue
+      console.log('found ', id)
+      break
+    }
+  }
+
+  const itemLayouts = useRef<Record<string, LayoutRectangle>>({})
+
+  function onLayout(e: LayoutChangeEvent, id: string) {
+    itemLayouts.current[id] = e.nativeEvent.layout
+  }
+
+  const mappedChildren = children.map((child, index) => React.cloneElement(child, { onLayout: (e: LayoutChangeEvent) => onLayout(e, String(index)), key: index }))
+
+  return (
+    <View style={styles.container} onTouchMove={handleMove}>
+      {mappedChildren}
+
+      <StatusBar style="auto" />
+    </View>
+  )
+}
