@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native'
-import React, {useRef} from "react";
+import React, { useRef } from "react"
 
 const styles = StyleSheet.create({
   container: {
@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
 })
 
 const children = [
-  <TouchableOpacity style={styles.item} />,
-  <TouchableOpacity style={styles.item} />,
-  <TouchableOpacity style={styles.item} />,
-  <TouchableOpacity style={styles.item} />
+  <TouchableOpacity key={0} style={styles.item} />,
+  <TouchableOpacity key={1} style={styles.item} />,
+  <TouchableOpacity key={2} style={styles.item} />,
+  <TouchableOpacity key={3} style={styles.item} />
 ]
 
 interface Pos {
@@ -49,6 +49,8 @@ export function Grid() {
 
     for (const [id, item] of Object.entries(itemLayouts.current)) {
       if (!isWithin(pos, item)) continue
+
+      // eslint-disable-next-line no-console
       console.log('found ', id)
       break
     }
