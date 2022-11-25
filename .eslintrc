@@ -1,0 +1,75 @@
+{
+  "plugins": [
+    "react-native",
+    "react-hooks",
+    "import"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-native/all",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.eslint.json",
+    "tsconfigRootDir": "."
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/member-delimiter-style": [
+      2,
+      {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        }
+      }
+    ],
+    "react/prop-types": "off",
+    "react-native/sort-styles": "off",
+    "react/jsx-no-literals": [2, { "noStrings": true, "ignoreProps": true }],
+    "react/prefer-stateless-function": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "keyword-spacing": "error",
+    "object-curly-spacing": ["error", "always"],
+    "no-console": "error",
+    "comma-dangle": ["error", "only-multiline"],
+    "semi": ["error", "never"],
+    "import/no-dynamic-require": "error",
+    "import/no-useless-path-segments": ["error", { "commonjs": false }],
+    "import/no-self-import": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    },
+    "import/extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ]
+  },
+  "env": {
+    "react-native/react-native": true
+  }
+}

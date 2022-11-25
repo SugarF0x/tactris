@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "App.tsx",
+    "assets/**/*.ts",
+    "assets/**/*.tsx",
+    "modules/**/*.ts",
+    "modules/**/*.tsx",
+  ],
+  "exclude": []
+}
