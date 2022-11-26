@@ -7,5 +7,5 @@
     "modules/**/*.ts",
     "modules/**/*.tsx",
   ],
-  "exclude": []
+  "exclude": ["**/*.js"]
 }

@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar'
 import {
   GestureResponderEvent,
   LayoutChangeEvent,
@@ -67,8 +66,6 @@ export function Grid() {
   return (
     <View style={styles.container} onTouchMove={handleMove}>
       {mappedChildren}
-
-      <StatusBar style="auto" />
     </View>
   )
 }
