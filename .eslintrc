@@ -72,5 +72,6 @@
   },
   "env": {
     "react-native/react-native": true
-  }
+  },
+  "ignorePatterns": ["*.js"]
 }
