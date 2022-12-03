@@ -1,1 +1,1 @@
-export * from './getRandomTetra'
+export * from './getTetra'

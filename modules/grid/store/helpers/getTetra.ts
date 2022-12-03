@@ -45,7 +45,8 @@ const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   ]
 }
 
-function dictToTetra(rows: Array<number[]>): Tetra {
+function tetraTypeToTetra(type: TetraType): Tetra {
+  const rows = TetrasDictionary[type]
   const result: Position[] = []
 
   rows.forEach((row, rowIndex) => {
@@ -58,8 +59,10 @@ function dictToTetra(rows: Array<number[]>): Tetra {
   return result as Tetra
 }
 
-export function getRandomTetra(): Tetra {
-  const TetrasDictValues = Object.values(TetrasDictionary)
-  const randomTetraDict = TetrasDictValues[Math.floor(Math.random() * TetrasDictValues.length)]
-  return dictToTetra(randomTetraDict)
+export function getTetra(type?: TetraType): Tetra {
+  if (type) return tetraTypeToTetra(type)
+
+  const allTypes = Object.values(TetraType)
+  const randomType = allTypes[Math.floor(Math.random() * allTypes.length)]
+  return tetraTypeToTetra(randomType)
 }
