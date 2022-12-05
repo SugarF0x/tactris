@@ -1,14 +1,5 @@
-import { Position, Tetra } from "../types"
-
-export enum TetraType {
-  L = 'L',
-  P = 'P',
-  Z = 'Z',
-  S = 'S',
-  I = 'I',
-  T = 'T',
-  O = 'O',
-}
+import { Position } from "~/modules/position"
+import { Tetra, TetraType } from '../types'
 
 const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   L: [

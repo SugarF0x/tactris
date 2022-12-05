@@ -1,7 +1,8 @@
 import create from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { GridCell, GridStore, PositionId, Tetra } from './types'
-import { getTetra } from './helpers'
+import { GridCell, GridStore } from './types'
+import { Tetra, getTetra } from "~/modules/tetra"
+import { PositionId } from "~/modules/position"
 
 export const useGridStore = create<GridStore>()(immer((set) => ({
   cells: {},
