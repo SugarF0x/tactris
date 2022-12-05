@@ -7,7 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "eslint **/*.{ts,tsx}"
+    "test": "yarn test:lint && yarn test:types",
+    "test:lint": "eslint **/*.{ts,tsx}",
+    "test:types": "tsc --noEmit"
   },
   "dependencies": {
     "expo": "~47.0.7",
