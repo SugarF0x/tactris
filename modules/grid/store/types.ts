@@ -1,5 +1,5 @@
 import { PositionId } from "~/modules/position"
-import { Tetra } from "~/modules/tetra"
+import { TetraObject } from "~/modules/tetra"
 
 export interface GridCell {
   id: PositionId
@@ -9,5 +9,5 @@ export interface GridCell {
 
 export interface GridStore {
   cells: Record<PositionId, GridCell>
-  tetras: [Tetra, Tetra]
+  tetras: [TetraObject, TetraObject]
 }

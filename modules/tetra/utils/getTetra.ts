@@ -1,5 +1,5 @@
 import { Position } from "~/modules/position"
-import { Tetra, TetraType } from '../types'
+import { TetraObject, TetraType } from '../types'
 
 const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   L: [
@@ -36,7 +36,7 @@ const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   ]
 }
 
-function tetraTypeToTetra(type: TetraType): Tetra {
+function tetraTypeToTetra(type: TetraType): TetraObject {
   const rows = TetrasDictionary[type]
   const result: Position[] = []
 
@@ -47,10 +47,10 @@ function tetraTypeToTetra(type: TetraType): Tetra {
     })
   })
 
-  return result as Tetra
+  return result as TetraObject
 }
 
-export function getTetra(type?: TetraType): Tetra {
+export function getTetra(type?: TetraType): TetraObject {
   if (type) return tetraTypeToTetra(type)
 
   const allTypes = Object.values(TetraType)

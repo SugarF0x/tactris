@@ -1,13 +1,13 @@
 import React from 'react'
-import { Tetra } from "../types"
+import { TetraObject } from "../types"
 import { StyleSheet, View } from "react-native"
 import { PositionId, positionToId } from "~/modules/position"
 
 export interface TetraProps {
-  tetra: Tetra
+  tetra: TetraObject
 }
 
-export const TetraDisplay = (props: TetraProps) => {
+export function Tetra(props: TetraProps) {
   const { tetra } = props
 
   const [width, height] = tetra.reduce((acc, val) => {

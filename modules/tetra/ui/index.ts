@@ -1,1 +1,1 @@
-export * from './TetraDisplay'
+export * from './Tetra'

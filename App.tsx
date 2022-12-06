@@ -2,7 +2,7 @@ import React from "react"
 import { View, StyleSheet } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import { Grid, useGridStore } from "~/modules/grid"
-import { TetraDisplay } from "~/modules/tetra"
+import { Tetra } from "~/modules/tetra"
 
 export default function App() {
 
@@ -12,7 +12,7 @@ export default function App() {
     <View style={styles.wrapper}>
       <View style={styles.tetras}>
         {tetras.map((tetra, index) => (
-          <TetraDisplay key={index} tetra={tetra} />
+          <Tetra key={index} tetra={tetra} />
         ))}
       </View>
       <Grid />
@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#333'
   },
   tetras: {
     width: '100%',
