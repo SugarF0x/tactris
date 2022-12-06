@@ -44,6 +44,11 @@
       }
     ],
     "react/prop-types": "off",
+    "react/function-component-definition": ["error", {
+        "namedComponents": "function-declaration",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
     "react-native/sort-styles": "off",
     "react/jsx-no-literals": [2, { "noStrings": true, "ignoreProps": true }],
     "react-native/no-color-literals": "off",
