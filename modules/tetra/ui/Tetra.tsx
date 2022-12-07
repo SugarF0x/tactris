@@ -1,5 +1,6 @@
 import React from 'react'
 import { TetraObject } from "../types"
+import { Cell } from './Cell'
 import { StyleSheet, View } from "react-native"
 import { PositionId, positionToId } from "~/modules/position"
 
@@ -23,7 +24,7 @@ export function Tetra(props: TetraProps) {
       {[...Array(height)].map((_, y) => (
         <View key={y} style={styles.row}>
           {[...Array(width)].map((_, x) => (
-            <View key={x} style={[styles.item, posIds.includes(positionToId({ x, y })) && styles.filled]} />
+            <Cell key={x} selected={posIds.includes(positionToId({ x, y }))} style={styles.item} />
           ))}
         </View>
       ))}
@@ -40,10 +41,6 @@ const styles = StyleSheet.create({
   },
   item: {
     width: 32,
-    height: 32,
-    margin: 2
-  },
-  filled: {
-    backgroundColor: 'white',
+    height: 32
   }
 })
