@@ -1,8 +1,8 @@
 import React, { useRef } from "react"
 import { GestureResponderEvent, LayoutRectangle, StyleSheet, LayoutChangeEvent, View, useWindowDimensions } from "react-native"
 import { Position, isWithin, PositionId, positionToId } from "~/modules/position"
-import { Cell } from "~/modules/tetra/ui/Cell"
-import { useGridStore } from "~/modules/grid"
+import { useGridStore } from "~/modules/grid/store"
+import { GridCell } from "./GridCell"
 
 const GRID_WIDTH = 10
 const GRID_HEIGHT = 10
@@ -29,7 +29,7 @@ export function Grid() {
 
     for (const [id, item] of Object.entries(itemLayouts.current)) {
       if (!isWithin(pos, item)) continue
-      updateCell(id)
+      updateCell(id as PositionId)
       break
     }
   }
@@ -51,7 +51,7 @@ export function Grid() {
           const id = positionToId({ x, y })
 
           return (
-            <Cell
+            <GridCell
               key={id}
               posId={id}
               size={cellSize}
