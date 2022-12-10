@@ -9,7 +9,8 @@ const GRID_HEIGHT = 10
 
 export function Grid() {
   const { width } = useWindowDimensions()
-  const { cells, setCell } = useGridStore()
+
+  const { selectId } = useGridStore()
 
   const cellSize = width / 10
 
@@ -18,9 +19,7 @@ export function Grid() {
   function updateCell(id: PositionId) {
     if (id === currentlySelectedId.current) return
     currentlySelectedId.current = id
-
-    const cell = cells[id]
-    setCell(id, { ...cell, isSelected: true })
+    selectId(id)
   }
 
   function handleMove(e: GestureResponderEvent) {

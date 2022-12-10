@@ -1,12 +1,17 @@
 import create from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { GridCell, GridStore } from './types'
-import { TetraObject, getTetra } from "~/modules/tetra"
-import { PositionId } from "~/modules/position"
+import { GridStore } from './types'
+import { getTetra } from "~/modules/tetra"
 
 export const useGridStore = create<GridStore>()(immer((set) => ({
   cells: {},
+  selectedIds: [],
   tetras: [getTetra(), getTetra()],
-  setTetra: (index: 0 | 1, tetra: TetraObject) => set(state => { state.tetras[index] = tetra }),
-  setCell: (id: PositionId, cell: GridCell) => set(state => { state.cells[id] = cell })
+  setTetra: (index, tetra) => set(state => { state.tetras[index] = tetra }),
+  setCell: (id, cell) => set(state => { state.cells[id] = cell }),
+  selectId: (id) => set(state => {
+    if (state.selectedIds.includes(id)) return
+    if (state.selectedIds.length >= 4) state.selectedIds.shift()
+    state.selectedIds.push(id)
+  })
 })))
