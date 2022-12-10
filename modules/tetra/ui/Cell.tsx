@@ -5,19 +5,20 @@ import { generateBoxShadowStyle } from "~/utils"
 export interface CellProps {
   selected?: boolean
   filled?: boolean
+  transparent?: boolean
   size?: number
   style?: StyleProp<ViewStyle>
   onLayout?: (e: LayoutChangeEvent) => void
 }
 
 export function Cell(props: CellProps) {
-  const { filled, selected, size, style, onLayout } = props
+  const { filled, selected, transparent, size, style, onLayout } = props
 
   const cellSize: ViewStyle | false = Boolean(size) && { width: size, height: size }
 
   return (
     <View style={[styles.wrapper, cellSize, style]} onLayout={onLayout}>
-      <View style={[styles.item, selected && styles.selected, filled && styles.filled]} />
+      <View style={[styles.item, transparent && styles.transparent, selected && styles.selected, filled && styles.filled]} />
     </View>
   )
 }
@@ -42,5 +43,8 @@ const styles = StyleSheet.create({
   },
   filled: {
     backgroundColor: 'white'
+  },
+  transparent: {
+    backgroundColor: 'transparent'
   }
 })
