@@ -13,6 +13,7 @@ export const useGridStore = create<GridStore>()(immer((set) => ({
     if (state.selectedIds.length >= 4) state.selectedIds.shift()
     state.selectedIds.push(id)
   }),
+  clearSelection: () => set(state => { state.selectedIds.length = 0 }),
   fillId: (id) => set(state => {
     if (state.filledIds.includes(id)) return
     state.filledIds.push(id) }
