@@ -5,14 +5,17 @@ import { generateBoxShadowStyle } from "~/utils"
 export interface CellProps {
   selected?: boolean
   filled?: boolean
+  size?: number
   style?: StyleProp<ViewStyle>
 }
 
 export function Cell(props: CellProps) {
-  const { filled, selected, style } = props
+  const { filled, selected, size, style } = props
+
+  const cellSize: ViewStyle | false = Boolean(size) && { width: size, height: size }
 
   return (
-    <View style={[styles.wrapper, style]}>
+    <View style={[styles.wrapper, cellSize, style]}>
       <View style={[styles.item, selected && styles.selected, filled && styles.filled]} />
     </View>
   )
