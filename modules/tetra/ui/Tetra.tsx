@@ -12,8 +12,8 @@ export function Tetra(props: TetraProps) {
   const { tetra } = props
 
   const [width, height] = tetra.reduce((acc, val) => {
-    acc[0] = Math.max(val.x + 1)
-    acc[1] = Math.max(val.y + 1)
+    acc[0] = Math.max(val.x + 1, acc[0])
+    acc[1] = Math.max(val.y + 1, acc[1])
     return acc
   }, [0, 0])
 
@@ -24,7 +24,7 @@ export function Tetra(props: TetraProps) {
       {[...Array(height)].map((_, y) => (
         <View key={y} style={styles.row}>
           {[...Array(width)].map((_, x) => (
-            <Cell key={x} selected={posIds.includes(positionToId({ x, y }))} style={styles.item} />
+            <Cell key={x} transparent selected={posIds.includes(positionToId({ x, y }))} style={styles.item} />
           ))}
         </View>
       ))}
