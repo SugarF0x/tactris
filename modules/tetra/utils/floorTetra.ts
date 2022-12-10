@@ -1,6 +1,6 @@
-import { TetraObject } from "~/modules/tetra"
+import { Position } from "~/modules/position"
 
-export function floorTetra(tetra: TetraObject): TetraObject {
+export function floorTetra<T extends Position[]>(tetra: T): T {
   const [minX, minY] = tetra.reduce((acc, val) => {
     acc[0] = Math.min(val.x, acc[0])
     acc[1] = Math.min(val.y, acc[1])
@@ -11,5 +11,5 @@ export function floorTetra(tetra: TetraObject): TetraObject {
     pos.x -= minX
     pos.y -= minY
     return pos
-  }) as TetraObject
+  }) as T
 }
