@@ -24,11 +24,11 @@ export function Cell(props: CellProps) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: 'black',
     padding: 1
   },
   item: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'black'
   },
   selected: {
     backgroundColor: '#adf',
