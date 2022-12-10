@@ -10,4 +10,6 @@ export interface GridCell {
 export interface GridStore {
   cells: Record<PositionId, GridCell>
   tetras: [TetraObject, TetraObject]
+  setTetra: (index: 0 | 1, tetra: TetraObject) => void
+  setCell: (id: PositionId, cell: GridCell) => void
 }

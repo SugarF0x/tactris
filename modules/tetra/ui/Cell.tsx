@@ -1,6 +1,8 @@
 import React from 'react'
 import { LayoutChangeEvent, StyleProp, StyleSheet, View, ViewStyle } from "react-native"
 import { generateBoxShadowStyle } from "~/utils"
+import { PositionId } from "~/modules/position"
+import { useGridStore } from "~/modules/grid"
 
 export interface CellProps {
   selected?: boolean
@@ -9,10 +11,17 @@ export interface CellProps {
   size?: number
   style?: StyleProp<ViewStyle>
   onLayout?: (e: LayoutChangeEvent) => void
+  posId?: PositionId
 }
 
 export function Cell(props: CellProps) {
-  const { filled, selected, transparent, size, style, onLayout } = props
+  const { filled: filledProp, selected: selectedProp, transparent, size, style, onLayout, posId } = props
+
+  const { cells } = useGridStore()
+  const { isFilled, isSelected } = (posId && cells[posId]) ?? {}
+
+  const selected = isSelected || selectedProp
+  const filled = isFilled || filledProp
 
   const cellSize: ViewStyle | false = Boolean(size) && { width: size, height: size }
 
