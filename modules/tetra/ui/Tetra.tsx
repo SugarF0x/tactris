@@ -1,15 +1,18 @@
 import React from 'react'
 import { TetraObject } from "../types"
 import { Cell } from './Cell'
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, ViewStyle } from "react-native"
 import { PositionId, positionToId } from "~/modules/position"
 
 export interface TetraProps {
   tetra: TetraObject
+  size: number
 }
 
 export function Tetra(props: TetraProps) {
-  const { tetra } = props
+  const { tetra, size } = props
+
+  const wrapperSize: ViewStyle = { height: size * 4, width: size * 3 }
 
   const [width, height] = tetra.positions.reduce((acc, val) => {
     acc[0] = Math.max(val.x + 1, acc[0])
@@ -20,11 +23,11 @@ export function Tetra(props: TetraProps) {
   const posIds: PositionId[] = tetra.positions.map(positionToId)
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, wrapperSize]}>
       {[...Array(height)].map((_, y) => (
         <View key={y} style={styles.row}>
           {[...Array(width)].map((_, x) => (
-            <Cell key={x} transparent selected={posIds.includes(positionToId({ x, y }))} style={styles.item} />
+            <Cell key={x} transparent selected={posIds.includes(positionToId({ x, y }))} size={size} />
           ))}
         </View>
       ))}
@@ -34,13 +37,12 @@ export function Tetra(props: TetraProps) {
 
 const styles = StyleSheet.create({
   wrapper: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 2,
   },
   row: {
     flexDirection: 'row'
-  },
-  item: {
-    width: 32,
-    height: 32
   }
 })

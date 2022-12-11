@@ -5,14 +5,13 @@ import { Grid, useGridStore } from "~/modules/grid"
 import { Tetra } from "~/modules/tetra"
 
 export default function App() {
-
   const tetras = useGridStore(state => state.tetras)
 
   return (
     <View style={styles.wrapper}>
       <View style={styles.tetras}>
         {tetras.map((tetra, index) => (
-          <Tetra key={index} tetra={tetra} />
+          <Tetra key={index} tetra={tetra} size={32} />
         ))}
       </View>
       <Grid />
