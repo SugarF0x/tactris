@@ -1,13 +1,19 @@
 import create from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { GridStore } from './types'
-import { doesInputMatchTetra, getTetra } from "~/modules/tetra"
+import { doesInputMatchTetra, getTetra, TetraObject } from "~/modules/tetra"
 import { idToPosition } from "~/modules/position"
+
+function getInitialTetras(): [TetraObject, TetraObject] {
+  const firstTetra = getTetra()
+  const secondTetra = getTetra([firstTetra.type])
+  return [firstTetra, secondTetra]
+}
 
 export const useGridStore = create<GridStore>()(immer((set) => ({
   filledIds: [],
   selectedIds: [],
-  tetras: [getTetra(), getTetra()],
+  tetras: getInitialTetras(),
   selectId: (id) => set(state => {
     if (state.selectedIds.includes(id)) return
     if (state.filledIds.includes(id)) return
@@ -25,8 +31,8 @@ export const useGridStore = create<GridStore>()(immer((set) => ({
       state.filledIds.push(...state.selectedIds)
       state.selectedIds.length = 0
 
-      const oldTetraType = state.tetras[index].type
-      state.tetras[index] = getTetra([oldTetraType])
+      const oldTetraTypes = state.tetras.map(tetra => tetra.type)
+      state.tetras[index] = getTetra(oldTetraTypes)
 
       break
     }
