@@ -3,9 +3,7 @@ import { GestureResponderEvent, LayoutRectangle, StyleSheet, LayoutChangeEvent, 
 import { Position, isWithin, PositionId, positionToId } from "~/modules/position"
 import { useGridStore } from "~/modules/grid/store"
 import { GridCell } from "./GridCell"
-
-const GRID_WIDTH = 10
-const GRID_HEIGHT = 10
+import { GRID_WIDTH, GRID_HEIGHT } from "~/modules/grid/config"
 
 export function Grid() {
   const { width } = useWindowDimensions()
