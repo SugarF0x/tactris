@@ -12,7 +12,7 @@ export function Grid() {
 
   const { selectId, commitSelectedIds } = useGridStore()
 
-  const cellSize = width / 10
+  const cellSize = width / GRID_WIDTH
 
   const currentlySelectedId = useRef<PositionId | null>(null)
 
