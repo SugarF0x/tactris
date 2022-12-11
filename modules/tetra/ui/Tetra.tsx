@@ -11,13 +11,13 @@ export interface TetraProps {
 export function Tetra(props: TetraProps) {
   const { tetra } = props
 
-  const [width, height] = tetra.reduce((acc, val) => {
+  const [width, height] = tetra.positions.reduce((acc, val) => {
     acc[0] = Math.max(val.x + 1, acc[0])
     acc[1] = Math.max(val.y + 1, acc[1])
     return acc
   }, [0, 0])
 
-  const posIds: PositionId[] = tetra.map(positionToId)
+  const posIds: PositionId[] = tetra.positions.map(positionToId)
 
   return (
     <View style={styles.wrapper}>

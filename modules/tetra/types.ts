@@ -10,4 +10,7 @@ export enum TetraType {
   O = 'O',
 }
 
-export type TetraObject = [Position, Position, Position, Position]
+export interface TetraObject {
+  type: TetraType
+  positions: Position[]
+}

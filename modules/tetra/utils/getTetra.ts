@@ -38,22 +38,23 @@ const TetrasDictionary: Record<TetraType, Array<number[]>> = {
 
 function tetraTypeToTetra(type: TetraType): TetraObject {
   const rows = TetrasDictionary[type]
-  const result: Position[] = []
+  const positions: Position[] = []
 
   rows.forEach((row, rowIndex) => {
     row.forEach((col, colIndex) => {
       if (!col) return
-      result.push({ x: colIndex, y: rowIndex })
+      positions.push({ x: colIndex, y: rowIndex })
     })
   })
 
-  return result as TetraObject
+  return {
+    type,
+    positions
+  }
 }
 
-export function getTetra(type?: TetraType): TetraObject {
-  if (type) return tetraTypeToTetra(type)
-
-  const allTypes = Object.values(TetraType)
-  const randomType = allTypes[Math.floor(Math.random() * allTypes.length)]
+export function getTetra(exclude: TetraType[] = []): TetraObject {
+  const availableTypes = Object.values(TetraType).filter(type => !exclude.includes(type))
+  const randomType = availableTypes[Math.floor(Math.random() * availableTypes.length)]
   return tetraTypeToTetra(randomType)
 }

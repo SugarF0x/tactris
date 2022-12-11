@@ -5,8 +5,6 @@ export interface GridStore {
   filledIds: PositionId[]
   selectedIds: PositionId[]
   tetras: [TetraObject, TetraObject]
-  setTetra: (index: 0 | 1, tetra: TetraObject) => void
   selectId: (id: PositionId) => void
-  clearSelection: () => void
-  fillId: (id: PositionId) => void
+  commitSelectedIds: () => void
 }

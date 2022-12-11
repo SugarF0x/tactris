@@ -1,9 +1,8 @@
 import React, { useRef } from "react"
 import { GestureResponderEvent, LayoutRectangle, StyleSheet, LayoutChangeEvent, View, useWindowDimensions } from "react-native"
-import { Position, isWithin, PositionId, positionToId, idToPosition } from "~/modules/position"
+import { Position, isWithin, PositionId, positionToId } from "~/modules/position"
 import { useGridStore } from "~/modules/grid/store"
 import { GridCell } from "./GridCell"
-import { doesInputMatchTetra, getTetra } from "~/modules/tetra"
 
 const GRID_WIDTH = 10
 const GRID_HEIGHT = 10
@@ -11,7 +10,7 @@ const GRID_HEIGHT = 10
 export function Grid() {
   const { width } = useWindowDimensions()
 
-  const { selectId, selectedIds, tetras, clearSelection, fillId, setTetra } = useGridStore()
+  const { selectId, commitSelectedIds } = useGridStore()
 
   const cellSize = width / 10
 
@@ -34,22 +33,9 @@ export function Grid() {
     }
   }
 
-  function matchTetra() {
-    if (selectedIds.length < 4) return
-    const selectedTetra = selectedIds.map(idToPosition)
-
-    for (const [key, tetra] of Object.entries(tetras)) {
-      const index = Number(key) as 0 | 1
-      if (!doesInputMatchTetra(selectedTetra, tetra)) continue
-      selectedIds.forEach(fillId)
-      clearSelection()
-      setTetra(index, getTetra())
-    }
-  }
-
   function handleStopMove() {
     currentlySelectedId.current = null
-    matchTetra()
+    commitSelectedIds()
   }
 
   const itemLayouts = useRef<Record<PositionId, LayoutRectangle>>({})

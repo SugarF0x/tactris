@@ -6,7 +6,7 @@ export function doesInputMatchTetra<T extends Position[]>(input: T, tetra: Tetra
   const flooredInput = floorTetra(input)
 
   const inputIds = flooredInput.map(positionToId).sort().join('/')
-  const tetraIds = tetra.map(positionToId).sort().join('/')
+  const tetraIds = tetra.positions.map(positionToId).sort().join('/')
 
   return inputIds === tetraIds
 }
