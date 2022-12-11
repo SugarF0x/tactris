@@ -27,6 +27,8 @@ export const useGridStore = create<GridStore>()(immer((set) => ({
 
       const oldTetraType = state.tetras[index].type
       state.tetras[index] = getTetra([oldTetraType])
+
+      break
     }
   })
 })))
