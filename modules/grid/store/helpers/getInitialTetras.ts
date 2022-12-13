@@ -1,7 +1,7 @@
-import { getTetra, TetraObject } from "~/modules/tetra"
+import { getRandomTetra, TetraObject } from "~/modules/tetra"
 
 export function getInitialTetras(): [TetraObject, TetraObject] {
-  const firstTetra = getTetra()
-  const secondTetra = getTetra([firstTetra.type])
+  const firstTetra = getRandomTetra()
+  const secondTetra = getRandomTetra([firstTetra.type])
   return [firstTetra, secondTetra]
 }

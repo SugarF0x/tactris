@@ -2,7 +2,7 @@ import create from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { GridStore } from './types'
 import { getFilledLines, getInitialTetras, linesToPositionIdSet } from './helpers'
-import { doesInputMatchTetra, getTetra } from "~/modules/tetra"
+import { doesInputMatchTetra, getRandomTetra } from "~/modules/tetra"
 import { idToPosition } from "~/modules/position"
 import { getCompletionLines } from "~/modules/grid/store/helpers"
 
@@ -34,7 +34,7 @@ export const useGridStore = create<GridStore>()(immer((set) => ({
       state.filledIds = state.filledIds.filter(id => !filledLineIds.includes(id))
 
       const oldTetraTypes = state.tetras.map(tetra => tetra.type)
-      state.tetras[index] = getTetra(oldTetraTypes)
+      state.tetras[index] = getRandomTetra(oldTetraTypes)
 
       break
     }

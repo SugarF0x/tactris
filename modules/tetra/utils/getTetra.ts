@@ -36,7 +36,7 @@ const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   ]
 }
 
-function tetraTypeToTetra(type: TetraType): TetraObject {
+export function getSpecificTetra(type: TetraType): TetraObject {
   const rows = TetrasDictionary[type]
   const positions: Position[] = []
 
@@ -53,8 +53,8 @@ function tetraTypeToTetra(type: TetraType): TetraObject {
   }
 }
 
-export function getTetra(exclude: TetraType[] = []): TetraObject {
+export function getRandomTetra(exclude: TetraType[] = []): TetraObject {
   const availableTypes = Object.values(TetraType).filter(type => !exclude.includes(type))
   const randomType = availableTypes[Math.floor(Math.random() * availableTypes.length)]
-  return tetraTypeToTetra(randomType)
+  return getSpecificTetra(randomType)
 }
