@@ -1,10 +1,10 @@
 import create from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { GridStore } from './types'
-import { getCompletionSpecs, getInitialTetras } from './helpers'
+import { getFilledLines, getInitialTetras, linesToPositionIdSet } from './helpers'
 import { doesInputMatchTetra, getTetra } from "~/modules/tetra"
 import { idToPosition } from "~/modules/position"
-import { getCompletionIntersections } from "~/modules/grid/store/helpers"
+import { getCompletionLines } from "~/modules/grid/store/helpers"
 
 export const useGridStore = create<GridStore>()(immer((set) => ({
   filledIds: [],
@@ -24,11 +24,14 @@ export const useGridStore = create<GridStore>()(immer((set) => ({
       const index = Number(key) as 0 | 1
       if (!doesInputMatchTetra(selectedTetra, tetra)) continue
 
+      const completionLines = getCompletionLines(state.selectedIds)
+
       state.filledIds.push(...state.selectedIds)
-      const specs = getCompletionSpecs(state.selectedIds)
-      const completions = getCompletionIntersections(state.filledIds, [...specs.horizontal, ...specs.vertical])
-      state.filledIds = state.filledIds.filter(id => !completions.includes(id))
       state.selectedIds.length = 0
+
+      const filledLines = getFilledLines(state.filledIds, completionLines)
+      const filledLineIds = linesToPositionIdSet(filledLines)
+      state.filledIds = state.filledIds.filter(id => !filledLineIds.includes(id))
 
       const oldTetraTypes = state.tetras.map(tetra => tetra.type)
       state.tetras[index] = getTetra(oldTetraTypes)

@@ -1,3 +1,5 @@
 export * from './getInitialTetras'
-export * from './getCompletionSpecs'
-export * from './getCompletionIntersections'
+export * from './getFilledLines'
+export * from './getCompletionLines'
+export * from './lineToPositionIds'
+export * from './linesToPositionIdSet'
