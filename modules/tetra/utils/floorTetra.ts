@@ -1,5 +1,5 @@
 import { Position } from "~/modules/position"
-import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid"
+import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid/config"
 
 export function floorTetra<T extends Position[]>(tetra: T): T {
   const [minX, minY] = tetra.reduce((acc, val) => {
