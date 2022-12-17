@@ -1,4 +1,4 @@
-import { getSpecificTetra, TetraObject, TetraType, TetrasDictionary, getRandomTetra } from "~/modules/tetra"
+import { getRandomTetra, getSpecificTetra, TetraObject, TetrasDictionary, TetraType } from "~/modules/tetra"
 
 describe('getSpecificTetra', () => {
   it.each<[TetraType, TetraObject]>([
@@ -21,5 +21,16 @@ describe('getRandomTetra', () => {
     expect(tetra.type).toBe(type)
   })
 
-  it.todo('should return random tetra expect for given types')
+  it.each<TetraType[][]>([
+    [[TetraType.L]],
+    [[TetraType.O, TetraType.I]],
+    [[TetraType.Z, TetraType.T, TetraType.P, TetraType.S]],
+  ])('should return random tetra expect for given types (%p)', (exclude) => {
+    const excludedTypeWithIndexTuple = exclude.map<[TetraType, number]>(excludedType => [excludedType, tetraTypes.indexOf(excludedType)])
+
+    for (const [type, index] of excludedTypeWithIndexTuple) {
+      jest.spyOn(Math, 'random').mockReturnValueOnce(index / tetraCount)
+      expect(getRandomTetra(exclude).type).not.toEqual(type)
+    }
+  })
 })
