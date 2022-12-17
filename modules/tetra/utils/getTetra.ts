@@ -1,7 +1,7 @@
 import { Position } from "~/modules/position"
 import { TetraObject, TetraType } from '../types'
 
-const TetrasDictionary: Record<TetraType, Array<number[]>> = {
+export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   L: [
     [1, 0],
     [1, 0],
