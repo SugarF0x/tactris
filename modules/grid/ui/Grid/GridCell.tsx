@@ -12,7 +12,9 @@ export interface GridCellProps {
 
 export function GridCell(props: GridCellProps) {
   const { size, onLayout, posId } = props
-  const { filledIds, selectedIds } = useGridStore()
+
+  const filledIds = useGridStore(state => state.filledIds)
+  const selectedIds = useGridStore(state => state.selectedIds)
 
   const isFilled = filledIds.includes(posId)
   const isSelected = selectedIds.includes(posId)

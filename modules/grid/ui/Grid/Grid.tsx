@@ -8,7 +8,8 @@ import { GRID_WIDTH, GRID_HEIGHT } from "~/modules/grid/config"
 export function Grid() {
   const { width } = useWindowDimensions()
 
-  const { selectId, commitSelectedIds } = useGridStore()
+  const selectId = useGridStore(state => state.selectId)
+  const commitSelectedIds = useGridStore(state => state.commitSelectedIds)
 
   const cellSize = width / GRID_WIDTH
 
