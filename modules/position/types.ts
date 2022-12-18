@@ -5,4 +5,4 @@ export enum Axis {
 
 export type Position = Record<Axis, number>
 
-export type PositionId = `${number}-${number}`
+export type PositionId = `${number}/${number}`
