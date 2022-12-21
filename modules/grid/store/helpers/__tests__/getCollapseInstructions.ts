@@ -4,7 +4,7 @@ import { Axis } from "~/modules/position"
 import { getCollapseInstructions } from '../getCollapseInstructions'
 
 describe('getCollapseInstructions', () => {
-  it.skip.each<[CompletionLine]>([
+  it.each<[CompletionLine]>([
     [{ axis: Axis.X, value: 0 }],
     [{ axis: Axis.X, value: GRID_WIDTH }],
     [{ axis: Axis.Y, value: 0 }],
@@ -13,7 +13,7 @@ describe('getCollapseInstructions', () => {
     expect(getCollapseInstructions(input)).toBeNull()
   })
 
-  it.skip('should return decremental shift on exact middle completion line given uneven grid dimensions', () => {
+  it('should return decremental shift on exact middle completion line given uneven grid dimensions', () => {
     const unevenGridSize = 11
     const median = Math.round(unevenGridSize / 2 + .5)
 
@@ -26,7 +26,7 @@ describe('getCollapseInstructions', () => {
     Object.assign(gridConfig, initialGridConfig)
   })
 
-  it.skip.each<[CompletionLine, CompletionLine | null]>([
+  it.each<[CompletionLine, CompletionLine | null]>([
     [{ axis: Axis.X, value: 1 }, { axis: Axis.X, value: 1 }],
     [{ axis: Axis.X, value: 2 }, { axis: Axis.X, value: 1 }],
     [{ axis: Axis.X, value: 2 }, { axis: Axis.X, value: 1 }],
