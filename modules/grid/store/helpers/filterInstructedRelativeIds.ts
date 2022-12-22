@@ -9,7 +9,7 @@ export function filterInstructedRelativeIds(posIds: PositionId[], line: Completi
   return posIds.filter(id => {
     const axisValue = idToPosition(id)[axis]
 
-    if (instructions === ShiftInstructions.INCREASE) return axisValue > value
-    return axisValue < value
+    if (instructions === ShiftInstructions.INCREASE) return axisValue < value
+    return axisValue > value
   })
 }
