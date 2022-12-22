@@ -9,6 +9,9 @@ describe('getCompletionLines', () => {
     [['3/3', '4/4'], [{ axis: Axis.Y, value: 3 }, { axis: Axis.Y, value: 4 }, { axis: Axis.X, value: 3 }, { axis: Axis.X, value: 4 }]],
     [['5/6', '5/7', '3/6'], [{ axis: Axis.Y, value: 6 }, { axis: Axis.Y, value: 7 }, { axis: Axis.X, value: 5 }, { axis: Axis.X, value: 3 }]]
   ])('should return completion lines for given position IDs %#', (input, output) => {
-    expect(getCompletionLines(input)).toEqual(expect.arrayContaining(output))
+    const result = getCompletionLines(input)
+
+    expect(result).toEqual(expect.arrayContaining(output))
+    expect(output).toEqual(expect.arrayContaining(result))
   })
 })

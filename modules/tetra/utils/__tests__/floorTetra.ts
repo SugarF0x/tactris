@@ -34,6 +34,9 @@ describe('floorTetra', () => {
       ]
     ]
   ])('should reduce all positions in array to their lowest possible position %#', (input, output) => {
-    expect(floorTetra(input)).toMatchObject(output)
+    const result = floorTetra(input)
+
+    expect(result).toEqual(expect.arrayContaining(output))
+    expect(output).toEqual(expect.arrayContaining(result))
   })
 })

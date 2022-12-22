@@ -18,7 +18,10 @@ describe('filterInstructedRelativeIds', () => {
     [['0/1', '1/1', '1/0', '2/2', '5/7'], { axis: Axis.X, value: 1 }, ShiftInstructions.DECREASE, ['2/2', '5/7']],
     [['0/1', '1/1', '1/0', '2/2', '3/5', '5/6'], { axis: Axis.X, value: 3 }, ShiftInstructions.INCREASE, ['0/1', '1/1', '1/0', '2/2']],
   ])('should not return ids on the given line value %#', (input, line, instructions, output) => {
-    expect(filterInstructedRelativeIds(input, line, instructions)).toEqual(expect.arrayContaining(output))
+    const result = filterInstructedRelativeIds(input, line, instructions)
+
+    expect(result).toEqual(expect.arrayContaining(output))
+    expect(output).toEqual(expect.arrayContaining(result))
   })
 
   it.each<[PositionId[], CompletionLine, ShiftInstructions, PositionId[]]>([

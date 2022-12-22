@@ -17,7 +17,9 @@ describe('getRandomTetra', () => {
 
   it.each(typeToIndexTuple)('should return random tetra (%s)', (type, index) => {
     jest.spyOn(Math, 'random').mockReturnValueOnce(index / tetraCount)
+
     const tetra = getRandomTetra()
+
     expect(tetra.type).toBe(type)
   })
 
@@ -30,6 +32,7 @@ describe('getRandomTetra', () => {
 
     for (const [type, index] of excludedTypeWithIndexTuple) {
       jest.spyOn(Math, 'random').mockReturnValueOnce(index / tetraCount)
+
       expect(getRandomTetra(exclude).type).not.toEqual(type)
     }
   })

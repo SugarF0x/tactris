@@ -9,6 +9,9 @@ describe('lineToPositionIds', () => {
     [{ axis: Axis.Y, value: 0 }, Array.from({ length: GRID_WIDTH }, (_, x) => positionToId({ x, y: 0 }))],
     [{ axis: Axis.Y, value: 1 }, Array.from({ length: GRID_WIDTH }, (_, x) => positionToId({ x, y: 1 }))],
   ])('should return all position IDs for given completion line %#', (input, output) => {
-    expect(lineToPositionIds(input)).toEqual(expect.arrayContaining(output))
+    const result = lineToPositionIds(input)
+
+    expect(result).toEqual(expect.arrayContaining(output))
+    expect(output).toEqual(expect.arrayContaining(result))
   })
 })

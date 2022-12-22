@@ -24,6 +24,9 @@ describe('linesToPositionIdSet', () => {
       ]
     ]
   ])("should return all completion lines' position IDs %#", (input, output) => {
-    expect(linesToPositionIdSet(input)).toEqual(expect.arrayContaining(output))
+    const result = linesToPositionIdSet(input)
+
+    expect(result).toEqual(expect.arrayContaining(output))
+    expect(output).toEqual(expect.arrayContaining(result))
   })
 })

@@ -21,6 +21,9 @@ describe('shiftCells', () => {
     [['1/1', '2/2', '3/3'], Axis.X, ShiftInstructions.INCREASE, ['2/1', '3/2', '4/3']],
     [['1/1', '2/2', '3/3'], Axis.Y, ShiftInstructions.DECREASE, ['1/0', '2/1', '3/2']],
   ])('should return a new array of given items shifted according to instructions %#', (input, axis, instructions, output) => {
-    expect(shiftCells(input, axis, instructions)).toEqual(expect.arrayContaining(output))
+    const result = shiftCells(input, axis, instructions)
+
+    expect(result).toEqual(expect.arrayContaining(output))
+    expect(output).toEqual(expect.arrayContaining(result))
   })
 })

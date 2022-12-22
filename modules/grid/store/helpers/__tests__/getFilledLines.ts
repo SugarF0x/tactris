@@ -17,6 +17,9 @@ describe('getFilledLines', () => {
       [{ axis: Axis.Y, value: 0 }]
     ],
   ])('return given lines that have all their ids filled in given position IDs %#', (ids, lines, output) => {
-    expect(getFilledLines(ids, lines)).toEqual(expect.arrayContaining(output))
+    const result = getFilledLines(ids, lines)
+
+    expect(result).toEqual(expect.arrayContaining(output))
+    expect(output).toEqual(expect.arrayContaining(result))
   })
 })
