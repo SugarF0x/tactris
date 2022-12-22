@@ -1,12 +1,9 @@
 import create from 'zustand'
-import { immer } from 'zustand/middleware/immer'
 import { GridStore } from './types'
-import { filterInstructedRelativeIds, getFilledLines, getInitialTetras, linesToPositionIdSet } from './helpers'
 import { doesInputMatchTetra, getRandomTetra } from "~/modules/tetra"
+import { filterInstructedRelativeIds, getCollapseInstructions, getCompletionLines, getFilledLines, getInitialTetras, linesToPositionIdSet, shiftCells } from './helpers'
 import { idToPosition } from "~/modules/position"
-import { getCompletionLines } from "~/modules/grid/store/helpers"
-import { getCollapseInstructions } from "~/modules/grid/store/helpers/getCollapseInstructions"
-import { shiftCells } from "~/modules/grid/store/helpers/shiftCells"
+import { immer } from 'zustand/middleware/immer'
 
 export const useGridStore = create<GridStore>()(immer((set) => ({
   filledIds: [],
