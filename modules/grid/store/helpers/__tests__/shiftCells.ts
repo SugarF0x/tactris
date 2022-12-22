@@ -3,7 +3,7 @@ import { Axis, PositionId } from "~/modules/position"
 import { shiftCells } from '../shiftCells'
 
 describe('shiftCells', () => {
-  it.skip.each<[PositionId[], Axis]>([
+  it.each<[PositionId[], Axis]>([
     [['1/1'], Axis.X],
     [['2/1', '3/5'], Axis.Y],
     [['1/2', '3/3', '7/8'], Axis.X],
@@ -12,7 +12,7 @@ describe('shiftCells', () => {
     expect(shiftCells(input, axis, ShiftInstructions.RETAIN)).toBe(input)
   })
 
-  it.skip.each<[PositionId[], Axis, ShiftInstructions, PositionId[]]>([
+  it.each<[PositionId[], Axis, ShiftInstructions, PositionId[]]>([
     [[], Axis.X, ShiftInstructions.INCREASE, []],
     [['0/0'], Axis.X, ShiftInstructions.DECREASE, ['-1/0']],
     [['0/0'], Axis.Y, ShiftInstructions.DECREASE, ['0/-1']],
@@ -20,7 +20,7 @@ describe('shiftCells', () => {
     [['5/3'], Axis.Y, ShiftInstructions.INCREASE, ['5/4']],
     [['1/1', '2/2', '3/3'], Axis.X, ShiftInstructions.INCREASE, ['2/1', '3/2', '4/3']],
     [['1/1', '2/2', '3/3'], Axis.Y, ShiftInstructions.DECREASE, ['1/0', '2/1', '3/2']],
-  ])('should return a new array of given items shifted according to instructions', (input, axis, instructions, output) => {
-    expect(shiftCells(input, axis, ShiftInstructions.RETAIN)).toEqual(expect.arrayContaining(output))
+  ])('should return a new array of given items shifted according to instructions %#', (input, axis, instructions, output) => {
+    expect(shiftCells(input, axis, instructions)).toEqual(expect.arrayContaining(output))
   })
 })
