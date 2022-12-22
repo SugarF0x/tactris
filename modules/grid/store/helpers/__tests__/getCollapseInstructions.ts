@@ -30,6 +30,8 @@ describe('getCollapseInstructions', () => {
     [{ axis: Axis.X, value: 1 }, ShiftInstructions.INCREASE],
     [{ axis: Axis.X, value: 2 }, ShiftInstructions.INCREASE],
     [{ axis: Axis.X, value: 2 }, ShiftInstructions.INCREASE],
+    [{ axis: Axis.X, value: 4 }, ShiftInstructions.INCREASE],
+    [{ axis: Axis.X, value: Math.floor(GRID_WIDTH / 2 - 1) }, ShiftInstructions.INCREASE],
   ])('should return a line with collapse shift axis & direction #%', (input, output) => {
     expect(getCollapseInstructions(input)).toEqual(output)
   })

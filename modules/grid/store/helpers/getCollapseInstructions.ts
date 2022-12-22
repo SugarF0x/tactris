@@ -6,7 +6,7 @@ export function getCollapseInstructions(line: CompletionLine): ShiftInstructions
 
   if (value === 0 || value === size) return ShiftInstructions.RETAIN
 
-  const median = size / 5
+  const median = size / 2
   const shift = value > median ? -1 : 1
 
   if (shift > 0) return ShiftInstructions.INCREASE
