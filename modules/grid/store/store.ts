@@ -1,10 +1,12 @@
 import create from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { GridStore } from './types'
-import { getFilledLines, getInitialTetras, linesToPositionIdSet } from './helpers'
+import { filterInstructedRelativeIds, getFilledLines, getInitialTetras, linesToPositionIdSet } from './helpers'
 import { doesInputMatchTetra, getRandomTetra } from "~/modules/tetra"
 import { idToPosition } from "~/modules/position"
 import { getCompletionLines } from "~/modules/grid/store/helpers"
+import { getCollapseInstructions } from "~/modules/grid/store/helpers/getCollapseInstructions"
+import { shiftCells } from "~/modules/grid/store/helpers/shiftCells"
 
 export const useGridStore = create<GridStore>()(immer((set) => ({
   filledIds: [],
@@ -24,17 +26,29 @@ export const useGridStore = create<GridStore>()(immer((set) => ({
       const index = Number(key) as 0 | 1
       if (!doesInputMatchTetra(selectedTetra, tetra)) continue
 
+      // update matched tetra with a new random one
+      const oldTetraTypes = state.tetras.map(tetra => tetra.type)
+      state.tetras[index] = getRandomTetra(oldTetraTypes)
+
+      // check possible completion lines based on input
       const completionLines = getCompletionLines(state.selectedIds)
 
+      // commit selection to filled and clear it
       state.filledIds.push(...state.selectedIds)
       state.selectedIds.length = 0
 
+      // remove filled lines
       const filledLines = getFilledLines(state.filledIds, completionLines)
       const filledLineIds = linesToPositionIdSet(filledLines)
       state.filledIds = state.filledIds.filter(id => !filledLineIds.includes(id))
 
-      const oldTetraTypes = state.tetras.map(tetra => tetra.type)
-      state.tetras[index] = getRandomTetra(oldTetraTypes)
+      // shift remaining cells towards center
+      for (const line of filledLines) {
+        const instructions = getCollapseInstructions(line)
+        const idsToShift = filterInstructedRelativeIds(state.filledIds, line, instructions)
+        state.filledIds = state.filledIds.filter(id => !idsToShift.includes(id))
+        state.filledIds.push(...shiftCells(idsToShift, line.axis, instructions))
+      }
 
       break
     }
