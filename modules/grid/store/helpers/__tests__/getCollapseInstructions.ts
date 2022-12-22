@@ -32,7 +32,25 @@ describe('getCollapseInstructions', () => {
     [{ axis: Axis.X, value: 2 }, ShiftInstructions.INCREASE],
     [{ axis: Axis.X, value: 4 }, ShiftInstructions.INCREASE],
     [{ axis: Axis.X, value: Math.floor(GRID_WIDTH / 2 - 1) }, ShiftInstructions.INCREASE],
-  ])('should return a line with collapse shift axis & direction #%', (input, output) => {
+
+    [{ axis: Axis.Y, value: 1 }, ShiftInstructions.INCREASE],
+    [{ axis: Axis.Y, value: 2 }, ShiftInstructions.INCREASE],
+    [{ axis: Axis.Y, value: 2 }, ShiftInstructions.INCREASE],
+    [{ axis: Axis.Y, value: 4 }, ShiftInstructions.INCREASE],
+    [{ axis: Axis.Y, value: Math.floor(GRID_HEIGHT / 2 - 1) }, ShiftInstructions.INCREASE],
+
+    [{ axis: Axis.X, value: GRID_WIDTH - 1 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.X, value: GRID_WIDTH - 2 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.X, value: GRID_WIDTH - 2 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.X, value: GRID_WIDTH - 4 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.X, value: Math.floor(GRID_WIDTH / 2 + 1) }, ShiftInstructions.DECREASE],
+
+    [{ axis: Axis.Y, value: GRID_WIDTH - 1 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.Y, value: GRID_WIDTH - 2 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.Y, value: GRID_WIDTH - 2 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.Y, value: GRID_WIDTH - 4 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.Y, value: Math.floor(GRID_HEIGHT / 2 + 1) }, ShiftInstructions.DECREASE],
+  ])('should return shift instructions #%', (input, output) => {
     expect(getCollapseInstructions(input)).toEqual(output)
   })
 })
