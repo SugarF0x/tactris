@@ -1,4 +1,5 @@
-import { CompletionLine, axisToGridSizeMap, ShiftInstructions } from "~/modules/grid"
+import { CompletionLine, ShiftInstructions } from "~/modules/grid/types"
+import { axisToGridSizeMap } from "~/modules/grid/config"
 
 export function getCollapseInstructions(line: CompletionLine): ShiftInstructions {
   const { axis, value } = line

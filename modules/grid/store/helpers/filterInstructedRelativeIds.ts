@@ -1,4 +1,4 @@
-import { CompletionLine, ShiftInstructions } from "~/modules/grid"
+import { CompletionLine, ShiftInstructions } from "~/modules/grid/types"
 import { idToPosition, PositionId } from "~/modules/position"
 
 export function filterInstructedRelativeIds(posIds: PositionId[], line: CompletionLine, instructions: ShiftInstructions): PositionId[] {
