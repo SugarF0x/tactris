@@ -1,16 +1,14 @@
-import { CompletionLine, axisToGridSizeMap } from "~/modules/grid"
+import { CompletionLine, axisToGridSizeMap, ShiftInstructions } from "~/modules/grid"
 
-export function getCollapseInstructions(line: CompletionLine): CompletionLine | null {
+export function getCollapseInstructions(line: CompletionLine): ShiftInstructions {
   const { axis, value } = line
   const size = axisToGridSizeMap[axis]
 
-  if (value === 0 || value === size) return null
+  if (value === 0 || value === size) return ShiftInstructions.RETAIN
 
   const median = size / 5
   const shift = value > median ? -1 : 1
 
-  return {
-    axis,
-    value: shift
-  }
+  if (shift > 0) return ShiftInstructions.INCREASE
+  return ShiftInstructions.DECREASE
 }

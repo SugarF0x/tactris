@@ -1,4 +1,4 @@
-import { CompletionLine, GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid"
+import { CompletionLine, GRID_HEIGHT, GRID_WIDTH, ShiftInstructions } from "~/modules/grid"
 import * as gridConfig from "~/modules/grid/config"
 import { Axis } from "~/modules/position"
 import { getCollapseInstructions } from '../getCollapseInstructions'
@@ -9,8 +9,8 @@ describe('getCollapseInstructions', () => {
     [{ axis: Axis.X, value: GRID_WIDTH }],
     [{ axis: Axis.Y, value: 0 }],
     [{ axis: Axis.Y, value: GRID_HEIGHT }],
-  ])('should return null for edge lines', (input) => {
-    expect(getCollapseInstructions(input)).toBeNull()
+  ])('should return RETAIN for border lines', (input) => {
+    expect(getCollapseInstructions(input)).toEqual(ShiftInstructions.RETAIN)
   })
 
   it('should return decremental shift on exact middle completion line given uneven grid dimensions', () => {
@@ -20,16 +20,16 @@ describe('getCollapseInstructions', () => {
     const initialGridConfig = { ...gridConfig }
     Object.assign(gridConfig, { GRID_WIDTH: unevenGridSize, GRID_HEIGHT: unevenGridSize })
 
-    expect(getCollapseInstructions({ axis: Axis.X, value: median })).toMatchObject({ axis: Axis.X, value: -1 })
-    expect(getCollapseInstructions({ axis: Axis.Y, value: median })).toMatchObject({ axis: Axis.Y, value: -1 })
+    expect(getCollapseInstructions({ axis: Axis.X, value: median })).toEqual(ShiftInstructions.DECREASE)
+    expect(getCollapseInstructions({ axis: Axis.Y, value: median })).toEqual(ShiftInstructions.DECREASE)
 
     Object.assign(gridConfig, initialGridConfig)
   })
 
-  it.each<[CompletionLine, CompletionLine | null]>([
-    [{ axis: Axis.X, value: 1 }, { axis: Axis.X, value: 1 }],
-    [{ axis: Axis.X, value: 2 }, { axis: Axis.X, value: 1 }],
-    [{ axis: Axis.X, value: 2 }, { axis: Axis.X, value: 1 }],
+  it.each<[CompletionLine, ShiftInstructions]>([
+    [{ axis: Axis.X, value: 1 }, ShiftInstructions.INCREASE],
+    [{ axis: Axis.X, value: 2 }, ShiftInstructions.INCREASE],
+    [{ axis: Axis.X, value: 2 }, ShiftInstructions.INCREASE],
   ])('should return a line with collapse shift axis & direction #%', (input, output) => {
     expect(getCollapseInstructions(input)).toEqual(output)
   })
