@@ -1,3 +1,4 @@
+import { Position } from "~/modules/position"
 import { getRandomTetra, getSpecificTetra, TetraObject, TetrasDictionary, TetraType } from "~/modules/tetra"
 
 describe('getSpecificTetra', () => {
@@ -49,6 +50,31 @@ describe('getRandomTetra', () => {
       jest.spyOn(Math, 'random').mockReturnValueOnce(index / tetraCount)
 
       expect(getRandomTetra(exclude).type).not.toEqual(type)
+    }
+  })
+
+  it('should return all tetra rotations', () => {
+    const desiredTetraType = TetraType.T
+    const desiredTetraRandomValue = tetraTypes.indexOf(desiredTetraType)
+
+    const expectedResults: Array<Position[]> = [
+      [{ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 2, y: 0 }, { x: 1, y: 1 }],
+      [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 1, y: 2 }],
+      [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 2, y: 1 }],
+      [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 1, y: 1 }]
+    ]
+
+    for (let i = 0; i < 4; i++) {
+      jest.spyOn(Math, 'random')
+        // mock tetra
+        .mockReturnValueOnce(desiredTetraRandomValue / tetraCount)
+        // mock rotation
+        .mockReturnValueOnce(.25 * i)
+
+      const result = getRandomTetra()
+
+      expect(result.type).toEqual(desiredTetraType)
+      expect(result.positions).toEqual(expect.arrayContaining(expectedResults[i]))
     }
   })
 })
