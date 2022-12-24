@@ -6,9 +6,9 @@ import { getCollapseInstructions } from '../getCollapseInstructions'
 describe('getCollapseInstructions', () => {
   it.each<[CompletionLine]>([
     [{ axis: Axis.X, value: 0 }],
-    [{ axis: Axis.X, value: GRID_WIDTH }],
+    [{ axis: Axis.X, value: GRID_WIDTH - 1 }],
     [{ axis: Axis.Y, value: 0 }],
-    [{ axis: Axis.Y, value: GRID_HEIGHT }],
+    [{ axis: Axis.Y, value: GRID_HEIGHT - 1 }],
   ])('should return RETAIN for border lines', (input) => {
     expect(getCollapseInstructions(input)).toEqual(ShiftInstructions.RETAIN)
   })
@@ -26,6 +26,16 @@ describe('getCollapseInstructions', () => {
     Object.assign(gridConfig, initialGridConfig)
   })
 
+  it('should return proper directions on exact middle', () => {
+    const initialGridConfig = { ...gridConfig }
+    Object.assign(gridConfig, { GRID_WIDTH: 10, GRID_HEIGHT: 10 })
+
+    expect(getCollapseInstructions({ axis: Axis.Y, value: 5 })).toEqual(ShiftInstructions.DECREASE)
+    expect(getCollapseInstructions({ axis: Axis.Y, value: 4 })).toEqual(ShiftInstructions.INCREASE)
+
+    Object.assign(gridConfig, initialGridConfig)
+  })
+
   it.each<[CompletionLine, ShiftInstructions]>([
     [{ axis: Axis.X, value: 1 }, ShiftInstructions.INCREASE],
     [{ axis: Axis.X, value: 2 }, ShiftInstructions.INCREASE],
@@ -39,18 +49,18 @@ describe('getCollapseInstructions', () => {
     [{ axis: Axis.Y, value: 4 }, ShiftInstructions.INCREASE],
     [{ axis: Axis.Y, value: Math.floor(GRID_HEIGHT / 2 - 1) }, ShiftInstructions.INCREASE],
 
-    [{ axis: Axis.X, value: GRID_WIDTH - 1 }, ShiftInstructions.DECREASE],
     [{ axis: Axis.X, value: GRID_WIDTH - 2 }, ShiftInstructions.DECREASE],
-    [{ axis: Axis.X, value: GRID_WIDTH - 2 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.X, value: GRID_WIDTH - 3 }, ShiftInstructions.DECREASE],
     [{ axis: Axis.X, value: GRID_WIDTH - 4 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.X, value: GRID_WIDTH - 5 }, ShiftInstructions.DECREASE],
     [{ axis: Axis.X, value: Math.floor(GRID_WIDTH / 2 + 1) }, ShiftInstructions.DECREASE],
 
-    [{ axis: Axis.Y, value: GRID_WIDTH - 1 }, ShiftInstructions.DECREASE],
     [{ axis: Axis.Y, value: GRID_WIDTH - 2 }, ShiftInstructions.DECREASE],
-    [{ axis: Axis.Y, value: GRID_WIDTH - 2 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.Y, value: GRID_WIDTH - 3 }, ShiftInstructions.DECREASE],
     [{ axis: Axis.Y, value: GRID_WIDTH - 4 }, ShiftInstructions.DECREASE],
+    [{ axis: Axis.Y, value: GRID_WIDTH - 5 }, ShiftInstructions.DECREASE],
     [{ axis: Axis.Y, value: Math.floor(GRID_HEIGHT / 2 + 1) }, ShiftInstructions.DECREASE],
-  ])('should return shift instructions #%', (input, output) => {
+  ])('should return shift instructions %#', (input, output) => {
     expect(getCollapseInstructions(input)).toEqual(output)
   })
 })
