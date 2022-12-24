@@ -3,7 +3,7 @@ import { axisToGridSizeMap } from "~/modules/grid/config"
 
 export function getCollapseInstructions(line: CompletionLine): ShiftInstructions {
   const { axis, value } = line
-  const size = axisToGridSizeMap[axis]
+  const size = axisToGridSizeMap[axis] - 1
 
   if (value === 0 || value === size) return ShiftInstructions.RETAIN
 
