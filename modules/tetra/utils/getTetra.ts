@@ -1,5 +1,6 @@
 import { Position } from "~/modules/position"
 import { TetraObject, TetraType } from '../types'
+import { rotateMatrix } from "~/utils"
 
 export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   L: [
@@ -27,8 +28,8 @@ export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
     [1],
   ],
   T: [
-    [0, 1, 0],
     [1, 1, 1],
+    [0, 1, 0],
   ],
   O: [
     [1, 1],
@@ -36,8 +37,13 @@ export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   ]
 }
 
-export function getSpecificTetra(type: TetraType): TetraObject {
-  const rows = TetrasDictionary[type]
+export function getSpecificTetra(type: TetraType, rotations = 0): TetraObject {
+  let rows = TetrasDictionary[type]
+
+  for (let i = 0; i < rotations; i++) {
+    rows = rotateMatrix(rows)
+  }
+
   const positions: Position[] = []
 
   rows.forEach((row, rowIndex) => {
