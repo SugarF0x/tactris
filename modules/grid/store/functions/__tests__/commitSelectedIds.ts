@@ -59,12 +59,14 @@ describe('commitSelectedIds', () => {
     expect(draft.selectedIds).toHaveLength(0)
   })
 
-  it('should properly shift specified items from both sides', () => {
+  it.each<[PositionId[]]>([
+    [['9/3', '9/4', '9/5', '9/6']],
+    [['9/3', '9/4', '9/6', '9/5']],
+  ])('should properly shift specified items from both sides', (fillSelection) => {
     const initialGridConfig = { ...gridConfig }
     Object.assign(gridConfig, { GRID_WIDTH: 10, GRID_HEIGHT: 10 })
 
     const almostFilledLines = [...Array(4)].flatMap((_, y) => [...Array(GRID_WIDTH - 1)].map((_, x) => positionToId({ x, y: y + 3 })))
-    const fillSelection = [...Array(4)].map((_, y) => positionToId({ x: GRID_WIDTH - 1, y: y + 3 }))
 
     const miscCells: PositionId[] = [
       '0/2', '1/2', '2/2', '3/2',
@@ -77,6 +79,7 @@ describe('commitSelectedIds', () => {
     ]
 
     const { draft } = getGridStoreInitialStateMock({
+      tetras: [getSpecificTetra(TetraType.T), getSpecificTetra(TetraType.I)],
       selectedIds: fillSelection,
       filledIds: [
         ...almostFilledLines,
