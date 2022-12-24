@@ -1,4 +1,4 @@
-import { getGridStoreInitialStateMock } from './mocks'
+import { getGridStoreInitialStateMock } from '../__mocks__'
 import { PositionId } from "~/modules/position"
 import { selectId } from "~/modules/grid/store/functions"
 

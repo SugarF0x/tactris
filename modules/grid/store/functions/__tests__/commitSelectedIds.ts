@@ -1,5 +1,5 @@
 import { commitSelectedIds } from "~/modules/grid/store/functions"
-import { getGridStoreInitialStateMock } from "./mocks"
+import { getGridStoreInitialStateMock } from "../__mocks__"
 import { getSpecificTetra, TetraObject, TetraType } from "~/modules/tetra"
 import { PositionId, positionToId } from "~/modules/position"
 import { GRID_WIDTH } from "~/modules/grid"
