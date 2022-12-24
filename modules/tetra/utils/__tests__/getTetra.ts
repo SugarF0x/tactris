@@ -6,7 +6,22 @@ describe('getSpecificTetra', () => {
     [TetraType.I, { type: TetraType.I, positions: [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 }] }],
     [TetraType.L, { type: TetraType.L, positions: [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 1, y: 2 }] }],
   ])('should return specific tetra for type %s', (input, output) => {
-    expect(getSpecificTetra(input)).toMatchObject(output)
+    const result = getSpecificTetra(input)
+
+    expect(result.type).toEqual(output.type)
+    expect(result.positions).toEqual(expect.arrayContaining(output.positions))
+  })
+
+  it.each<[TetraType, number, TetraObject]>([
+    [TetraType.T, 1, { type: TetraType.T, positions: [{ x: 1, y: 0 }, { x: 1, y: 1 }, { x: 1, y: 2 }, { x: 0, y: 1 }] }],
+    [TetraType.I, 1, { type: TetraType.I, positions: [{ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 2, y: 0 }, { x: 3, y: 0 }] }],
+    [TetraType.T, 2, { type: TetraType.T, positions: [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 2, y: 1 }] }],
+    [TetraType.L, 3, { type: TetraType.L, positions: [{ x: 0, y: 1 }, { x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 0 }] }],
+  ])('should return specific tetras with proper rotation %#', (input, rotations, output) => {
+    const result = getSpecificTetra(input, rotations)
+
+    expect(result.type).toEqual(output.type)
+    expect(result.positions).toEqual(expect.arrayContaining(output.positions))
   })
 })
 
