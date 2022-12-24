@@ -61,6 +61,9 @@ export function getSpecificTetra(type: TetraType, rotations = 0): TetraObject {
 
 export function getRandomTetra(exclude: TetraType[] = []): TetraObject {
   const availableTypes = Object.values(TetraType).filter(type => !exclude.includes(type))
+
   const randomType = availableTypes[Math.floor(Math.random() * availableTypes.length)]
-  return getSpecificTetra(randomType)
+  const randomRotation = Math.floor(Math.random() * 4)
+
+  return getSpecificTetra(randomType, randomRotation)
 }
