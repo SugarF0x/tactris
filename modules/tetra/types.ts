@@ -10,6 +10,8 @@ export enum TetraType {
   O = 'O',
 }
 
+// TODO: update tetra object to replace positions with rotation
+
 export interface TetraObject {
   type: TetraType
   positions: Position[]
