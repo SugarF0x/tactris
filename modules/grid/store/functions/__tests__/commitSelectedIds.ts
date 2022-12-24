@@ -28,7 +28,7 @@ describe('commitSelectedIds', () => {
       ['5/0', '3/2', '7/5', '4/4']
     ],
   ])('should do early return if selection does not match either tetra %#', (tetraTypes, selectedIds) => {
-    const tetras = tetraTypes.map(getSpecificTetra) as [TetraObject, TetraObject]
+    const tetras = tetraTypes.map(tetra => getSpecificTetra(tetra)) as [TetraObject, TetraObject]
     const { state, draft } = getGridStoreInitialStateMock({ tetras, selectedIds })
 
     commitSelectedIds(draft)
@@ -50,7 +50,7 @@ describe('commitSelectedIds', () => {
       ['5/5', '5/6', '5/7', '6/7']
     ]
   ])('should append selectedIds to filledIds on successful match & clear selection %#', (tetraTypes, selectedIds) => {
-    const tetras = tetraTypes.map(getSpecificTetra) as [TetraObject, TetraObject]
+    const tetras = tetraTypes.map(tetra => getSpecificTetra(tetra)) as [TetraObject, TetraObject]
     const { draft } = getGridStoreInitialStateMock({ tetras, selectedIds })
 
     commitSelectedIds(draft)
