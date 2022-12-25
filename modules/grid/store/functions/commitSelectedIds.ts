@@ -3,7 +3,7 @@ import { GridStore } from "~/modules/grid/store/types"
 import { idToPosition } from "~/modules/position"
 import { doesInputMatchTetra, getRandomTetra } from "~/modules/tetra"
 import { filterInstructedRelativeIds, getCollapseInstructions, getCompletionLines, getFilledLines, linesToPositionIdSet, shiftCells } from "~/modules/grid/store/helpers"
-import { CompletionLine, ShiftInstructions } from "~/modules/grid"
+import { CompletionLine, ShiftInstructions } from "~/modules/grid/types"
 
 export function commitSelectedIds(state: WritableDraft<GridStore>): void {
   if (state.selectedIds.length < 4) return
