@@ -1,6 +1,6 @@
 import { commitSelectedIds } from "~/modules/grid/store/functions"
 import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
-import { getSpecificTetra, TetraObject, TetraType } from "~/modules/tetra"
+import { getRandomTetra, getSpecificTetra, TetraObject, TetraType } from "~/modules/tetra"
 import { PositionId, positionToId } from "~/modules/position"
 import { GRID_WIDTH } from "~/modules/grid"
 import { mockGridConfig } from "~/modules/grid/__mocks__"
@@ -8,12 +8,23 @@ import { mockGridConfig } from "~/modules/grid/__mocks__"
 describe('commitSelectedIds', () => {
   mockGridConfig()
 
-  it('should do early return on selected IDs length < 4 (%#)', () => {
+  it('should do early return on selected IDs length < 4', () => {
     const { state, draft } = getGridStoreInitialStateMock()
 
     commitSelectedIds(draft)
 
     expect(draft).toMatchObject(state)
+  })
+
+  it('should update matched tetra', () => {
+    const tetras: [TetraObject, TetraObject] = [getSpecificTetra(TetraType.I), getRandomTetra([TetraType.I])]
+    const selectedIds: PositionId[] = ['4/4', '4/5', '4/6', '4/7']
+
+    const { state, draft } = getGridStoreInitialStateMock({ tetras, selectedIds })
+
+    commitSelectedIds(draft)
+
+    expect(draft.tetras[0]).not.toMatchObject(state.tetras[0])
   })
 
   it.each<[[TetraType, TetraType], PositionId[]]>([
