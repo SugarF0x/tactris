@@ -1,8 +1,11 @@
 import { CompletionLine } from "~/modules/grid"
 import { getInstructionsMap, getSortedLines } from "~/modules/grid/store/helpers"
 import { Axis } from "~/modules/position"
+import { mockGridConfig } from "~/modules/grid/__mocks__"
 
 describe('getSortedLines', () => {
+  mockGridConfig()
+
   it.each<[CompletionLine[], CompletionLine[]]>([
     [
       [{ axis: Axis.Y, value: 3 }, { axis: Axis.X, value: 4 }, { axis: Axis.X, value: 5 }, { axis: Axis.Y, value: 6 }],

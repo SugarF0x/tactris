@@ -1,8 +1,11 @@
 import { CompletionLine, GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid"
 import { Axis, PositionId, positionToId } from "~/modules/position"
 import { lineToPositionIds } from '../lineToPositionIds'
+import { mockGridConfig } from "~/modules/grid/__mocks__"
 
 describe('lineToPositionIds', () => {
+  mockGridConfig()
+
   it.each<[CompletionLine, PositionId[]]>([
     [{ axis: Axis.X, value: 0 }, Array.from({ length: GRID_HEIGHT }, (_, y) => positionToId({ x: 0, y }))],
     [{ axis: Axis.X, value: 1 }, Array.from({ length: GRID_HEIGHT }, (_, y) => positionToId({ x: 1, y }))],

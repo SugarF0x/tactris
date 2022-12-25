@@ -3,9 +3,11 @@ import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
 import { getSpecificTetra, TetraObject, TetraType } from "~/modules/tetra"
 import { PositionId, positionToId } from "~/modules/position"
 import { GRID_WIDTH } from "~/modules/grid"
-import * as gridConfig from "~/modules/grid/config"
+import { mockGridConfig } from "~/modules/grid/__mocks__"
 
 describe('commitSelectedIds', () => {
+  mockGridConfig()
+
   it('should do early return on selected IDs length < 4 (%#)', () => {
     const { state, draft } = getGridStoreInitialStateMock()
 
@@ -63,9 +65,6 @@ describe('commitSelectedIds', () => {
     [['9/3', '9/4', '9/5', '9/6']],
     [['9/3', '9/4', '9/6', '9/5']],
   ])('should properly shift specified items from both sides %#', (fillSelection) => {
-    const initialGridConfig = { ...gridConfig }
-    Object.assign(gridConfig, { GRID_WIDTH: 10, GRID_HEIGHT: 10 })
-
     const almostFilledLines = [...Array(4)].flatMap((_, y) => [...Array(GRID_WIDTH - 1)].map((_, x) => positionToId({ x, y: y + 3 })))
 
     const miscCells: PositionId[] = [
@@ -90,7 +89,5 @@ describe('commitSelectedIds', () => {
     commitSelectedIds(draft)
 
     expect(draft.filledIds.sort()).toEqual(expectedFilledState.sort())
-
-    Object.assign(gridConfig, initialGridConfig)
   })
 })

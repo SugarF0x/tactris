@@ -2,8 +2,11 @@ import { CompletionLine, GRID_HEIGHT, GRID_WIDTH, ShiftInstructions } from "~/mo
 import * as gridConfig from "~/modules/grid/config"
 import { Axis } from "~/modules/position"
 import { getCollapseInstructions } from '../getCollapseInstructions'
+import { mockGridConfig, scopedGridConfigMock } from "~/modules/grid/__mocks__"
 
 describe('getCollapseInstructions', () => {
+  mockGridConfig()
+
   it.each<[CompletionLine]>([
     [{ axis: Axis.X, value: 0 }],
     [{ axis: Axis.X, value: GRID_WIDTH - 1 }],
@@ -15,15 +18,13 @@ describe('getCollapseInstructions', () => {
 
   it('should return decremental shift on exact middle completion line given uneven grid dimensions', () => {
     const unevenGridSize = 11
-    const median = Math.round(unevenGridSize / 2 + .5)
 
-    const initialGridConfig = { ...gridConfig }
-    Object.assign(gridConfig, { GRID_WIDTH: unevenGridSize, GRID_HEIGHT: unevenGridSize })
+    scopedGridConfigMock({ GRID_WIDTH: unevenGridSize, GRID_HEIGHT: unevenGridSize }, () => {
+      const median = Math.round(unevenGridSize / 2 + .5)
 
-    expect(getCollapseInstructions({ axis: Axis.X, value: median })).toEqual(ShiftInstructions.DECREASE)
-    expect(getCollapseInstructions({ axis: Axis.Y, value: median })).toEqual(ShiftInstructions.DECREASE)
-
-    Object.assign(gridConfig, initialGridConfig)
+      expect(getCollapseInstructions({ axis: Axis.X, value: median })).toEqual(ShiftInstructions.DECREASE)
+      expect(getCollapseInstructions({ axis: Axis.Y, value: median })).toEqual(ShiftInstructions.DECREASE)
+    })
   })
 
   it('should return proper directions on exact middle', () => {

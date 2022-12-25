@@ -2,8 +2,11 @@ import { CompletionLine } from "~/modules/grid"
 import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
 import { Axis, PositionId } from "~/modules/position"
 import { clearFilledLines } from "~/modules/grid/store/mutations"
+import { mockGridConfig } from "~/modules/grid/__mocks__"
 
 describe('clearFilledLines', () => {
+  mockGridConfig()
+
   it.each<[PositionId[], CompletionLine[], PositionId[]]>([
     [
       ['1/2'],

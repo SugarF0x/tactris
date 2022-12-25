@@ -3,8 +3,11 @@ import { Axis, PositionId } from "~/modules/position"
 import { applyShiftInstructions } from "~/modules/grid/store/mutations"
 import { CompletionLine } from "~/modules/grid"
 import { getInstructionsMap, getSortedLines } from "~/modules/grid/store/helpers"
+import { mockGridConfig } from "~/modules/grid/__mocks__"
 
 describe('applyShiftInstructions', () => {
+  mockGridConfig()
+
   it.each<[PositionId[], CompletionLine[], PositionId[]]>([
     [['1/2'], [{ axis: Axis.Y, value: 3 }], ['1/3']],
     [['1/2'], [{ axis: Axis.Y, value: 3 }, { axis: Axis.Y, value: 4 }], ['1/4']],

@@ -1,8 +1,11 @@
 import { linesToPositionIdSet } from '../linesToPositionIdSet'
 import { CompletionLine, GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid"
 import { Axis, PositionId, positionToId } from "~/modules/position"
+import { mockGridConfig } from "~/modules/grid/__mocks__"
 
 describe('linesToPositionIdSet', () => {
+  mockGridConfig()
+
   it.each<[CompletionLine[], PositionId[]]>([
     [[], []],
     [
