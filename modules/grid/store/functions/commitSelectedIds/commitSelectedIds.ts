@@ -1,9 +1,10 @@
 import { WritableDraft } from "immer/dist/types/types-external"
 import { GridStore } from "~/modules/grid/store/types"
 import { idToPosition } from "~/modules/position"
-import { doesInputMatchTetra, getRandomTetra } from "~/modules/tetra"
+import { doesInputMatchTetra } from "~/modules/tetra"
 import { filterInstructedRelativeIds, getCollapseInstructions, getCompletionLines, getFilledLines, linesToPositionIdSet, shiftCells } from "~/modules/grid/store/helpers"
 import { CompletionLine, ShiftInstructions } from "~/modules/grid/types"
+import { updateMatchedTetra } from "~/modules/grid/store/functions/commitSelectedIds/mutators"
 
 export function commitSelectedIds(state: WritableDraft<GridStore>): void {
   if (state.selectedIds.length < 4) return
@@ -13,9 +14,7 @@ export function commitSelectedIds(state: WritableDraft<GridStore>): void {
   const tetraMatch = state.tetras.find(tetra => doesInputMatchTetra(selectedTetra, tetra))
   if (!tetraMatch) return
 
-  // update matched tetra with a new random one
-  const oldTetraTypes = state.tetras.map(tetra => tetra.type)
-  state.tetras[state.tetras.indexOf(tetraMatch)] = getRandomTetra(oldTetraTypes)
+  updateMatchedTetra(state, tetraMatch)
 
   // check possible completion lines based on input
   const completionLines = getCompletionLines(state.selectedIds)
