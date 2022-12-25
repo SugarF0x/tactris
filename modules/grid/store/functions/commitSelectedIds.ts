@@ -12,7 +12,7 @@ export function commitSelectedIds(state: WritableDraft<GridStore>): void {
   const tetraMatch = state.tetras.find(tetra => doesInputMatchTetra(selectedTetra, tetra))
   if (!tetraMatch) return
 
-  updateMatchedTetra(state, tetraMatch)
+  updateMatchedTetra(state, state.tetras.indexOf(tetraMatch))
   commitSelection(state)
 
   const completionLines = getCompletionLines(state.selectedIds)
