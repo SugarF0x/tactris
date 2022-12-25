@@ -1,5 +1,6 @@
 import * as gridConfig from '../config'
 import { Axis } from "~/modules/position"
+import { cloneDeep } from "lodash"
 
 type Config = typeof gridConfig
 
@@ -14,14 +15,23 @@ const defaultTestingConfig: Config = {
   }
 }
 
-export function mockGridConfig(override: Partial<Config>) {
-  const initialGridConfig = { ...gridConfig }
+const initialGridConfig = cloneDeep(gridConfig)
 
-  beforeEach(() => {
-    Object.assign(gridConfig, { ...defaultTestingConfig, ...override })
-  })
+export function overrideGridConfig(override: Partial<Config> = {}) {
+  Object.assign(gridConfig, { ...defaultTestingConfig, ...override })
+}
 
-  afterEach(() => {
-    Object.assign(gridConfig, initialGridConfig)
-  })
+export function resetGridConfig() {
+  Object.assign(gridConfig, initialGridConfig)
+}
+
+export function mockGridConfig(override: Partial<Config> = {}) {
+  beforeEach(() => { overrideGridConfig(override) })
+  afterEach(resetGridConfig)
+}
+
+export function scopedGridConfigMock(callback: () => void, override: Partial<Config> = {}) {
+  overrideGridConfig(override)
+  callback()
+  resetGridConfig()
 }
