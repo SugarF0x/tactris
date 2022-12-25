@@ -62,7 +62,7 @@ describe('commitSelectedIds', () => {
   it.each<[PositionId[]]>([
     [['9/3', '9/4', '9/5', '9/6']],
     [['9/3', '9/4', '9/6', '9/5']],
-  ])('should properly shift specified items from both sides', (fillSelection) => {
+  ])('should properly shift specified items from both sides %#', (fillSelection) => {
     const initialGridConfig = { ...gridConfig }
     Object.assign(gridConfig, { GRID_WIDTH: 10, GRID_HEIGHT: 10 })
 
