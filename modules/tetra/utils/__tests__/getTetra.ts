@@ -1,5 +1,5 @@
 import { Position } from "~/modules/position"
-import { getRandomTetra, getSpecificTetra, TetraObject, TetrasDictionary, TetraType } from "~/modules/tetra"
+import { getRandomTetra, getSpecificTetra, TetraObject, TetraRotation, TetrasDictionary, TetraType } from "~/modules/tetra"
 
 describe('getSpecificTetra', () => {
   it.each<[TetraType, TetraObject]>([
@@ -13,7 +13,7 @@ describe('getSpecificTetra', () => {
     expect(result.positions).toEqual(expect.arrayContaining(output.positions))
   })
 
-  it.each<[TetraType, number, TetraObject]>([
+  it.each<[TetraType, TetraRotation, TetraObject]>([
     [TetraType.T, 1, { type: TetraType.T, positions: [{ x: 1, y: 0 }, { x: 1, y: 1 }, { x: 1, y: 2 }, { x: 0, y: 1 }] }],
     [TetraType.I, 1, { type: TetraType.I, positions: [{ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 2, y: 0 }, { x: 3, y: 0 }] }],
     [TetraType.T, 2, { type: TetraType.T, positions: [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 2, y: 1 }] }],
