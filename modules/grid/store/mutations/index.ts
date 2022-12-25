@@ -1,0 +1,5 @@
+export * from './applyShiftInstructions'
+export * from './clearFilledLines'
+export * from './clearSelection'
+export * from './commitSelection'
+export * from './updateMatchedTetra'
