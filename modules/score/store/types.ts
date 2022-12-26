@@ -1,5 +1,7 @@
+import { CompletionLine } from "~/modules/grid"
+
 export interface ScoreStore {
   score: number
   highScore: number
-  setScore: (value: number) => void
+  updateScore: (lines: CompletionLine[]) => void
 }
