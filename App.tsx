@@ -3,13 +3,15 @@ import { View, StyleSheet } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import { Grid, useGridStore } from "~/modules/grid"
 import { Tetra } from "~/modules/tetra"
+import { ScoreTracker } from "~/modules/score/ui/ScoreTracker"
 
 export default function App() {
   const tetras = useGridStore(state => state.tetras)
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.tetras}>
+      <View style={styles.hud}>
+        <ScoreTracker />
         {tetras.map((tetra, index) => (
           <Tetra key={index} tetra={tetra} size={32} />
         ))}
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#333'
   },
-  tetras: {
+  hud: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',

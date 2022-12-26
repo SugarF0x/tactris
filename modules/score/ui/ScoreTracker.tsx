@@ -16,11 +16,13 @@ export function ScoreTracker() {
 
 const styles = StyleSheet.create({
   wrapper: {
-    padding: 16,
+    minWidth: 100,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: 'cyan',
-    backgroundColor: 'steelblue'
+    borderColor: '#252525',
+    backgroundColor: '#464646'
   },
   score: {
     fontSize: 28,
