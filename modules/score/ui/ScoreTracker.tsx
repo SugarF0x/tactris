@@ -21,17 +21,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: '#252525',
-    backgroundColor: '#464646'
+    borderColor: 'black',
+    backgroundColor: '#383838'
   },
   score: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#ff9900'
+    color: '#adf'
   },
   highScore: {
     fontSize: 14,
-    color: '#ff9900',
+    color: '#adf',
     opacity: .5
   }
 })
