@@ -101,4 +101,6 @@ describe('commitSelectedIds', () => {
 
     expect(draft.filledIds.sort()).toEqual(expectedFilledState.sort())
   })
+
+  it.todo('should call score update function')
 })
