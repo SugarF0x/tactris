@@ -13,7 +13,7 @@ export default function App() {
       <View style={styles.hud}>
         <ScoreTracker />
         {tetras.map((tetra, index) => (
-          <Tetra key={index} tetra={tetra} size={32} />
+          <Tetra key={index} fullBox tetra={tetra} size={32} />
         ))}
       </View>
       <Grid />
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     paddingVertical: 8
   }
 })

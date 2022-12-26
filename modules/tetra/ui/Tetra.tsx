@@ -7,14 +7,15 @@ import { PositionId, positionToId } from "~/modules/position"
 export interface TetraProps {
   tetra: TetraObject
   size: number
+  fullBox?: boolean
 }
 
 export function Tetra(props: TetraProps) {
-  const { tetra, size } = props
+  const { tetra, size, fullBox } = props
 
   const wrapperSize: ViewStyle = { height: size * 4, width: size * 3 }
 
-  const [width, height] = tetra.positions.reduce((acc, val) => {
+  const [width, height] = fullBox ? [4, 4] : tetra.positions.reduce((acc, val) => {
     acc[0] = Math.max(val.x + 1, acc[0])
     acc[1] = Math.max(val.y + 1, acc[1])
     return acc
