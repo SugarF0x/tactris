@@ -1,5 +1,7 @@
+export * from './addSelectedId'
 export * from './applyShiftInstructions'
 export * from './clearFilledLines'
 export * from './clearSelection'
 export * from './commitSelection'
+export * from './shiftSelection'
 export * from './updateMatchedTetra'
