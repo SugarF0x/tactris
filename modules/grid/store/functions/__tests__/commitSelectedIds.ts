@@ -4,6 +4,7 @@ import { getRandomTetra, getSpecificTetra, TetraObject, TetraType } from "~/modu
 import { PositionId, positionToId } from "~/modules/position"
 import { GRID_WIDTH } from "~/modules/grid"
 import { mockGridConfig } from "~/modules/grid/__mocks__"
+import * as updateScore from "~/modules/score/store/functions/updateScore"
 
 describe('commitSelectedIds', () => {
   mockGridConfig()
@@ -102,5 +103,27 @@ describe('commitSelectedIds', () => {
     expect(draft.filledIds.sort()).toEqual(expectedFilledState.sort())
   })
 
-  it.todo('should call score update function')
+  it('should call score update function', () => {
+    const updateScoreMock = jest.fn(updateScore.updateScore)
+    jest.spyOn(updateScore, 'updateScore').mockImplementationOnce(updateScoreMock)
+
+    const { draft } = getGridStoreInitialStateMock({
+      filledIds: Array.from({ length: GRID_WIDTH - 1 }, (_, y) => positionToId({ x: 0, y: y + 1 })),
+      selectedIds: ['0/0', '0/1', '0/2', '0/3'],
+      tetras: [getSpecificTetra(TetraType.I), getRandomTetra([TetraType.I])]
+    })
+    commitSelectedIds(draft)
+
+    expect(updateScoreMock).toHaveBeenCalled()
+  })
+
+  it('should not call score update on no completion', () => {
+    const updateScoreMock = jest.fn(updateScore.updateScore)
+    jest.spyOn(updateScore, 'updateScore').mockImplementationOnce(updateScoreMock)
+
+    const { draft } = getGridStoreInitialStateMock()
+    commitSelectedIds(draft)
+
+    expect(updateScoreMock).not.toHaveBeenCalled()
+  })
 })
