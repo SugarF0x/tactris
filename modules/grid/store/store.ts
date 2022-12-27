@@ -11,3 +11,5 @@ export const useGridStore = create<GridStore>()(immer((set) => ({
   selectId: (id) => set(state => selectId(state, id)),
   commitSelectedIds: () => set(commitSelectedIds)
 })))
+
+export const gridStoreInitialState = useGridStore.getState()

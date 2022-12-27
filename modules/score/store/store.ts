@@ -8,3 +8,5 @@ export const useScoreStore = create<ScoreStore>()(immer((set) => ({
   highScore: 0,
   updateScore: (lines) => set(state => updateScore(state, lines))
 })))
+
+export const initialScoreStore = useScoreStore.getState()
