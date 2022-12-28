@@ -1,4 +1,5 @@
 {
   "preset": "jest-expo",
-  "modulePathIgnorePatterns": ["<rootDir>/.*/__mocks__"]
+  "modulePathIgnorePatterns": ["<rootDir>/.*/__mocks__"],
+  "clearMocks": true
 }
