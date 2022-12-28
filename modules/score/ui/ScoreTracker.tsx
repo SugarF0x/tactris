@@ -1,28 +1,23 @@
 import React from 'react'
 import { useScoreStore } from "~/modules/score/store"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text } from "react-native"
+import { Card } from "~/components"
 
 export function ScoreTracker() {
   const score = useScoreStore(state => state.score)
   const highScore = useScoreStore(state => state.highScore)
 
   return (
-    <View style={styles.wrapper}>
+    <Card style={styles.wrapper}>
       <Text style={styles.score}>{score}</Text>
       <Text style={styles.highScore}>{highScore}</Text>
-    </View>
+    </Card>
   )
 }
 
 const styles = StyleSheet.create({
   wrapper: {
-    minWidth: 100,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: 'black',
-    backgroundColor: '#383838'
+    minWidth: 100
   },
   score: {
     fontSize: 28,
