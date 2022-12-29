@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { ReactNode, useRef } from 'react'
 import { Card } from './Card'
 import { cyanShadow } from "~/styles"
@@ -12,11 +13,12 @@ const defaultAnimationConfig = {
 
 export interface ButtonProps {
   children?: ReactNode
+  disabled?: boolean
   onPress?: () => void
 }
 
 export function Button(props: ButtonProps) {
-  const { children, onPress } = props
+  const { children, disabled, onPress } = props
 
   const shadow = useRef(new Animated.Value(1)).current
 
@@ -29,8 +31,8 @@ export function Button(props: ButtonProps) {
   }
 
   return (
-    <Pressable onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
-      <Animated.View style={[cyanShadow, { shadowOpacity: shadow }]}>
+    <Pressable disabled={disabled} onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
+      <Animated.View style={[cyanShadow, { shadowOpacity: shadow }, disabled && { opacity: .5 }]}>
         <Card>
           {children}
         </Card>
