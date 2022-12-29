@@ -1,6 +1,9 @@
 import { Position } from "~/modules/position"
 import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid/config"
 
+// TODO: add option to floor to top/bottom left/right at given grid size
+//  & use it in tetra hud display to space them out evenly to the center
+
 export function floorTetra(tetra: Position[]): Position[] {
   const [minX, minY] = tetra.reduce((acc, val) => {
     acc[0] = Math.min(val.x, acc[0])
