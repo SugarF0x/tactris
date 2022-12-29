@@ -1,4 +1,5 @@
-import { CompletionLine, axisToGridSizeMap } from "~/modules/grid"
+import { CompletionLine } from "~/modules/grid/types"
+import { axisToGridSizeMap } from "~/modules/grid/config"
 
 export function completionsToScore(completionLines: CompletionLine[]): number {
   return completionLines.reduce((acc, line, index) => {
