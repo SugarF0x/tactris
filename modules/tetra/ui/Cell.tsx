@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Easing, LayoutChangeEvent, StyleProp, StyleSheet, View, ViewStyle } from "react-native"
-import { cyanShadow } from "~/utils"
+import { cyanShadow } from "~/styles"
 import { cyan } from "~/styles"
 
 export interface CellProps {

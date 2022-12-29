@@ -1,5 +1,4 @@
 import { Platform, ViewStyle } from "react-native"
-import { cyan } from "~/styles"
 
 export interface GenerateBoxShadowStyleOptions {
   elevation?: number
@@ -34,11 +33,3 @@ export function generateBoxShadowStyle(options: GenerateBoxShadowStyleOptions): 
     shadowColor: shadowColorAndroid,
   }
 }
-
-export const cyanShadow = generateBoxShadowStyle({
-  shadowRadius: 25,
-  shadowOpacity: .5,
-  elevation: 4,
-  shadowColorAndroid: cyan,
-  shadowColorIos: cyan,
-})
