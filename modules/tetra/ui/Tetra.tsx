@@ -3,7 +3,7 @@ import { TetraObject } from "../types"
 import { Cell } from './Cell'
 import { StyleSheet, View, ViewStyle } from "react-native"
 import { Position, PositionId, positionToId } from "~/modules/position"
-import { FloorCorner, floorTetra } from "~/modules/tetra"
+import { FloorCorner, floorTetra } from "~/modules/tetra/utils"
 
 export interface TetraProps {
   tetra: TetraObject
