@@ -29,7 +29,7 @@ describe('updateScore', () => {
     expect(setHighScoreMock).toHaveBeenCalledWith(draft, state.highScore)
   })
 
-  it.skip('should update high score should score be greater than that', () => {
+  it('should update high score should score be greater than that', () => {
     const lines: CompletionLine[] = [
       { axis: Axis.X, value: 3 },
       { axis: Axis.X, value: 6 },
