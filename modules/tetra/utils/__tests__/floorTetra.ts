@@ -39,4 +39,7 @@ describe('floorTetra', () => {
     expect(result).toEqual(expect.arrayContaining(output))
     expect(output).toEqual(expect.arrayContaining(result))
   })
+
+  it.todo('should floor to appropriate given side at min grid size square for given tetra')
+  it.todo('should floor to appropriate given side with predefined tetra size')
 })
