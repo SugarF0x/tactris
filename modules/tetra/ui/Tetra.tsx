@@ -2,33 +2,36 @@ import React from 'react'
 import { TetraObject } from "../types"
 import { Cell } from './Cell'
 import { StyleSheet, View, ViewStyle } from "react-native"
-import { PositionId, positionToId } from "~/modules/position"
+import { Position, PositionId, positionToId } from "~/modules/position"
+import { FloorCorner, floorTetra } from "~/modules/tetra"
 
 export interface TetraProps {
   tetra: TetraObject
-  size: number
-  fullBox?: boolean
+  cellSize: number
+  boxSize?: Position
+  floor?: FloorCorner
 }
 
 export function Tetra(props: TetraProps) {
-  const { tetra, size, fullBox } = props
+  const { tetra, cellSize, boxSize, floor } = props
 
-  const wrapperSize: ViewStyle = { height: size * 4, width: size * 3 }
+  const wrapperSize: ViewStyle = { height: cellSize * 4, width: cellSize * 3 }
 
-  const [width, height] = fullBox ? [4, 4] : tetra.positions.reduce((acc, val) => {
+  const [width, height] = boxSize ? [boxSize.x + 1, boxSize.y + 1] : tetra.positions.reduce((acc, val) => {
     acc[0] = Math.max(val.x + 1, acc[0])
     acc[1] = Math.max(val.y + 1, acc[1])
     return acc
   }, [0, 0])
 
-  const posIds: PositionId[] = tetra.positions.map(positionToId)
+  const flooredTetra = floorTetra(tetra.positions, floor, boxSize)
+  const posIds: PositionId[] = flooredTetra.map(positionToId)
 
   return (
     <View style={[styles.wrapper, wrapperSize]}>
       {[...Array(height)].map((_, y) => (
         <View key={y} style={styles.row}>
           {[...Array(width)].map((_, x) => (
-            <Cell key={x} transparent selected={posIds.includes(positionToId({ x, y }))} size={size} />
+            <Cell key={x} transparent selected={posIds.includes(positionToId({ x, y }))} size={cellSize} />
           ))}
         </View>
       ))}
