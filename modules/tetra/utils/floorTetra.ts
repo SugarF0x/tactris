@@ -23,8 +23,8 @@ export function floorTetra(tetra: Position[], corner = FloorCorner.TOP_LEFT, siz
   })
 
   const flooredSize = size ? size - 1 : Math.max(minX, minY)
-  const shiftX = flooredSize - minX
-  const shiftY = flooredSize - minY
+  const shiftX = Math.max(flooredSize - minX, 0)
+  const shiftY = Math.max(flooredSize - minY, 0)
 
   switch (corner) {
     case FloorCorner.TOP_LEFT: return flooredTetra
