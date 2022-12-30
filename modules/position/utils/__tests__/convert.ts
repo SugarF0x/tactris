@@ -1,4 +1,4 @@
-import { idToPosition, positionToId, PositionId, Position } from '../..'
+import { idToPosition, positionToId, PositionId, Position, getSize } from '../..'
 
 describe('convert', () => {
   describe('idToPosition', () => {
@@ -26,6 +26,12 @@ describe('convert', () => {
       ['-15/-15', { x: -15, y: -15 }],
     ])('should convert %s to %p', (input, output) => {
       expect(idToPosition(input)).toEqual(output)
+    })
+  })
+
+  describe('getSize', () => {
+    it.each<number[]>([Object.keys([...Array(5)]).map(Number)])('should convert number to even square position %#', (input) => {
+      expect(getSize(input)).toEqual({ x: input, y: input })
     })
   })
 })
