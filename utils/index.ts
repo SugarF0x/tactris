@@ -1,2 +1,3 @@
-export * from './styles'
 export * from './array'
+export * from './guards'
+export * from './styles'
