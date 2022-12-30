@@ -4,8 +4,10 @@ import { Position, isWithin, PositionId, positionToId } from "~/modules/position
 import { useGridStore } from "~/modules/grid/store"
 import { GridCell } from "./GridCell"
 import { GRID_WIDTH, GRID_HEIGHT } from "~/modules/grid/config"
+import { useGridSounds } from './hooks'
 
 export function Grid() {
+  useGridSounds()
   const { width } = useWindowDimensions()
 
   const selectId = useGridStore(state => state.selectId)
