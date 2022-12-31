@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { LayoutChangeEvent } from "react-native"
 import { Cell } from "~/modules/tetra/ui"
 import { useGridStore } from "~/modules/grid/store"
 import { PositionId } from "~/modules/position"
-import { Sound } from "expo-av/build/Audio/Sound"
 import { Audio } from "expo-av"
+import { playAndUnload } from "~/utils"
 
 export interface GridCellProps {
   onLayout: (e: LayoutChangeEvent) => void
@@ -18,18 +18,10 @@ export function GridCell(props: GridCellProps) {
   const isFilled = useGridStore(state => state.filledIds.includes(posId))
   const isSelected = useGridStore(state => state.selectedIds.includes(posId))
 
-  const [selectSound, setSelectSound] = useState<Sound | null>(null)
-
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync( require('~/assets/sounds/select.mp3'))
-    setSelectSound(sound)
-    await sound.playAsync()
+    await playAndUnload(sound)
   }
-
-  useEffect(() => {
-    if (!selectSound) return undefined
-    return () => { void selectSound?.unloadAsync() }
-  }, [selectSound])
 
   useEffect(() => {
     if (isSelected) void playSound()
