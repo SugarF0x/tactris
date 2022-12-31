@@ -1,4 +1,4 @@
-import { Position } from "~/modules/position"
+import { Position } from "~/utils"
 
 export function getTetraSize(tetra: Position[]): Position {
   return tetra.reduce((acc, { x, y }) => {

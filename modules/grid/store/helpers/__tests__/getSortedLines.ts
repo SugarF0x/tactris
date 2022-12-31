@@ -1,6 +1,6 @@
 import { CompletionLine } from "~/modules/grid"
 import { getInstructionsMap, getSortedLines } from "~/modules/grid/store/helpers"
-import { Axis } from "~/modules/position"
+import { Axis } from "~/utils"
 import { mockGridConfig } from "~/modules/grid/__mocks__"
 
 describe('getSortedLines', () => {

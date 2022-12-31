@@ -1,5 +1,5 @@
 import { doesInputMatchTetra, getSpecificTetra, TetraObject, TetraType } from "~/modules/tetra"
-import { Position } from "~/modules/position"
+import { Position } from "~/utils"
 
 describe('doesInputMatchTetra', () => {
   it('should return true on proper tetra match', () => {

@@ -1,5 +1,5 @@
 import { ShiftInstructions } from "~/modules/grid/types"
-import { Axis, idToPosition, PositionId, positionToId } from "~/modules/position"
+import { Axis, idToPosition, PositionId, positionToId } from "~/utils"
 
 export function shiftCells(posIds: PositionId[], axis: Axis, instructions: ShiftInstructions): PositionId[] {
   if (instructions === ShiftInstructions.RETAIN) return posIds

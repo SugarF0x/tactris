@@ -1,7 +1,7 @@
 import { mockGridConfig } from "~/modules/grid/__mocks__"
 import { CompletionLine } from "~/modules/grid"
 import { completionsToScore } from "~/modules/score/store/helpers/completionsToScore"
-import { Axis } from "~/modules/position"
+import { Axis } from "~/utils"
 
 describe('completionsToScore', () => {
   mockGridConfig()

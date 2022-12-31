@@ -1,6 +1,6 @@
 import { CompletionLine } from "~/modules/grid"
 import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
-import { Axis, PositionId } from "~/modules/position"
+import { Axis, PositionId } from "~/utils"
 import { clearFilledLines } from "~/modules/grid/store/mutations"
 import { mockGridConfig } from "~/modules/grid/__mocks__"
 

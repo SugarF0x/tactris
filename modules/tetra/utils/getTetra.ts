@@ -1,6 +1,5 @@
-import { Position } from "~/modules/position"
+import { Position, rotateMatrix } from "~/utils"
 import { TetraObject, TetraType } from '../types'
-import { rotateMatrix } from "~/utils"
 
 export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   L: [

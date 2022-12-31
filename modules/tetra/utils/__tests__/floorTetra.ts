@@ -1,4 +1,4 @@
-import { getSize, Position } from "~/modules/position"
+import { getSize, Position } from "~/utils"
 import { FloorCorner, floorTetra } from '../floorTetra'
 import { getSpecificTetra, TetraType } from "~/modules/tetra"
 import { mockGridConfig } from "~/modules/grid/__mocks__"

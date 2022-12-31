@@ -1,5 +1,5 @@
 import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
-import { Axis, PositionId } from "~/modules/position"
+import { Axis, PositionId } from "~/utils"
 import { applyShiftInstructions } from "~/modules/grid/store/mutations"
 import { CompletionLine } from "~/modules/grid"
 import { getInstructionsMap, getSortedLines } from "~/modules/grid/store/helpers"

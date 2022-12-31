@@ -1,5 +1,5 @@
 import { ShiftInstructions } from "~/modules/grid"
-import { Axis, PositionId } from "~/modules/position"
+import { Axis, PositionId } from "~/utils"
 import { shiftCells } from '../shiftCells'
 
 describe('shiftCells', () => {

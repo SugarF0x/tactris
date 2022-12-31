@@ -1,4 +1,4 @@
-import { PositionId } from "~/modules/position"
+import { PositionId } from "~/utils"
 import { CompletionLine } from "~/modules/grid"
 import { lineToPositionIds } from "~/modules/grid/store/helpers/lineToPositionIds"
 

@@ -1,5 +1,5 @@
 import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
-import { PositionId } from "~/modules/position"
+import { PositionId } from "~/utils"
 import { selectId } from "~/modules/grid/store/functions"
 
 describe('selectId', () => {

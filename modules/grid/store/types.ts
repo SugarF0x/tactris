@@ -1,4 +1,4 @@
-import { PositionId } from "~/modules/position"
+import { PositionId } from "~/utils"
 import { TetraObject } from "~/modules/tetra"
 
 export interface GridStore {

@@ -1,6 +1,6 @@
 import React, { useRef } from "react"
 import { GestureResponderEvent, LayoutRectangle, StyleSheet, LayoutChangeEvent, View, useWindowDimensions } from "react-native"
-import { Position, isWithin, PositionId, positionToId } from "~/modules/position"
+import { Position, isWithin, PositionId, positionToId } from "~/utils"
 import { useGridStore } from "~/modules/grid/store"
 import { GridCell } from "./components"
 import { GRID_WIDTH, GRID_HEIGHT } from "~/modules/grid/config"

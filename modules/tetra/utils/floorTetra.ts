@@ -1,6 +1,5 @@
-import { Position } from "~/modules/position"
+import { Position, exhaust } from "~/utils"
 import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid/config"
-import { exhaust } from "~/utils"
 import { getTetraSize } from "~/modules/tetra/utils/getTetraSize"
 
 export enum FloorCorner {

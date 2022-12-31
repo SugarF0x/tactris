@@ -1,5 +1,5 @@
 import { CompletionLine } from "~/modules/grid"
-import { PositionId } from "~/modules/position"
+import { PositionId } from "~/utils"
 import { lineToPositionIds } from "./lineToPositionIds"
 
 export function linesToPositionIdSet(lines: CompletionLine[]): PositionId[] {

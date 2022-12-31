@@ -1,6 +1,5 @@
 import { LayoutRectangle } from "react-native"
-import { Position } from "../.."
-import { isWithin } from '../collision'
+import { isWithin, Position } from '~/utils'
 
 describe('collision', () => {
   const testRectangle: LayoutRectangle = {

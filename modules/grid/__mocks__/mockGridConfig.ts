@@ -1,6 +1,6 @@
 import * as gridConfig from '../config'
 import type { Config } from '../config'
-import { Axis } from "~/modules/position"
+import { Axis } from "~/utils"
 import { cloneDeep } from "lodash"
 
 const defaultSize = 10

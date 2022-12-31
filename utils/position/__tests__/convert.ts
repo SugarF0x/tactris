@@ -1,4 +1,4 @@
-import { idToPosition, positionToId, PositionId, Position, getSize } from '../..'
+import { idToPosition, positionToId, PositionId, Position, getSize } from '~/utils'
 
 describe('convert', () => {
   describe('idToPosition', () => {

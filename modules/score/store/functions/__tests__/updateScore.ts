@@ -4,7 +4,7 @@ import { mockGridConfig } from "~/modules/grid/__mocks__"
 import { mockCompletionsToScore } from "~/modules/score/store/helpers/__mocks__"
 import { mockSetScore, mockSetHighScore } from "~/modules/score/store/mutations/__mocks__"
 import { CompletionLine } from "~/modules/grid"
-import { Axis } from "~/modules/position"
+import { Axis } from "~/utils"
 
 describe('updateScore', () => {
   mockGridConfig()

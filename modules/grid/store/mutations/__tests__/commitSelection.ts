@@ -1,4 +1,4 @@
-import { PositionId } from "~/modules/position"
+import { PositionId } from "~/utils"
 import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
 import { commitSelection } from "~/modules/grid/store/mutations"
 

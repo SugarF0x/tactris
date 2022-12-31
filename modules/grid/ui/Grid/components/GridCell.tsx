@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { LayoutChangeEvent } from "react-native"
 import { Cell } from "~/modules/tetra/ui"
 import { useGridStore } from "~/modules/grid/store"
-import { PositionId } from "~/modules/position"
+import { PositionId } from "~/utils"
 import { Audio } from "expo-av"
 import { playAndUnload } from "~/utils"
 

@@ -1,4 +1,4 @@
-import { Position } from "~/modules/position"
+import { Position } from "~/utils"
 
 export enum TetraType {
   L = 'L',

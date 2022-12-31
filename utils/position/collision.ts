@@ -1,4 +1,4 @@
-import { Position } from "../types"
+import { Position } from "./types"
 import { LayoutRectangle } from "react-native"
 
 export function isWithin(pos: Position, target: LayoutRectangle): boolean {

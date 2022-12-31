@@ -1,4 +1,4 @@
-import { Position, positionToId } from "~/modules/position"
+import { Position, positionToId } from "~/utils"
 import { TetraObject } from "../types"
 import { floorTetra } from './floorTetra'
 

@@ -1,4 +1,4 @@
-import { Position, PositionId } from "../types"
+import { Position, PositionId } from "./types"
 
 export function idToPosition(id: PositionId): Position {
   const [x, y] = id.split('/').map(Number)

@@ -1,4 +1,4 @@
-import { isPositionId } from '../guards'
+import { isPositionId } from '~/utils'
 
 describe('guards', () => {
   describe('isPositionId', () => {

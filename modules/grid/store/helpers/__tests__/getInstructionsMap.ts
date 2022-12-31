@@ -1,6 +1,6 @@
 import { CompletionLine, ShiftInstructions } from "~/modules/grid"
 import { getInstructionsMap } from "~/modules/grid/store/helpers"
-import { Axis } from "~/modules/position"
+import { Axis } from "~/utils"
 
 describe('getInstructionsMap', () => {
   it('should return a weak map of instructions per each given completion line', () => {

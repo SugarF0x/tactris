@@ -1,6 +1,6 @@
 import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
 import { addSelectedId } from "~/modules/grid/store/mutations"
-import { PositionId } from "~/modules/position"
+import { PositionId } from "~/utils"
 
 describe('addSelectedId', () => {
   it('should push given ID to the selection array', () => {

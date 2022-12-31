@@ -1,4 +1,4 @@
-import { PositionId } from "../types"
+import { PositionId } from "./types"
 
 export function isPositionId(val: string): val is PositionId {
   const [x, y] = val.split('/')

@@ -1,4 +1,4 @@
-import { Axis, PositionId } from "~/modules/position"
+import { Axis, PositionId } from "~/utils"
 import { CompletionLine } from "~/modules/grid"
 import { getCompletionLines } from '../getCompletionLines'
 

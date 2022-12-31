@@ -1,4 +1,4 @@
-import { Position } from "~/modules/position"
+import { Position } from "~/utils"
 import { getRandomTetra, getSpecificTetra, TetraObject, TetraRotation, TetrasDictionary, TetraType } from "~/modules/tetra"
 
 describe('getSpecificTetra', () => {

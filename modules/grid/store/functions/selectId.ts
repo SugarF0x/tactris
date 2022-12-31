@@ -1,5 +1,5 @@
 import { GridStore } from "~/modules/grid/store/types"
-import { PositionId } from "~/modules/position"
+import { PositionId } from "~/utils"
 import { WritableDraft } from "immer/dist/types/types-external"
 import { addSelectedId, shiftSelection } from "~/modules/grid/store/mutations"
 

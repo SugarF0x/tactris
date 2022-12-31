@@ -1,4 +1,4 @@
-import { Axis, idToPosition, PositionId } from "~/modules/position"
+import { Axis, idToPosition, PositionId } from "~/utils"
 import { CompletionLine } from "~/modules/grid/types"
 
 export function getCompletionLines(selected: PositionId[]): CompletionLine[] {

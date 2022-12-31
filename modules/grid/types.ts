@@ -1,4 +1,4 @@
-import { Axis } from "~/modules/position"
+import { Axis } from "~/utils"
 
 export interface CompletionLine {
   axis: Axis

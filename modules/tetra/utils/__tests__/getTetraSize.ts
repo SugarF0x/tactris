@@ -1,4 +1,4 @@
-import { Position } from "~/modules/position"
+import { Position } from "~/utils"
 import { getTetraSize } from "~/modules/tetra/utils/getTetraSize"
 import { getSpecificTetra, TetraType } from "~/modules/tetra"
 

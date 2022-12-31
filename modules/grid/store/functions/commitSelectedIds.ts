@@ -1,6 +1,6 @@
 import { WritableDraft } from "immer/dist/types/types-external"
 import { GridStore } from "~/modules/grid/store/types"
-import { idToPosition } from "~/modules/position"
+import { idToPosition } from "~/utils"
 import { doesInputMatchTetra } from "~/modules/tetra"
 import { getCompletionLines, getFilledLines, getInstructionsMap, getSortedLines } from "~/modules/grid/store/helpers"
 import { applyShiftInstructions, clearFilledLines, clearSelection, commitSelection, updateMatchedTetra } from "~/modules/grid/store/mutations"

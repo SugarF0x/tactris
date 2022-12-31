@@ -1,5 +1,5 @@
 import { CompletionLine } from "~/modules/grid/types"
-import { Axis, PositionId, positionToId } from "~/modules/position"
+import { Axis, PositionId, positionToId } from "~/utils"
 import { axisToGridSizeMap } from "~/modules/grid/config"
 
 export function lineToPositionIds(line: CompletionLine): PositionId[] {

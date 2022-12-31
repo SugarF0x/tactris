@@ -1,6 +1,6 @@
 import { CompletionLine, GRID_HEIGHT, GRID_WIDTH, ShiftInstructions } from "~/modules/grid"
 import * as gridConfig from "~/modules/grid/config"
-import { Axis } from "~/modules/position"
+import { Axis } from "~/utils"
 import { getCollapseInstructions } from '../getCollapseInstructions'
 import { mockGridConfig, scopedGridConfigMock } from "~/modules/grid/__mocks__"
 
