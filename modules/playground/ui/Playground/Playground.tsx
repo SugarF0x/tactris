@@ -17,12 +17,14 @@ export function Playground() {
             <Tetra key={index} tetra={tetra} cellSize={32} boxSize={{ x: 3, y: 3 }} floor={[FloorCorner.TOP_RIGHT, FloorCorner.TOP_LEFT][index]} />
           ))}
         </View>
+      </View>
+      <Grid />
+      <View style={styles.hud}>
         <View style={styles.hudItem}>
           <ScoreTracker />
           <Undo />
         </View>
       </View>
-      <Grid />
       <StatusBar style="auto" />
     </View>
   )
