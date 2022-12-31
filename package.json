@@ -11,7 +11,7 @@
     "test:lint": "eslint **/*.{ts,tsx}",
     "test:types": "tsc --noEmit",
     "test:jest": "jest",
-    "build:dev:android": "eas build --profile development --platform android"
+    "build:dev:android": "eas build --profile preview --platform android"
   },
   "dependencies": {
     "expo": "~47.0.7",
