@@ -1,6 +1,7 @@
 import { Position } from "~/modules/position"
 import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid/config"
 import { exhaust } from "~/utils"
+import { getTetraSize } from "~/modules/tetra/utils/getTetraSize"
 
 export enum FloorCorner {
   TOP_LEFT = "TOP_LEFT",
@@ -10,23 +11,23 @@ export enum FloorCorner {
 }
 
 export function floorTetra(tetra: Position[], corner = FloorCorner.TOP_LEFT, size?: Position): Position[] {
-  const [[minX, minY], [maxX, maxY]] = tetra.reduce((acc, val) => {
-    acc[0][0] = Math.min(val.x, acc[0][0])
-    acc[0][1] = Math.min(val.y, acc[0][1])
-    acc[1][0] = Math.max(val.x, acc[1][0])
-    acc[1][1] = Math.max(val.y, acc[1][1])
+  const min = tetra.reduce((acc, val) => {
+    acc.x = Math.min(val.x, acc.x)
+    acc.y = Math.min(val.y, acc.y)
     return acc
-  }, [[GRID_WIDTH, GRID_HEIGHT], [0, 0]])
+  }, { x: GRID_WIDTH, y: GRID_HEIGHT })
+
+  const max = getTetraSize(tetra)
 
   const flooredTetra = tetra.map(pos => {
-    pos.x -= minX
-    pos.y -= minY
+    pos.x -= min.x
+    pos.y -= min.y
     return pos
   })
 
-  const { x: sizeX, y: sizeY } = size ? size : { x: maxX, y: maxY }
-  const shiftX = Math.max(sizeX - maxX, 0)
-  const shiftY = Math.max(sizeY - maxY, 0)
+  const { x: sizeX, y: sizeY } = size ? size : { x: max.x, y: max.y }
+  const shiftX = Math.max(sizeX - max.x, 0)
+  const shiftY = Math.max(sizeY - max.y, 0)
 
   switch (corner) {
     case FloorCorner.TOP_LEFT: return flooredTetra
