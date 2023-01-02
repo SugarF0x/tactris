@@ -1,5 +1,5 @@
 import { PositionId, positionToId } from "~/utils"
-import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid"
+import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid/config"
 
 const allGridPositionIdsCache: PositionId[] = []
 

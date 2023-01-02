@@ -1,6 +1,6 @@
 import { Position, PositionId, positionToId } from "~/utils"
 import { getTetraSize } from "~/modules/tetra/utils/getTetraSize"
-import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid"
+import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid/config"
 
 export function getAvailableTetraPosition(positions: Position[], filled: PositionId[]): PositionId[] | null {
   const size = getTetraSize(positions)

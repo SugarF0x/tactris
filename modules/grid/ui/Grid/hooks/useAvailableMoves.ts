@@ -1,8 +1,8 @@
-import { useGridStore } from "~/modules/grid"
+import { useGridStore } from "~/modules/grid/store"
 import { TetraObject } from "~/modules/tetra"
 import { useMemo } from "react"
 import { PositionId } from "~/utils"
-import { getAvailableTetraPosition } from "~/modules/grid/utils/getAvailableTetraPosition"
+import { getAvailableTetraPosition } from "~/modules/grid/utils"
 
 export interface TetraGridState extends TetraObject {
   canPlace: boolean

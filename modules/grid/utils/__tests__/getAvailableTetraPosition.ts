@@ -1,7 +1,7 @@
 import { getSpecificTetra, TetraType } from "~/modules/tetra"
 import { PositionId } from "~/utils"
 import { mockGridConfig } from "~/modules/grid/__mocks__"
-import { getAvailableTetraPosition } from "~/modules/grid/utils/getAvailableTetraPosition"
+import { getAvailableTetraPosition } from "~/modules/grid/utils"
 
 describe('getAvailableTetraPosition', () => {
   mockGridConfig({ GRID_WIDTH: 4, GRID_HEIGHT: 4 })
