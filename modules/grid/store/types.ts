@@ -7,4 +7,5 @@ export interface GridStore {
   tetras: [TetraObject, TetraObject]
   selectId: (id: PositionId) => void
   commitSelectedIds: () => void
+  restart: () => void
 }

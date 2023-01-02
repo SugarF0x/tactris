@@ -1,6 +1,6 @@
 import create from 'zustand'
 import { GridStore } from './types'
-import { commitSelectedIds, selectId } from './functions'
+import { commitSelectedIds, restart, selectId } from './functions'
 import { getInitialTetras } from './helpers'
 import { immer } from 'zustand/middleware/immer'
 import { temporal } from 'zundo'
@@ -11,7 +11,8 @@ export const useGridStore = create<GridStore>()(temporal(immer((set) => ({
   selectedIds: [],
   tetras: getInitialTetras(),
   selectId: (id) => set(state => selectId(state, id)),
-  commitSelectedIds: () => set(commitSelectedIds)
+  commitSelectedIds: () => set(commitSelectedIds),
+  restart: () => set(restart)
 })), {
   limit: 1,
   partialize: (state) => {
