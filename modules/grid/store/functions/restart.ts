@@ -1,8 +1,13 @@
 import { WritableDraft } from "immer/dist/types/types-external"
-import { GridStore, gridStoreInitialState } from "~/modules/grid"
-import { getInitialTetras } from "~/modules/grid/store/helpers"
+import { GridStore } from "~/modules/grid/store"
+import { clearSelection, updateMatchedTetra, clearFilledLines } from "~/modules/grid/store/mutations"
+import { GRID_WIDTH } from "~/modules/grid/config"
+import { Axis } from "~/utils"
 
 export function restart(state: WritableDraft<GridStore>): void {
-  Object.assign(state, gridStoreInitialState)
-  state.tetras = getInitialTetras()
+  updateMatchedTetra(state, 0)
+  updateMatchedTetra(state, 1)
+
+  clearSelection(state)
+  clearFilledLines(state, Array.from({ length: GRID_WIDTH }, (_, i) => ({ axis: Axis.X, value: i })))
 }
