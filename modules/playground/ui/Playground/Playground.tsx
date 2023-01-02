@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native"
 import { ScoreTracker } from "~/modules/score/ui"
 import { FloorCorner, Tetra } from "~/modules/tetra"
 import { StatusBar } from "expo-status-bar"
-import { Undo } from "~/modules/playground/ui/Playground/components"
+import { Restart, Undo } from "~/modules/playground/ui/Playground/components"
 import { useAvailableMoves } from "~/modules/grid/ui/Grid/hooks"
 
 export function Playground() {
@@ -30,7 +30,11 @@ export function Playground() {
       <View style={styles.hud}>
         <View style={styles.hudItem}>
           <ScoreTracker />
-          <Undo />
+          <View>
+            <Undo />
+            <View style={styles.spacer} />
+            <Restart />
+          </View>
         </View>
       </View>
       <StatusBar style="auto" />
@@ -54,5 +58,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
+  },
+  spacer: {
+    marginVertical: 4
   }
 })
