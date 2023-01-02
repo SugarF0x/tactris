@@ -36,7 +36,7 @@ export function Tetra(props: TetraProps) {
 
             return (
               <Cell
-                key={`${y}-${x}`}
+                key={`${y}-${x}-${highlight}-${isVisible}`}
                 transparent
                 filled={!highlight && isVisible}
                 selected={highlight && isVisible}
