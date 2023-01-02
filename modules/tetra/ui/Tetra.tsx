@@ -10,10 +10,11 @@ export interface TetraProps {
   cellSize: number
   boxSize?: Position
   floor?: FloorCorner
+  highlight?: boolean
 }
 
 export function Tetra(props: TetraProps) {
-  const { tetra, cellSize, boxSize, floor } = props
+  const { tetra, cellSize, boxSize, floor, highlight } = props
 
   const wrapperSize: ViewStyle = { height: cellSize * 4, width: cellSize * 3 }
 
@@ -30,9 +31,19 @@ export function Tetra(props: TetraProps) {
     <View style={[styles.wrapper, wrapperSize]}>
       {[...Array(height)].map((_, y) => (
         <View key={y} style={styles.row}>
-          {[...Array(width)].map((_, x) => (
-            <Cell key={x} transparent selected={posIds.includes(positionToId({ x, y }))} size={cellSize} />
-          ))}
+          {[...Array(width)].map((_, x) => {
+            const isVisible = posIds.includes(positionToId({ x, y }))
+
+            return (
+              <Cell
+                key={`${y}-${x}`}
+                transparent
+                filled={!highlight && isVisible}
+                selected={highlight && isVisible}
+                size={cellSize}
+              />
+            )
+          })}
         </View>
       ))}
     </View>

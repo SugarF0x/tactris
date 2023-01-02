@@ -7,8 +7,8 @@ import { GRID_WIDTH, GRID_HEIGHT } from "~/modules/grid/config"
 import { useGridSounds } from './hooks'
 
 export function Grid() {
-  useGridSounds()
   const { width } = useWindowDimensions()
+  useGridSounds()
 
   const selectId = useGridStore(state => state.selectId)
   const commitSelectedIds = useGridStore(state => state.commitSelectedIds)
