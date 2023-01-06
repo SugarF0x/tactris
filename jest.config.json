@@ -1,5 +1,8 @@
 {
   "preset": "jest-expo",
   "modulePathIgnorePatterns": ["<rootDir>/.*/__mocks__"],
-  "clearMocks": true
+  "clearMocks": true,
+  "setupFiles": [
+    "./jest.setup.js"
+  ]
 }
