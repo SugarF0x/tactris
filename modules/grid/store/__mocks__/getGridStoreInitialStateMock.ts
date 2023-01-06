@@ -1,12 +1,9 @@
 import { GridStore, gridStoreInitialState } from "~/modules/grid"
-import { cloneDeep } from 'lodash'
+import { cloneDeep, merge } from 'lodash'
+import { DeepPartial } from "~/utils/types"
 
-export const getGridStoreInitialStateMock = (stateOverride: Partial<GridStore> = {}) => {
-  const state: Readonly<GridStore> = {
-    ...gridStoreInitialState,
-    ...stateOverride
-  }
-
+export const getGridStoreInitialStateMock = (stateOverride: DeepPartial<GridStore> = {}) => {
+  const state: Readonly<GridStore> = merge(gridStoreInitialState, stateOverride)
   const draft = cloneDeep<GridStore>(state)
 
   return {
