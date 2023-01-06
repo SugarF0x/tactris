@@ -3,13 +3,16 @@ import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
 import { updateMatchedTetra } from "~/modules/grid/store/mutations"
 
 describe('updateMatchedTetra', () => {
-  it('should regenerate a new unique tetra in place of given one', () => {
-    const tetras = getInitialTetras()
+  const tetras = getInitialTetras()
+  const { state, draft } = getGridStoreInitialStateMock({ tetras })
+  updateMatchedTetra(draft, 0)
 
-    const { state, draft } = getGridStoreInitialStateMock({ tetras })
+  it('should replace matched tetra with reserve tetra', () => {
+    expect(draft.tetras.available[0]).toEqual(state.tetras.reserve)
+  })
 
-    updateMatchedTetra(draft, 0)
-    expect(draft.tetras[0]).not.toMatchObject(state.tetras[0])
-    expect(draft.tetras[0].type).not.toEqual(state.tetras[0].type)
+  it('should generate a new unique reserve tetra', () => {
+    expect(draft.tetras.reserve.type).not.toEqual(state.tetras.reserve.type)
+    expect(draft.tetras.reserve.type).not.toEqual(expect.arrayContaining([state.tetras.available.map(tetra => tetra.type), state.tetras.reserve.type].flat()))
   })
 })
