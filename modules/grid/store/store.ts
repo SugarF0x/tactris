@@ -7,6 +7,7 @@ import { persist } from 'zustand/middleware'
 import { temporal } from 'zundo'
 import { isEqual } from 'lodash'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { getRandomTetra, TetraObject } from "~/modules/tetra"
 
 export const useGridStore = create<GridStore>()(persist(temporal(immer((set) => ({
   filledIds: [],
@@ -24,7 +25,19 @@ export const useGridStore = create<GridStore>()(persist(temporal(immer((set) => 
   equality: isEqual
 }), {
   name: 'grid-storage',
-  getStorage: () => AsyncStorage
+  getStorage: () => AsyncStorage,
+  version: 1,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  migrate: (state: any, version) => {
+    switch (version) {
+      case 0: {
+        state.tetras = { available: state.tetras, reserve: getRandomTetra(state.tetras.map((tetra: TetraObject) => tetra.type)) }
+        break
+      }
+    }
+
+    return state
+  }
 }))
 
 export const gridStoreInitialState = useGridStore.getState()
