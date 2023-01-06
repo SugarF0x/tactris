@@ -9,7 +9,7 @@ export interface TetraGridState extends TetraObject {
 }
 
 export function useAvailableMoves(): [TetraGridState, TetraGridState] {
-  const tetras = useGridStore(state => state.tetras)
+  const tetras = useGridStore(state => state.tetras.available)
   const filledIds = useGridStore(state => state.filledIds)
 
   const tetraToAvailablePositionsWeakMap = useMemo(() => {
