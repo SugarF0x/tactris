@@ -4,8 +4,10 @@ import { ScoreStore } from "~/modules/score/store/types"
 import { restart, updateScore } from "~/modules/score/store/functions"
 import { temporal } from "zundo"
 import { isEqual } from "lodash"
+import { persist } from "zustand/middleware"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export const useScoreStore = create<ScoreStore>()(temporal(immer((set) => ({
+export const useScoreStore = create<ScoreStore>()(persist(temporal(immer((set) => ({
   score: 0,
   highScore: 0,
   updateScore: (lines) => set(state => updateScore(state, lines)),
@@ -17,6 +19,9 @@ export const useScoreStore = create<ScoreStore>()(temporal(immer((set) => ({
     return { score, highScore }
   },
   equality: isEqual
+}), {
+  name: 'score-storage',
+  getStorage: () => AsyncStorage
 }))
 
 export const initialScoreStore = useScoreStore.getState()
