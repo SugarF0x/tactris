@@ -1,7 +1,13 @@
-import { getRandomTetra, TetraObject } from "~/modules/tetra"
+import { getRandomTetra } from "~/modules/tetra"
+import { GridTetras } from "~/modules/grid/store/types"
 
-export function getInitialTetras(): [TetraObject, TetraObject] {
+export function getInitialTetras(): GridTetras {
   const firstTetra = getRandomTetra()
   const secondTetra = getRandomTetra([firstTetra.type])
-  return [firstTetra, secondTetra]
+  const reserve = getRandomTetra([firstTetra.type, secondTetra.type])
+
+  return {
+    available: [firstTetra, secondTetra],
+    reserve
+  }
 }
