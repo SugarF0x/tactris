@@ -21,11 +21,11 @@ describe('commitSelectedIds', () => {
     const tetras: [TetraObject, TetraObject] = [getSpecificTetra(TetraType.I), getRandomTetra([TetraType.I])]
     const selectedIds: PositionId[] = ['4/4', '4/5', '4/6', '4/7']
 
-    const { state, draft } = getGridStoreInitialStateMock({ tetras, selectedIds })
+    const { state, draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
 
     commitSelectedIds(draft)
 
-    expect(draft.tetras[0]).not.toMatchObject(state.tetras[0])
+    expect(draft.tetras.available[0]).not.toMatchObject(state.tetras.available[0])
   })
 
   it.each<[[TetraType, TetraType], PositionId[]]>([
@@ -43,7 +43,7 @@ describe('commitSelectedIds', () => {
     ],
   ])('should do early return if selection does not match either tetra %#', (tetraTypes, selectedIds) => {
     const tetras = tetraTypes.map(tetra => getSpecificTetra(tetra)) as [TetraObject, TetraObject]
-    const { state, draft } = getGridStoreInitialStateMock({ tetras, selectedIds })
+    const { state, draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
 
     commitSelectedIds(draft)
 
@@ -65,7 +65,7 @@ describe('commitSelectedIds', () => {
     ]
   ])('should append selectedIds to filledIds on successful match & clear selection %#', (tetraTypes, selectedIds) => {
     const tetras = tetraTypes.map(tetra => getSpecificTetra(tetra)) as [TetraObject, TetraObject]
-    const { draft } = getGridStoreInitialStateMock({ tetras, selectedIds })
+    const { draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
 
     commitSelectedIds(draft)
 
@@ -90,7 +90,9 @@ describe('commitSelectedIds', () => {
     ]
 
     const { draft } = getGridStoreInitialStateMock({
-      tetras: [getSpecificTetra(TetraType.T), getSpecificTetra(TetraType.I)],
+      tetras: {
+        available: [getSpecificTetra(TetraType.T), getSpecificTetra(TetraType.I)]
+      },
       selectedIds: fillSelection,
       filledIds: [
         ...almostFilledLines,
@@ -110,7 +112,9 @@ describe('commitSelectedIds', () => {
     const { draft } = getGridStoreInitialStateMock({
       filledIds: Array.from({ length: GRID_WIDTH - 1 }, (_, y) => positionToId({ x: 0, y: y + 1 })),
       selectedIds: ['0/0', '0/1', '0/2', '0/3'],
-      tetras: [getSpecificTetra(TetraType.I), getRandomTetra([TetraType.I])]
+      tetras: {
+        available: [getSpecificTetra(TetraType.I), getRandomTetra([TetraType.I])]
+      }
     })
     commitSelectedIds(draft)
 

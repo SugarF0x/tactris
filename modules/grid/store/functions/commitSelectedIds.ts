@@ -10,10 +10,10 @@ export function commitSelectedIds(state: WritableDraft<GridStore>): void {
   if (state.selectedIds.length < 4) return
 
   const selectedTetra = state.selectedIds.map(idToPosition)
-  const tetraMatch = state.tetras.find(tetra => doesInputMatchTetra(selectedTetra, tetra))
+  const tetraMatch = state.tetras.available.find(tetra => doesInputMatchTetra(selectedTetra, tetra))
   if (!tetraMatch) return
 
-  updateMatchedTetra(state, state.tetras.indexOf(tetraMatch))
+  updateMatchedTetra(state, state.tetras.available.indexOf(tetraMatch))
   commitSelection(state)
 
   const completionLines = getCompletionLines(state.selectedIds)
