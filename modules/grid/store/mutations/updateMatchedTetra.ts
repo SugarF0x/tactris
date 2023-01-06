@@ -4,5 +4,8 @@ import { getRandomTetra } from "~/modules/tetra"
 
 export function updateMatchedTetra(state: WritableDraft<GridStore>, index: number): void {
   const oldTetraTypes = state.tetras.map(tetra => tetra.type)
-  state.tetras[index] = getRandomTetra(oldTetraTypes)
+  const newTetra = getRandomTetra(oldTetraTypes)
+
+  state.tetras[index] = state.tetras[2]
+  state.tetras[2] = newTetra
 }
