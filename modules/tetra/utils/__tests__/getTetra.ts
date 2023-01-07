@@ -60,7 +60,7 @@ describe('getRandomTetra', () => {
   const tetraCount = tetraTypes.length
   const typeToIndexTuple = Object.entries(tetraTypes).map((t): [TetraType, number] => [t[1] as TetraType, Number(t[0])])
 
-  it.each(typeToIndexTuple)('should return random tetra (%s)', (type, index) => {
+  it.each(typeToIndexTuple)('should return random tetra (%s) at random rotation', (type, index) => {
     jest.spyOn(Math, 'random').mockReturnValueOnce(index / tetraCount)
 
     const tetra = getRandomTetra()
@@ -68,18 +68,25 @@ describe('getRandomTetra', () => {
     expect(tetra.type).toBe(type)
   })
 
-  it.each<TetraType[][]>([
-    [[TetraType.L]],
-    [[TetraType.O, TetraType.I]],
-    [[TetraType.Z, TetraType.T, TetraType.P, TetraType.S]],
-  ])('should return random tetra expect for given types (%p)', (exclude) => {
-    const excludedTypeWithIndexTuple = exclude.map<[TetraType, number]>(excludedType => [excludedType, tetraTypes.indexOf(excludedType)])
+  it.each<[TetraObject[]]>([
+    [[{ type: TetraType.L, rotation: 0 }]],
+    [[{ type: TetraType.O, rotation: 0 }, { type: TetraType.I, rotation: 0 }]],
+    [[{ type: TetraType.Z, rotation: 0 }, { type: TetraType.T, rotation: 0 }, { type: TetraType.P, rotation: 0 }, { type: TetraType.S, rotation: 0 }]],
+  ])('should on same random tetra type return different rotation %#', (exclusions) => {
+    const excludedTypeWithIndexTuple = exclusions.map<[TetraType, number]>(exclusion => [exclusion.type, tetraTypes.indexOf(exclusion.type)])
 
-    for (const [type, index] of excludedTypeWithIndexTuple) {
-      jest.spyOn(Math, 'random').mockReturnValueOnce(index / tetraCount)
+    excludedTypeWithIndexTuple.forEach(([type, typeIndex], index) => {
+      jest.spyOn(Math, 'random')
+        // mock tetra
+        .mockReturnValueOnce(typeIndex / tetraCount)
+        // mock rotation
+        .mockReturnValueOnce(0)
 
-      expect(getRandomTetra(exclude).type).not.toEqual(type)
-    }
+      const result = getRandomTetra(exclusions)
+
+      expect(result.type).toEqual(type)
+      expect(result.rotation).not.toEqual(exclusions[index].rotation)
+    })
   })
 
   it('should return all tetra rotations', () => {

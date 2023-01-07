@@ -2,13 +2,11 @@ import { getInitialTetras } from "~/modules/grid/store/helpers"
 
 describe('getInitialTetras', () => {
   it('should return two unique tetras as available and one unique reserve', () => {
-    jest.spyOn(Math, 'random')
-      .mockImplementationOnce(() => 0)
-      .mockImplementationOnce(() => 0)
-      .mockImplementationOnce(() => 0)
+    jest.spyOn(Math, 'random').mockImplementation(() => 0)
 
     const initialTetras = getInitialTetras()
-    const uniqueTetraTypesLength = new Set([...initialTetras.available.map(tetra => tetra.type), initialTetras.reserve.type]).size
-    expect(uniqueTetraTypesLength).toEqual(3)
+    const allTetras = [initialTetras.available, initialTetras.reserve].flat()
+    const uniqueTetrasLength = new Set(allTetras.map(tetra => JSON.stringify(tetra))).size
+    expect(uniqueTetrasLength).toEqual(3)
   })
 })

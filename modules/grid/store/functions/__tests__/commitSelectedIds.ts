@@ -18,7 +18,7 @@ describe('commitSelectedIds', () => {
   })
 
   it('should update matched tetra', () => {
-    const tetras: [TetraObject, TetraObject] = [{ type: TetraType.I, rotation: 0 }, getRandomTetra([TetraType.I])]
+    const tetras: [TetraObject, TetraObject] = [{ type: TetraType.I, rotation: 0 }, getRandomTetra([{ type: TetraType.I, rotation: 0 }])]
     const selectedIds: PositionId[] = ['4/4', '4/5', '4/6', '4/7']
 
     const { state, draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
@@ -113,7 +113,7 @@ describe('commitSelectedIds', () => {
       filledIds: Array.from({ length: GRID_WIDTH - 1 }, (_, y) => positionToId({ x: 0, y: y + 1 })),
       selectedIds: ['0/0', '0/1', '0/2', '0/3'],
       tetras: {
-        available: [{ type: TetraType.I, rotation: 0 }, getRandomTetra([TetraType.I])]
+        available: [{ type: TetraType.I, rotation: 0 }, getRandomTetra([{ type: TetraType.I, rotation: 0 }])]
       }
     })
     commitSelectedIds(draft)

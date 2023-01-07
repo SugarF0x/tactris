@@ -67,11 +67,12 @@ export function getRandomTetraRotation(exclude: TetraRotation[] = []): TetraRota
   return rotation as TetraRotation
 }
 
-export function getRandomTetra(exclude: TetraType[] = []): TetraObject {
-  const availableTypes = Object.values(TetraType).filter(type => !exclude.includes(type))
-
+export function getRandomTetra(exclude: TetraObject[] = []): TetraObject {
+  const availableTypes = Object.values(TetraType)
   const type = availableTypes[Math.floor(Math.random() * availableTypes.length)]
-  const rotation = Math.floor(Math.random() * 4) as TetraRotation
+
+  const excludedRotations = exclude.filter(tetra => tetra.type === type).map(tetra => tetra.rotation)
+  const rotation = getRandomTetraRotation(excludedRotations)
 
   return {
     type,
