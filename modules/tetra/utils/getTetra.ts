@@ -1,5 +1,5 @@
 import { Position, rotateMatrix } from "~/utils"
-import { TetraObject, TetraType, TetraRotation } from '../types'
+import { TetraObject, TetraRotation, TetraType } from '../types'
 
 export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   L: [
@@ -55,6 +55,16 @@ export function convertTetraToPositions(tetra: TetraObject): Position[] {
   })
 
   return positions
+}
+
+export function getRandomTetraRotation(exclude: TetraRotation[] = []): TetraRotation {
+  const sortedExclusions = exclude.sort()
+  const availableRotations = 4 - sortedExclusions.length
+
+  let rotation = Math.floor(Math.random() * availableRotations)
+  for (const exclusion of sortedExclusions) if (rotation === exclusion) rotation++
+
+  return rotation as TetraRotation
 }
 
 export function getRandomTetra(exclude: TetraType[] = []): TetraObject {

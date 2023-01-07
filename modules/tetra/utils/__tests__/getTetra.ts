@@ -1,5 +1,5 @@
 import { Position, positionToId } from "~/utils"
-import { getRandomTetra, convertTetraToPositions, TetraObject, TetrasDictionary, TetraType } from "~/modules/tetra"
+import { getRandomTetra, convertTetraToPositions, TetraObject, TetrasDictionary, TetraType, TetraRotation, getRandomTetraRotation } from "~/modules/tetra"
 
 describe('convertTetraToPositions', () => {
   it.each<[TetraType, Position[]]>([
@@ -21,6 +21,37 @@ describe('convertTetraToPositions', () => {
     const result = convertTetraToPositions(input)
 
     expect(result.map(positionToId).sort()).toEqual(output.map(positionToId).sort())
+  })
+})
+
+describe('getRandomTetraRotation', () => {
+  it.each<[number, TetraRotation]>([
+    [0, 0],
+    [.25, 1],
+    [.5, 2],
+    [.75, 3],
+  ])('should return random rotations %#', (randomValue, result) => {
+    jest.spyOn(Math, 'random').mockReturnValueOnce(randomValue)
+    expect(getRandomTetraRotation()).toEqual(result)
+  })
+
+  it.each<[TetraRotation[]]>([
+    [[]],
+    [[0]],
+    [[0, 1]],
+    [[0, 1, 2]],
+    [[0, 1, 2, 3]],
+    [[0, 1, 3]],
+    [[1, 3]],
+    [[0, 2]],
+    [[0, 3]],
+    [[1, 2]],
+    [[2]],
+  ])('should properly exclude given array from possible results %#', (exclusions) => {
+    for (let i = 0; i < 4; i++) {
+      jest.spyOn(Math, 'random').mockReturnValueOnce(.25 * i)
+      expect(exclusions.includes(getRandomTetraRotation(exclusions))).toBeFalsy()
+    }
   })
 })
 
