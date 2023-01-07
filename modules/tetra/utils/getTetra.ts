@@ -1,6 +1,10 @@
 import { Position, rotateMatrix } from "~/utils"
 import { TetraObject, TetraRotation, TetraType } from '../types'
 
+// TODO: extend dictionary to include the amount of possible rotations
+//  e.g. there should be no two cubes and no two lines
+//  since they may be on different rotations but effectively the same
+
 export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   L: [
     [1, 0],
