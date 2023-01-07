@@ -16,7 +16,7 @@ export function useAvailableMoves(): [TetraGridState, TetraGridState] {
     const map = new WeakMap<TetraObject, PositionId[]>()
 
     for (const tetra of tetras) {
-      const availablePosition = getAvailableTetraPosition(tetra.positions, filledIds)
+      const availablePosition = getAvailableTetraPosition(tetra, filledIds)
       if (!availablePosition) continue
       map.set(tetra, availablePosition)
     }

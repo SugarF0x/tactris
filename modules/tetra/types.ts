@@ -1,5 +1,3 @@
-import { Position } from "~/utils"
-
 export enum TetraType {
   L = 'L',
   P = 'P',
@@ -10,7 +8,13 @@ export enum TetraType {
   O = 'O',
 }
 
+export type TetraRotation =
+  | 0
+  | 1
+  | 2
+  | 3
+
 export interface TetraObject {
   type: TetraType
-  positions: Position[]
+  rotation: TetraRotation
 }

@@ -1,4 +1,4 @@
-import { doesInputMatchTetra, getSpecificTetra, TetraObject, TetraType } from "~/modules/tetra"
+import { doesInputMatchTetra, TetraType } from "~/modules/tetra"
 import { Position } from "~/utils"
 
 describe('doesInputMatchTetra', () => {
@@ -10,9 +10,7 @@ describe('doesInputMatchTetra', () => {
       { x: 1, y: 1 },
     ]
 
-    const tetra: TetraObject = getSpecificTetra(TetraType.O)
-
-    expect(doesInputMatchTetra(input, tetra)).toBeTruthy()
+    expect(doesInputMatchTetra(input, { type: TetraType.O, rotation: 0 })).toBeTruthy()
   })
 
   it('should return false on tetra mismatch', () => {
@@ -23,8 +21,6 @@ describe('doesInputMatchTetra', () => {
       { x: 1, y: 1 },
     ]
 
-    const tetra: TetraObject = getSpecificTetra(TetraType.O)
-
-    expect(doesInputMatchTetra(input, tetra)).not.toBeTruthy()
+    expect(doesInputMatchTetra(input, { type: TetraType.O, rotation: 0 })).not.toBeTruthy()
   })
 })

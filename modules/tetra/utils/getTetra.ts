@@ -1,5 +1,5 @@
 import { Position, rotateMatrix } from "~/utils"
-import { TetraObject, TetraType } from '../types'
+import { TetraObject, TetraType, TetraRotation } from '../types'
 
 export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   L: [
@@ -36,16 +36,12 @@ export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
   ]
 }
 
-export type TetraRotation =
-  | 0
-  | 1
-  | 2
-  | 3
+export function convertTetraToPositions(tetra: TetraObject): Position[] {
+  const { type, rotation } = tetra
 
-export function getSpecificTetra(type: TetraType, rotations: TetraRotation = 0): TetraObject {
   let rows = TetrasDictionary[type]
 
-  for (let i = 0; i < rotations; i++) {
+  for (let i = 0; i < rotation; i++) {
     rows = rotateMatrix(rows)
   }
 
@@ -58,17 +54,17 @@ export function getSpecificTetra(type: TetraType, rotations: TetraRotation = 0):
     })
   })
 
-  return {
-    type,
-    positions
-  }
+  return positions
 }
 
 export function getRandomTetra(exclude: TetraType[] = []): TetraObject {
   const availableTypes = Object.values(TetraType).filter(type => !exclude.includes(type))
 
-  const randomType = availableTypes[Math.floor(Math.random() * availableTypes.length)]
-  const randomRotation = Math.floor(Math.random() * 4) as TetraRotation
+  const type = availableTypes[Math.floor(Math.random() * availableTypes.length)]
+  const rotation = Math.floor(Math.random() * 4) as TetraRotation
 
-  return getSpecificTetra(randomType, randomRotation)
+  return {
+    type,
+    rotation
+  }
 }

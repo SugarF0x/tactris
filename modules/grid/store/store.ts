@@ -26,12 +26,16 @@ export const useGridStore = create<GridStore>()(persist(temporal(immer((set) => 
 }), {
   name: 'grid-storage',
   getStorage: () => AsyncStorage,
-  version: 1,
+  version: 2,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   migrate: (state: any, version) => {
     switch (version) {
       case 0: {
         state.tetras = { available: state.tetras, reserve: getRandomTetra(state.tetras.map((tetra: TetraObject) => tetra.type)) }
+        break
+      }
+      case 1: {
+        state.tetras = getInitialTetras()
         break
       }
     }

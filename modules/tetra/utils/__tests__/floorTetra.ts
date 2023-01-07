@@ -1,6 +1,6 @@
 import { getSize, Position } from "~/utils"
 import { FloorCorner, floorTetra } from '../floorTetra'
-import { getSpecificTetra, TetraType } from "~/modules/tetra"
+import { convertTetraToPositions, TetraType } from "~/modules/tetra"
 import { mockGridConfig } from "~/modules/grid/__mocks__"
 
 describe('floorTetra', () => {
@@ -45,7 +45,7 @@ describe('floorTetra', () => {
   })
 
   describe('directional floor', () => {
-    const tetra = getSpecificTetra(TetraType.L, 2).positions
+    const tetra = convertTetraToPositions({ type: TetraType.L, rotation: 2 })
 
     it.each<[FloorCorner]>([
       [FloorCorner.TOP_LEFT],
