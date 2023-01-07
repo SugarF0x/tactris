@@ -1,7 +1,7 @@
 import { Position, positionToId } from "~/utils"
 import { TetraObject } from "../types"
 import { floorTetra } from './floorTetra'
-import { convertTetraToPositions } from "~/modules/tetra"
+import { convertTetraToPositions } from "~/modules/tetra/utils/getTetra"
 
 export function doesInputMatchTetra(input: Position[], tetra: TetraObject): boolean {
   const flooredInput = floorTetra(input)
