@@ -1,7 +1,7 @@
 import React from 'react'
 import { TetraObject } from "../types"
 import { Cell } from './Cell'
-import { StyleSheet, View } from "react-native"
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native"
 import { Position, PositionId, positionToId } from "~/utils"
 import { convertTetraToPositions, FloorCorner, floorTetra } from "~/modules/tetra/utils"
 
@@ -11,10 +11,11 @@ export interface TetraProps {
   boxSize?: Position
   floor?: FloorCorner
   highlight?: boolean
+  style?: StyleProp<ViewStyle>
 }
 
 export function Tetra(props: TetraProps) {
-  const { tetra, cellSize, boxSize, floor, highlight } = props
+  const { tetra, cellSize, boxSize, floor, highlight, style } = props
 
   const tetraPositions = convertTetraToPositions(tetra)
 
@@ -28,7 +29,7 @@ export function Tetra(props: TetraProps) {
   const posIds: PositionId[] = flooredTetra.map(positionToId)
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, style]}>
       {[...Array(height)].map((_, y) => (
         <View key={y} style={styles.row}>
           {[...Array(width)].map((_, x) => {

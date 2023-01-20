@@ -2,31 +2,16 @@ import React from 'react'
 import { Grid } from "~/modules/grid"
 import { StyleSheet, View } from "react-native"
 import { ScoreTracker } from "~/modules/score/ui"
-import { FloorCorner, Tetra } from "~/modules/tetra"
 import { StatusBar } from "expo-status-bar"
-import { Restart, Undo } from "~/modules/playground/ui/Playground/components"
-import { useAvailableMoves } from "~/modules/grid/ui/Grid/hooks"
+import { Restart, Undo, AvailableTetras } from "~/modules/playground/ui/Playground/components"
 import Title from "~/modules/playground/ui/Playground/assets/title.svg"
 
 export function Playground() {
-  const tetras = useAvailableMoves()
-
   return (
     <View style={styles.wrapper}>
       <View style={styles.hud}>
         <Title style={styles.title} />
-        <View style={[styles.hudItem, styles.tetrasContainer]}>
-          {tetras.map((tetra, index) => (
-            <Tetra
-              key={index}
-              tetra={tetra}
-              highlight={tetra.canPlace}
-              cellSize={32}
-              boxSize={{ x: 3, y: 3 }}
-              floor={[FloorCorner.TOP_RIGHT, FloorCorner.TOP_LEFT][index]}
-            />
-          ))}
-        </View>
+        <AvailableTetras style={styles.tetrasContainer} />
       </View>
       <Grid />
       <View style={styles.hud}>
