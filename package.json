@@ -27,6 +27,7 @@
     "lodash": "^4.17.21",
     "react": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-svg": "13.4.0",
     "typescript": "^4.6.3",
     "zundo": "^2.0.0-beta.8",
     "zustand": "^4.1.4"
@@ -48,7 +49,8 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-native": "^4.0.0"
+    "eslint-plugin-react-native": "^4.0.0",
+    "react-native-svg-transformer": "^1.0.0"
   },
   "private": true
 }
