@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { Playground } from "~/modules/playground"
 import * as SplashScreen from 'expo-splash-screen'
-import { View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { useFonts } from "expo-font"
 import { Fonts } from "~/styles"
 
@@ -21,8 +21,14 @@ export default function App() {
 
   if (!fontsLoaded) return null
   return (
-    <View onLayout={onLayoutRootView}>
+    <View onLayout={onLayoutRootView} style={styles.root}>
       <Playground />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1
+  }
+})

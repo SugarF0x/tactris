@@ -6,6 +6,7 @@ import { FloorCorner, Tetra } from "~/modules/tetra"
 import { StatusBar } from "expo-status-bar"
 import { Restart, Undo } from "~/modules/playground/ui/Playground/components"
 import { useAvailableMoves } from "~/modules/grid/ui/Grid/hooks"
+import Title from "~/modules/playground/ui/Playground/assets/title.svg"
 
 export function Playground() {
   const tetras = useAvailableMoves()
@@ -13,7 +14,8 @@ export function Playground() {
   return (
     <View style={styles.wrapper}>
       <View style={styles.hud}>
-        <View style={styles.hudItem}>
+        <Title style={styles.title} />
+        <View style={[styles.hudItem, styles.tetrasContainer]}>
           {tetras.map((tetra, index) => (
             <Tetra
               key={index}
@@ -59,7 +61,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'flex-start',
   },
+  tetrasContainer: {
+    marginTop: 16
+  },
   spacer: {
     marginVertical: 4
+  },
+  title: {
+    alignSelf: 'center',
   }
 })
