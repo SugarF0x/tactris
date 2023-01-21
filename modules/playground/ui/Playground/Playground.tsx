@@ -5,6 +5,8 @@ import { ScoreTracker } from "~/modules/score/ui"
 import { StatusBar } from "expo-status-bar"
 import { Restart, Undo, AvailableTetras } from "~/modules/playground/ui/Playground/components"
 import Title from "~/modules/playground/ui/Playground/assets/title.svg"
+import { background, gridGradient } from "~/styles"
+import { LinearGradient } from 'expo-linear-gradient'
 
 export function Playground() {
   return (
@@ -13,7 +15,13 @@ export function Playground() {
         <Title style={styles.title} />
         <AvailableTetras style={styles.tetrasContainer} />
       </View>
-      <Grid />
+
+      <View style={styles.gridWrapper}>
+        <LinearGradient colors={[background, gridGradient]} style={styles.gridBorder}/>
+        <Grid />
+        <LinearGradient colors={[gridGradient, background]} style={styles.gridBorder}/>
+      </View>
+
       <View style={styles.hud}>
         <View style={styles.hudItem}>
           <ScoreTracker />
@@ -34,11 +42,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#333'
+    backgroundColor: background
   },
   hud: {
     width: '100%',
-    paddingVertical: 8
   },
   hudItem: {
     width: '100%',
@@ -48,6 +55,12 @@ const styles = StyleSheet.create({
   },
   tetrasContainer: {
     marginTop: 16
+  },
+  gridWrapper: {
+    marginTop: 12,
+  },
+  gridBorder: {
+    height: 8,
   },
   spacer: {
     marginVertical: 4
