@@ -22,7 +22,7 @@ export function Playground() {
         <LinearGradient colors={[gridGradient, background]} style={styles.gridBorder}/>
       </View>
 
-      <View style={styles.hud}>
+      <View style={[styles.hud, styles.controls]}>
         <View style={styles.hudItem}>
           <ScoreTracker />
           <View>
@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
   },
   hud: {
     width: '100%',
+  },
+  controls: {
+    marginTop: 12
   },
   hudItem: {
     width: '100%',
