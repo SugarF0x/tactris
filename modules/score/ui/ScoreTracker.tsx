@@ -15,7 +15,7 @@ export function ScoreTracker() {
   return (
     <Card style={styles.wrapper}>
       <Text style={styles.score}>
-        <Text style={styles.scorePlaceholder}>{'0'.repeat(SCORE_LENGTH_CAP - score.toString.length)}</Text>
+        <Text style={styles.scorePlaceholder}>{'0'.repeat(SCORE_LENGTH_CAP - score.toString().length)}</Text>
         {score}
       </Text>
       <Card style={styles.highScoreWrapper}>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: cyan,
     fontFamily: Fonts.LCD,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   scorePlaceholder: {
     opacity: .25
@@ -46,11 +46,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingRight: 8,
+    paddingLeft: 12
   },
   highScore: {
     fontSize: 20,
     color: cyan,
     opacity: .5,
-    fontFamily: Fonts.LCD
+    fontFamily: Fonts.LCD,
+    marginBottom: -2
   }
 })
