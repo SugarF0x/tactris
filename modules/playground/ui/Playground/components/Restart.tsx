@@ -36,7 +36,7 @@ export function Restart() {
     <View style={styles.wrapper}>
       <Speaker />
       <Card style={styles.card}>
-        <Button onPress={handleRestart} wrapperStyles={styles.button}>
+        <Button onPress={handleRestart} style={styles.button}>
           Restart
         </Button>
       </Card>

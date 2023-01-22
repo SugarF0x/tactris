@@ -15,11 +15,11 @@ export interface ButtonProps {
   disabled?: boolean
   onPress?: () => void
   size?: number
-  wrapperStyles?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>
 }
 
 export function Button(props: ButtonProps) {
-  const { children, disabled, wrapperStyles, onPress, size = 12 } = props
+  const { children, disabled, style, onPress, size = 12 } = props
 
   const shadow = useRef(new Animated.Value(1)).current
 
@@ -34,7 +34,7 @@ export function Button(props: ButtonProps) {
   return (
     <Pressable disabled={disabled} onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
       <Animated.View style={[!disabled && cyanShadow, { shadowOpacity: shadow }, disabled && styles.disabled]}>
-        <Card style={[styles.wrapper, wrapperStyles]}>
+        <Card style={[styles.wrapper, style]}>
           <Text style={[styles.title, { fontSize: size }]}>
             {children}
           </Text>
