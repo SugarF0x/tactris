@@ -45,7 +45,7 @@ export function AvailableTetras(props: AvailableTetrasProps) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginHorizontal: 24,
+    flex: 1
   },
   container: {
     flexDirection: 'row',

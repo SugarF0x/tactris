@@ -4,15 +4,16 @@ import { StyleSheet, View } from "react-native"
 import { ScoreTracker } from "~/modules/score/ui"
 import { StatusBar } from "expo-status-bar"
 import { Restart, Undo, AvailableTetras } from "~/modules/playground/ui/Playground/components"
-import Title from "~/modules/playground/ui/Playground/assets/title.svg"
+import { Title } from "~/modules/playground/ui/Playground/assets"
 import { background, gridGradient } from "~/styles"
 import { LinearGradient } from 'expo-linear-gradient'
 
 export function Playground() {
   return (
     <View style={styles.wrapper}>
+      <Title style={styles.title} />
+
       <View style={styles.hud}>
-        <Title style={styles.title} />
         <AvailableTetras style={styles.tetrasContainer} />
       </View>
 
@@ -23,14 +24,9 @@ export function Playground() {
       </View>
 
       <View style={[styles.hud, styles.controls]}>
-        <View style={styles.hudItem}>
-          <ScoreTracker />
-          <View>
-            <Undo />
-            <View style={styles.spacer} />
-            <Restart />
-          </View>
-        </View>
+        <ScoreTracker />
+        <Restart />
+        <Undo />
       </View>
       <StatusBar style="auto" />
     </View>
@@ -46,15 +42,12 @@ const styles = StyleSheet.create({
   },
   hud: {
     width: '100%',
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   controls: {
     marginTop: 12
-  },
-  hudItem: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
   },
   tetrasContainer: {
     marginTop: 16
@@ -64,9 +57,6 @@ const styles = StyleSheet.create({
   },
   gridBorder: {
     height: 8,
-  },
-  spacer: {
-    marginVertical: 4
   },
   title: {
     alignSelf: 'center',

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { Card } from './Card'
 import { background, cyan, cyanShadow, Fonts } from "~/styles"
-import { Animated, Easing, Pressable, StyleSheet, Text } from "react-native"
+import { Animated, Easing, Pressable, StyleProp, StyleSheet, Text, ViewStyle } from "react-native"
 
 const defaultAnimationConfig = {
   toValue: 1,
@@ -15,10 +15,11 @@ export interface ButtonProps {
   disabled?: boolean
   onPress?: () => void
   size?: number
+  wrapperStyles?: StyleProp<ViewStyle>
 }
 
 export function Button(props: ButtonProps) {
-  const { children, disabled, onPress, size = 12 } = props
+  const { children, disabled, wrapperStyles, onPress, size = 12 } = props
 
   const shadow = useRef(new Animated.Value(1)).current
 
@@ -33,7 +34,7 @@ export function Button(props: ButtonProps) {
   return (
     <Pressable disabled={disabled} onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
       <Animated.View style={[!disabled && cyanShadow, { shadowOpacity: shadow }, disabled && styles.disabled]}>
-        <Card style={styles.wrapper}>
+        <Card style={[styles.wrapper, wrapperStyles]}>
           <Text style={[styles.title, { fontSize: size }]}>
             {children}
           </Text>
