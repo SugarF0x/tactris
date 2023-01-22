@@ -1,8 +1,6 @@
 /* eslint-disable react-native/no-raw-text,react/jsx-no-literals */
 import React from 'react'
-import { Text } from "react-native"
 import { Button } from "~/components"
-import { cyan } from "~/styles"
 import { useGridStore, useTemporalGridStore } from "~/modules/grid"
 import { useTemporalScoreStore } from "~/modules/score"
 
@@ -23,9 +21,7 @@ export function Undo() {
 
   return (
     <Button disabled={!canUndo} onPress={handleUndo}>
-      <Text style={{ color: cyan }}>
-        Undo
-      </Text>
+      Undo
     </Button>
   )
 }
