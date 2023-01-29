@@ -1,49 +1,75 @@
 import { Position, rotateMatrix } from "~/utils"
 import { TetraObject, TetraRotation, TetraType } from '../types'
+import { without, sample } from "lodash"
 
-// TODO: extend dictionary to include the amount of possible rotations
-//  e.g. there should be no two cubes and no two lines
-//  since they may be on different rotations but effectively the same
-
-export const TetrasDictionary: Record<TetraType, Array<number[]>> = {
+export const TetrasDictionary: Record<TetraType, [Array<number[]>, TetraRotation]> = {
   L: [
-    [1, 0],
-    [1, 0],
-    [1, 1],
+    [
+      [1, 0],
+      [1, 0],
+      [1, 1],
+    ],
+    3
   ],
   P: [
-    [1, 1],
-    [1, 0],
-    [1, 0],
+    [
+      [1, 1],
+      [1, 0],
+      [1, 0],
+    ],
+    3
   ],
   Z: [
-    [1, 1, 0],
-    [0, 1, 1],
+    [
+      [1, 1, 0],
+      [0, 1, 1],
+    ],
+    1
   ],
   S: [
-    [0, 1, 1],
-    [1, 1, 0],
+    [
+      [0, 1, 1],
+      [1, 1, 0],
+    ],
+    1
   ],
   I: [
-    [1],
-    [1],
-    [1],
-    [1],
+    [
+      [1],
+      [1],
+      [1],
+      [1],
+    ],
+    1
   ],
   T: [
-    [1, 1, 1],
-    [0, 1, 0],
+    [
+      [1, 1, 1],
+      [0, 1, 0],
+    ],
+    3
   ],
   O: [
-    [1, 1],
-    [1, 1],
-  ]
+    [
+      [1, 1],
+      [1, 1],
+    ],
+    0
+  ],
 }
+
+const allPossibleTetras = (Object.entries(TetrasDictionary) as unknown as [TetraType, [Array<number[]>, TetraRotation]][]).reduce<TetraObject[]>((acc, [type, [, rotations]]) => {
+  for (let rotation = 0; rotation <= rotations; rotation++) {
+    acc.push({ type, rotation: rotation as TetraRotation })
+  }
+
+  return acc
+}, [])
 
 export function convertTetraToPositions(tetra: TetraObject): Position[] {
   const { type, rotation } = tetra
 
-  let rows = TetrasDictionary[type]
+  let [rows] = TetrasDictionary[type]
 
   for (let i = 0; i < rotation; i++) {
     rows = rotateMatrix(rows)
@@ -61,25 +87,10 @@ export function convertTetraToPositions(tetra: TetraObject): Position[] {
   return positions
 }
 
-export function getRandomTetraRotation(exclude: TetraRotation[] = []): TetraRotation {
-  const sortedExclusions = exclude.sort()
-  const availableRotations = 4 - sortedExclusions.length
-
-  let rotation = Math.floor(Math.random() * availableRotations)
-  for (const exclusion of sortedExclusions) if (rotation === exclusion) rotation++
-
-  return rotation as TetraRotation
-}
-
 export function getRandomTetra(exclude: TetraObject[] = []): TetraObject {
-  const availableTypes = Object.values(TetraType)
-  const type = availableTypes[Math.floor(Math.random() * availableTypes.length)]
+  const availableTetras = without(allPossibleTetras, ...exclude)
+  const newTetra = sample(availableTetras)
 
-  const excludedRotations = exclude.filter(tetra => tetra.type === type).map(tetra => tetra.rotation)
-  const rotation = getRandomTetraRotation(excludedRotations)
-
-  return {
-    type,
-    rotation
-  }
+  if (!newTetra) throw new Error('ERR: no available tetras in total tetras stack found')
+  return newTetra
 }
