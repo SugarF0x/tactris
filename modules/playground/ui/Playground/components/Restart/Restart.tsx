@@ -21,7 +21,7 @@ export function Restart() {
         </Button>
       </Card>
 
-      <RestartConfirmationModal open={!isRestarting} onClose={handleModalClose} />
+      <RestartConfirmationModal open={isRestarting} onClose={handleModalClose} />
     </View>
   )
 }
