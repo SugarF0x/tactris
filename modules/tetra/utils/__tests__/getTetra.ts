@@ -1,5 +1,5 @@
 import { Position, positionToId } from "~/utils"
-import { getRandomTetra, convertTetraToPositions, TetraObject, TetrasDictionary, TetraType, TetraRotation, getRandomTetraRotation } from "~/modules/tetra"
+import { getRandomTetra, convertTetraToPositions, TetraObject, TetraType, allPossibleTetras } from "~/modules/tetra"
 
 describe('convertTetraToPositions', () => {
   it.each<[TetraType, Position[]]>([
@@ -24,94 +24,17 @@ describe('convertTetraToPositions', () => {
   })
 })
 
-describe('getRandomTetraRotation', () => {
-  it.each<[number, TetraRotation]>([
-    [0, 0],
-    [.25, 1],
-    [.5, 2],
-    [.75, 3],
-  ])('should return random rotations %#', (randomValue, result) => {
-    jest.spyOn(Math, 'random').mockReturnValueOnce(randomValue)
-    expect(getRandomTetraRotation()).toEqual(result)
-  })
-
-  it.each<[TetraRotation[]]>([
-    [[]],
-    [[0]],
-    [[0, 1]],
-    [[0, 1, 2]],
-    [[0, 1, 2, 3]],
-    [[0, 1, 3]],
-    [[1, 3]],
-    [[0, 2]],
-    [[0, 3]],
-    [[1, 2]],
-    [[2]],
-  ])('should properly exclude given array from possible results %#', (exclusions) => {
-    for (let i = 0; i < 4; i++) {
-      jest.spyOn(Math, 'random').mockReturnValueOnce(.25 * i)
-      expect(exclusions.includes(getRandomTetraRotation(exclusions))).toBeFalsy()
-    }
-  })
-})
-
 describe('getRandomTetra', () => {
-  const tetraTypes = Object.keys(TetrasDictionary)
-  const tetraCount = tetraTypes.length
-  const typeToIndexTuple = Object.entries(tetraTypes).map((t): [TetraType, number] => [t[1] as TetraType, Number(t[0])])
+  it('should return all possible tetra objects and throw on stack exhaustion', () => {
+    const outputStack: TetraObject[] = []
 
-  it.each(typeToIndexTuple)('should return random tetra (%s) at random rotation', (type, index) => {
-    jest.spyOn(Math, 'random').mockReturnValueOnce(index / tetraCount)
-
-    const tetra = getRandomTetra()
-
-    expect(tetra.type).toBe(type)
-  })
-
-  it.each<[TetraObject[]]>([
-    [[{ type: TetraType.L, rotation: 0 }]],
-    [[{ type: TetraType.O, rotation: 0 }, { type: TetraType.I, rotation: 0 }]],
-    [[{ type: TetraType.Z, rotation: 0 }, { type: TetraType.T, rotation: 0 }, { type: TetraType.P, rotation: 0 }, { type: TetraType.S, rotation: 0 }]],
-  ])('should on same random tetra type return different rotation %#', (exclusions) => {
-    const excludedTypeWithIndexTuple = exclusions.map<[TetraType, number]>(exclusion => [exclusion.type, tetraTypes.indexOf(exclusion.type)])
-
-    excludedTypeWithIndexTuple.forEach(([type, typeIndex], index) => {
-      jest.spyOn(Math, 'random')
-        // mock tetra
-        .mockReturnValueOnce(typeIndex / tetraCount)
-        // mock rotation
-        .mockReturnValueOnce(0)
-
-      const result = getRandomTetra(exclusions)
-
-      expect(result.type).toEqual(type)
-      expect(result.rotation).not.toEqual(exclusions[index].rotation)
-    })
-  })
-
-  it('should return all tetra rotations', () => {
-    const desiredTetraType = TetraType.T
-    const desiredTetraRandomValue = tetraTypes.indexOf(desiredTetraType)
-
-    const expectedResults: Array<Position[]> = [
-      [{ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 2, y: 0 }, { x: 1, y: 1 }],
-      [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 1, y: 2 }],
-      [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 2, y: 1 }],
-      [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 1, y: 1 }]
-    ]
-
-    for (let i = 0; i < 4; i++) {
-      jest.spyOn(Math, 'random')
-        // mock tetra
-        .mockReturnValueOnce(desiredTetraRandomValue / tetraCount)
-        // mock rotation
-        .mockReturnValueOnce(.25 * i)
-
-      const result = getRandomTetra()
-
-      expect(result.type).toEqual(desiredTetraType)
-      expect(result.rotation).toEqual(i)
-      expect(convertTetraToPositions(result).map(positionToId).sort()).toEqual(expectedResults[i].map(positionToId).sort())
+    for (let i = 0; i < allPossibleTetras.length; i++) {
+      outputStack.push(getRandomTetra(outputStack))
     }
+
+    expect(outputStack).toEqual(expect.arrayContaining(allPossibleTetras))
+    expect(allPossibleTetras).toEqual(expect.arrayContaining(outputStack))
+
+    expect(() => { getRandomTetra(outputStack) }).toThrow()
   })
 })

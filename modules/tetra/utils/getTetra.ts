@@ -58,7 +58,7 @@ export const TetrasDictionary: Record<TetraType, [Array<number[]>, TetraRotation
   ],
 }
 
-const allPossibleTetras = (Object.entries(TetrasDictionary) as unknown as [TetraType, [Array<number[]>, TetraRotation]][]).reduce<TetraObject[]>((acc, [type, [, rotations]]) => {
+export const allPossibleTetras = (Object.entries(TetrasDictionary) as unknown as [TetraType, [Array<number[]>, TetraRotation]][]).reduce<TetraObject[]>((acc, [type, [, rotations]]) => {
   for (let rotation = 0; rotation <= rotations; rotation++) {
     acc.push({ type, rotation: rotation as TetraRotation })
   }
