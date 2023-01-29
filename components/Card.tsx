@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native"
-import { cyan } from "~/styles"
+import { background, cyan } from "~/styles"
 
 export interface CardProps {
   children?: ReactNode
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: cyan
+    borderColor: cyan,
+    backgroundColor: background
   }
 })
