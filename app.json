@@ -27,9 +27,6 @@
       },
       "package": "ru.sugar_fox.tactris"
     },
-    "androidNavigationBar": {
-      "visible": "immersive"
-    },
     "web": {
       "favicon": "./assets/favicon.png"
     },
