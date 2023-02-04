@@ -5,6 +5,7 @@ import { useGridStore, useTemporalGridStore } from "~/modules/grid"
 import { useTemporalScoreStore } from "~/modules/score"
 import { StyleSheet, Text, View } from "react-native"
 import { cyan, Fonts } from "~/styles"
+import { platform } from "~/utils"
 
 // TODO: implement undo score cost
 const DUMMY_SCORE_COST = 123
@@ -48,11 +49,11 @@ const styles = StyleSheet.create({
     color: cyan,
     textTransform: 'uppercase',
     fontSize: 12,
-    opacity: .5
   },
   counter: {
-    marginTop: 6,
+    marginTop: platform(5, 0),
     fontSize: 20,
+    marginBottom: platform(0, 6),
   },
   buttonWrapper: {
     flex: 1,
