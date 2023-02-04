@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TextStyle } from "react-native"
 import { cyan, Fonts } from "~/styles"
+import { opacify } from "~/utils"
 
 const SCORE_LENGTH_CAP = 4
 
@@ -30,6 +31,6 @@ const defaultStyles = StyleSheet.create({
     textAlign: 'center',
   },
   disabled: {
-    opacity: .25
+    color: opacify(cyan, .25)
   }
 })
