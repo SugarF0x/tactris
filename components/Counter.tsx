@@ -25,7 +25,6 @@ export function Counter(props: CounterProps) {
 const defaultStyles = StyleSheet.create({
   text: {
     fontSize: 16,
-    fontWeight: '700',
     color: cyan,
     fontFamily: Fonts.LCD,
     textAlign: 'center',

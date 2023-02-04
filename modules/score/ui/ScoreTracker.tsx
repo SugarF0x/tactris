@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
   },
   highScore: {
     fontSize: 20,
-    opacity: .5,
     marginBottom: -2
   }
 })
