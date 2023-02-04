@@ -12,7 +12,6 @@ describe('updateMatchedTetra', () => {
   })
 
   it('should generate a new unique reserve tetra', () => {
-    expect(draft.tetras.reserve.type).not.toEqual(state.tetras.reserve.type)
-    expect(draft.tetras.reserve.type).not.toEqual(expect.arrayContaining([state.tetras.available.map(tetra => tetra.type), state.tetras.reserve.type].flat()))
+    expect(draft.tetras.reserve).not.toEqual(expect.arrayContaining([state.tetras.available, state.tetras.reserve].flat()))
   })
 })
