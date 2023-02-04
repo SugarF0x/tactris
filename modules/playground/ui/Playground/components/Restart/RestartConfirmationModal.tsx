@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-raw-text,react/jsx-no-literals */
 import React, { useCallback } from 'react'
-import { StyleSheet, View, Text, Modal } from "react-native"
+import { StyleSheet, View, Text } from "react-native"
 import { useAvailableMoves } from "~/modules/grid/ui/Grid/hooks"
 import { useScoreStore } from "~/modules/score"
 import { useGridStore } from "~/modules/grid"
@@ -8,6 +8,7 @@ import { Button, Card } from "~/components"
 import { useMountEffect } from "~/hooks"
 import { opacify } from "~/utils"
 import { cyan, Fonts } from "~/styles"
+import { Portal } from "@gorhom/portal"
 
 export interface RestartConfirmationModalProps {
   open: boolean
@@ -31,13 +32,9 @@ export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
 
   useMountEffect(() => { if (shouldRestart) restart() })
 
+  if (!open) return null
   return (
-    <Modal
-      animationType={'fade'}
-      visible={open && !shouldRestart}
-      onRequestClose={onClose}
-      transparent
-    >
+    <Portal>
       <View style={styles.wrapper}>
         <Card style={styles.card}>
           <Text style={styles.title}>Restart</Text>
@@ -58,14 +55,15 @@ export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
           </View>
         </Card>
       </View>
-    </Modal>
+    </Portal>
   )
 }
 
 const styles = StyleSheet.create({
   wrapper: {
+    position: "absolute",
+    height: '100%',
     backgroundColor: opacify('#000000', .5),
-    flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 56
   },
