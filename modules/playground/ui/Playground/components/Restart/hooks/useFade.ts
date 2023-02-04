@@ -20,11 +20,13 @@ export function useFade(options: FadeOptions) {
   useEffect(() => {
     if (!isOpen) return undefined
 
-    if (shouldRestart) restart()
-    else fadeIn()
+    if (!shouldRestart) return void fadeIn()
+
+    onClose()
+    restart()
 
     return undefined
-  }, [fadeIn, isOpen, restart, shouldRestart])
+  }, [fadeIn, isOpen, onClose, restart, shouldRestart])
 
   const handleConfirm = useCallback(() => {
     restart()
