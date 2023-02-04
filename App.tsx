@@ -6,6 +6,7 @@ import { useFonts } from "expo-font"
 import { Fonts } from "~/styles"
 import { setBehaviorAsync, setVisibilityAsync } from 'expo-navigation-bar'
 import { useMountEffect } from "~/hooks"
+import { StatusBar } from "expo-status-bar"
 
 void SplashScreen.preventAutoHideAsync()
 
@@ -30,6 +31,7 @@ export default function App() {
   return (
     <View onLayout={onLayoutRootView} style={styles.root}>
       <Playground />
+      <StatusBar style="light" />
     </View>
   )
 }
