@@ -38,7 +38,7 @@ export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
         <Card style={styles.card}>
           <Text style={styles.title}>Restart</Text>
 
-          <Text style={styles.body}>You are about to restart an ongoing game with remaining possible moves, are you sure you want to restart?</Text>
+          <Text style={styles.body}>You are about to restart an ongoing game with possible moves remaining, are you sure you want to restart?</Text>
 
           <View style={styles.actions}>
             <Card style={styles.buttonWrapper}>
