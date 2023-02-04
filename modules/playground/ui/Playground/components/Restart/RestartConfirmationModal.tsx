@@ -1,11 +1,10 @@
 /* eslint-disable react-native/no-raw-text,react/jsx-no-literals */
-import React, { useCallback } from 'react'
-import { StyleSheet, View, Text } from "react-native"
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import { StyleSheet, View, Text, Animated, Easing } from "react-native"
 import { useAvailableMoves } from "~/modules/grid/ui/Grid/hooks"
 import { useScoreStore } from "~/modules/score"
 import { useGridStore } from "~/modules/grid"
 import { Button, Card } from "~/components"
-import { useMountEffect } from "~/hooks"
 import { opacify } from "~/utils"
 import { cyan, Fonts } from "~/styles"
 import { Portal } from "@gorhom/portal"
@@ -30,12 +29,36 @@ export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
     restartScore()
   }, [onClose, restartGrid, restartScore])
 
-  useMountEffect(() => { if (shouldRestart) restart() })
+  const fadeValue = useRef(new Animated.Value(0)).current
+
+  const fadeConfig = useMemo(() => ({ toValue: 1, easing: Easing.inOut(Easing.cubic), useNativeDriver: true, duration: 200 }), [])
+  const fadeIn = useMemo(() => Animated.timing(fadeValue, fadeConfig), [fadeValue, fadeConfig])
+  const fadeOut = useMemo(() => Animated.timing(fadeValue, { ...fadeConfig, toValue: 0 }), [fadeConfig, fadeValue])
+
+  useEffect(() => {
+    if (!open) return undefined
+
+    if (shouldRestart) restart()
+    else fadeIn.start()
+
+    return undefined
+  }, [fadeIn, open, restart, shouldRestart])
+
+  const handleConfirm = useCallback(() => {
+    restartGrid()
+    restartScore()
+
+    fadeOut.start(onClose)
+  }, [fadeOut, onClose, restartGrid, restartScore])
+
+  const handleCancel = useCallback(() => {
+    fadeOut.start(onClose)
+  }, [fadeOut, onClose])
 
   if (!open) return null
   return (
     <Portal>
-      <View style={styles.wrapper}>
+      <Animated.View style={[styles.wrapper, { opacity: fadeValue }]}>
         <Card style={styles.card}>
           <Text style={styles.title}>Restart</Text>
 
@@ -43,18 +66,18 @@ export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
 
           <View style={styles.actions}>
             <Card style={styles.buttonWrapper}>
-              <Button onPress={onClose} style={styles.button}>
+              <Button onPress={handleCancel} style={styles.button}>
                 No
               </Button>
             </Card>
             <Card style={[styles.buttonWrapper, styles.spaced]}>
-              <Button onPress={restart} style={styles.button}>
+              <Button onPress={handleConfirm} style={styles.button}>
                 Yes
               </Button>
             </Card>
           </View>
         </Card>
-      </View>
+      </Animated.View>
     </Portal>
   )
 }
