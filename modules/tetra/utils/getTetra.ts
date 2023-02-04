@@ -1,6 +1,6 @@
 import { Position, rotateMatrix } from "~/utils"
 import { TetraObject, TetraRotation, TetraType } from '../types'
-import { without, sample, cloneDeep } from "lodash"
+import { sample, cloneDeep, isEqual, differenceWith } from "lodash"
 
 export const TetrasDictionary: Record<TetraType, [Array<number[]>, TetraRotation]> = {
   L: [
@@ -88,7 +88,7 @@ export function convertTetraToPositions(tetra: TetraObject): Position[] {
 }
 
 export function getRandomTetra(exclude: TetraObject[] = []): TetraObject {
-  const availableTetras = without(allPossibleTetras, ...exclude)
+  const availableTetras = differenceWith(allPossibleTetras, exclude, isEqual)
   const newTetra = sample(availableTetras)
 
   if (!newTetra) throw new Error('ERR: no available tetras in total tetras stack found')
