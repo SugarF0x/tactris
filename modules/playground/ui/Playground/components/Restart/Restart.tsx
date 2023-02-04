@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react'
 import { Button, Card } from "~/components"
 import { StyleSheet, View } from "react-native"
 import { Speaker } from "~/modules/playground/ui/Playground/assets"
-import { RestartConfirmationModal } from "~/modules/playground/ui/Playground/components/Restart/RestartConfirmationModal"
+import { RestartConfirmationModal } from "./RestartConfirmationModal"
 
 export function Restart() {
   const [isRestarting, setIsRestarting] = useState(false)
@@ -21,7 +21,7 @@ export function Restart() {
         </Button>
       </Card>
 
-      <RestartConfirmationModal open={isRestarting} onClose={handleModalClose} />
+      <RestartConfirmationModal isOpen={isRestarting} onClose={handleModalClose} />
     </View>
   )
 }

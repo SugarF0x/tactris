@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-raw-text,react/jsx-no-literals */
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import { StyleSheet, View, Text, Animated, Easing } from "react-native"
+import React, { useCallback } from 'react'
+import { StyleSheet, View, Text, Animated } from "react-native"
 import { useAvailableMoves } from "~/modules/grid/ui/Grid/hooks"
 import { useScoreStore } from "~/modules/score"
 import { useGridStore } from "~/modules/grid"
@@ -8,14 +8,15 @@ import { Button, Card } from "~/components"
 import { opacify } from "~/utils"
 import { cyan, Fonts } from "~/styles"
 import { Portal } from "@gorhom/portal"
+import { useFade } from './hooks'
 
 export interface RestartConfirmationModalProps {
-  open: boolean
+  isOpen: boolean
   onClose: () => void
 }
 
 export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
-  const { onClose, open } = props
+  const { onClose, isOpen } = props
 
   const tetras = useAvailableMoves()
   const shouldRestart = tetras.every(tetra => !tetra.canPlace)
@@ -24,38 +25,13 @@ export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
   const restartGrid = useGridStore(state => state.restart)
 
   const restart = useCallback(() => {
-    onClose()
     restartGrid()
     restartScore()
-  }, [onClose, restartGrid, restartScore])
+  }, [restartGrid, restartScore])
 
-  const fadeValue = useRef(new Animated.Value(0)).current
+  const { fadeValue, onConfirm, onCancel } = useFade({ isOpen, onClose, shouldRestart, restart })
 
-  const fadeConfig = useMemo(() => ({ toValue: 1, easing: Easing.inOut(Easing.cubic), useNativeDriver: true, duration: 200 }), [])
-  const fadeIn = useMemo(() => Animated.timing(fadeValue, fadeConfig), [fadeValue, fadeConfig])
-  const fadeOut = useMemo(() => Animated.timing(fadeValue, { ...fadeConfig, toValue: 0 }), [fadeConfig, fadeValue])
-
-  useEffect(() => {
-    if (!open) return undefined
-
-    if (shouldRestart) restart()
-    else fadeIn.start()
-
-    return undefined
-  }, [fadeIn, open, restart, shouldRestart])
-
-  const handleConfirm = useCallback(() => {
-    restartGrid()
-    restartScore()
-
-    fadeOut.start(onClose)
-  }, [fadeOut, onClose, restartGrid, restartScore])
-
-  const handleCancel = useCallback(() => {
-    fadeOut.start(onClose)
-  }, [fadeOut, onClose])
-
-  if (!open) return null
+  if (!isOpen) return null
   return (
     <Portal>
       <Animated.View style={[styles.wrapper, { opacity: fadeValue }]}>
@@ -66,12 +42,12 @@ export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
 
           <View style={styles.actions}>
             <Card style={styles.buttonWrapper}>
-              <Button onPress={handleCancel} style={styles.button}>
+              <Button onPress={onCancel} style={styles.button}>
                 No
               </Button>
             </Card>
             <Card style={[styles.buttonWrapper, styles.spaced]}>
-              <Button onPress={handleConfirm} style={styles.button}>
+              <Button onPress={onConfirm} style={styles.button}>
                 Yes
               </Button>
             </Card>
