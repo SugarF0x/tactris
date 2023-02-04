@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { Playground } from "~/modules/playground"
 import * as SplashScreen from 'expo-splash-screen'
-import { StyleSheet, View } from "react-native"
+import { Platform, StyleSheet, View } from "react-native"
 import { useFonts } from "expo-font"
 import { Fonts } from "~/styles"
 import { setBehaviorAsync, setVisibilityAsync } from 'expo-navigation-bar'
@@ -12,6 +12,7 @@ void SplashScreen.preventAutoHideAsync()
 
 export default function App() {
   useMountEffect(() => {
+    if (Platform.OS !== 'android') return
     void setVisibilityAsync('hidden')
     void setBehaviorAsync('overlay-swipe')
   })
