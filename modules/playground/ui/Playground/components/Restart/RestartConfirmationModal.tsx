@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   wrapper: {
     position: "absolute",
     height: '100%',
+    width: '100%',
     backgroundColor: opacify('#000000', .5),
     justifyContent: 'center',
     paddingHorizontal: 56
