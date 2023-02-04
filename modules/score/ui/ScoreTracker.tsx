@@ -3,7 +3,7 @@ import { useScoreStore } from "~/modules/score/store"
 import { StyleSheet } from "react-native"
 import { Card, Counter } from "~/components"
 import { cyan } from "~/styles"
-import { opacify } from "~/utils"
+import { opacify, platform } from "~/utils"
 import { Trophy } from "~/modules/score/ui/assets"
 
 export function ScoreTracker() {
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   wrapper: {
     width: 120,
     paddingHorizontal: 6,
+    justifyContent: 'center',
   },
   highScoreWrapper: {
     borderColor: opacify(cyan, .5),
@@ -32,13 +33,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingRight: 8,
-    paddingLeft: 12
+    paddingLeft: 12,
+    marginTop: 4
   },
   score: {
-    fontSize: 40
+    fontSize: 40,
+    marginBottom: platform(-6, 0)
   },
   highScore: {
     fontSize: 20,
-    marginBottom: -2
+    marginBottom: platform(-2, 0)
   }
 })
