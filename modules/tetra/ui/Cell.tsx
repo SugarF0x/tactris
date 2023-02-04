@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Easing, LayoutChangeEvent, StyleProp, StyleSheet, View, ViewStyle } from "react-native"
-import { cyanShadow } from "~/styles"
-import { cyan } from "~/styles"
+import { cyanShadow, cyan } from "~/styles"
 
 export interface CellProps {
   selected?: boolean
@@ -65,8 +64,8 @@ const styles = StyleSheet.create({
     transform: [{ scale: .5 }]
   },
   selected: {
+    ...cyanShadow,
     backgroundColor: cyan,
-    ...cyanShadow
   },
   filled: {
     backgroundColor: 'white'

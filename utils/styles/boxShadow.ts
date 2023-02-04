@@ -2,8 +2,7 @@ import { Platform, ViewStyle } from "react-native"
 
 export interface GenerateBoxShadowStyleOptions {
   elevation?: number
-  shadowColorAndroid?: string
-  shadowColorIos?: string
+  shadowColor?: string
   shadowOpacity?: number
   shadowRadius?: number
   xOffset?: number
@@ -13,8 +12,7 @@ export interface GenerateBoxShadowStyleOptions {
 export function generateBoxShadowStyle(options: GenerateBoxShadowStyleOptions): ViewStyle {
   const {
     elevation = 0,
-    shadowColorAndroid = 'black',
-    shadowColorIos = 'black',
+    shadowColor = 'black',
     shadowOpacity = 1,
     shadowRadius = 0,
     xOffset = 0,
@@ -22,14 +20,15 @@ export function generateBoxShadowStyle(options: GenerateBoxShadowStyleOptions): 
   } = options
 
   if (Platform.OS === 'ios') return {
-    shadowColor: shadowColorIos,
     shadowOffset: { width: xOffset, height: yOffset },
+    shadowColor,
     shadowOpacity,
     shadowRadius,
   }
 
   return {
     elevation,
-    shadowColor: shadowColorAndroid,
+    shadowColor,
+    backgroundColor: '#0000',
   }
 }
