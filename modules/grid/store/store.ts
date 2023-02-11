@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { GridStore } from './types'
 import { commitSelectedIds, restart, selectId } from './functions'
 import { getInitialTetras } from './helpers'

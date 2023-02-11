@@ -1,4 +1,4 @@
-import create from "zustand"
+import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { ScoreStore } from "~/modules/score/store/types"
 import { restart, updateScore } from "~/modules/score/store/functions"
