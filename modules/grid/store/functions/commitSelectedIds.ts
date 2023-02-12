@@ -5,7 +5,6 @@ import { doesInputMatchTetra } from "~/modules/tetra"
 import { getCompletionLines, getFilledLines, getInstructionsMap, getSortedLines } from "~/modules/grid/store/helpers"
 import { applyShiftInstructions, clearFilledLines, clearSelection, commitSelection, updateMatchedTetra } from "~/modules/grid/store/mutations"
 import { useScoreStore } from "~/modules/score"
-import { useUndoStore } from "~/services/undo"
 
 export function commitSelectedIds(state: WritableDraft<GridStore>): void {
   if (state.selectedIds.length < 4) return
@@ -28,5 +27,4 @@ export function commitSelectedIds(state: WritableDraft<GridStore>): void {
   applyShiftInstructions(state, sortedLines, instructionsMap)
 
   useScoreStore.getState().updateScore(filledLines)
-  useUndoStore.getState().update()
 }
