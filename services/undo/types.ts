@@ -2,7 +2,7 @@ import { GridStore } from "~/modules/grid"
 import { ScoreStore } from "~/modules/score"
 
 type Nullable<T> = T | null
-export type UndoableItems = [
+type UndoableItems = [
   Nullable<GridStore>,
   Nullable<ScoreStore>
 ]
