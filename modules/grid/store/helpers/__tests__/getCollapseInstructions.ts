@@ -1,4 +1,5 @@
-import { CompletionLine, GRID_HEIGHT, GRID_WIDTH, ShiftInstructions } from "~/modules/grid"
+import { CompletionLine, ShiftInstructions } from "~/modules/grid/types"
+import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid/config"
 import * as gridConfig from "~/modules/grid/config"
 import { Axis } from "~/utils"
 import { getCollapseInstructions } from '../getCollapseInstructions'

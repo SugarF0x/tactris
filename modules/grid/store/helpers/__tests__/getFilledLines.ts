@@ -1,5 +1,6 @@
 import { Axis, PositionId, positionToId } from "~/utils"
-import { CompletionLine, GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid"
+import { CompletionLine } from "~/modules/grid/types"
+import { GRID_HEIGHT, GRID_WIDTH } from "~/modules/grid/config"
 import { getFilledLines } from '../getFilledLines'
 import { mockGridConfig } from "~/modules/grid/__mocks__"
 

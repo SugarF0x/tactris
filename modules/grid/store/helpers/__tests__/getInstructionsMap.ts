@@ -1,4 +1,4 @@
-import { CompletionLine, ShiftInstructions } from "~/modules/grid"
+import { CompletionLine, ShiftInstructions } from "~/modules/grid/types"
 import { getInstructionsMap } from "~/modules/grid/store/helpers"
 import { Axis } from "~/utils"
 

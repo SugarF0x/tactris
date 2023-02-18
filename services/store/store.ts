@@ -28,5 +28,3 @@ export const useRootStore = create<RootState>()(
 
 export const initialRootState = useRootStore.getState()
 export const useTemporalStore = create(useRootStore.temporal)
-
-

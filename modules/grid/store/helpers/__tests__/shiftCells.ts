@@ -1,4 +1,4 @@
-import { ShiftInstructions } from "~/modules/grid"
+import { ShiftInstructions } from "~/modules/grid/types"
 import { Axis, PositionId } from "~/utils"
 import { shiftCells } from '../shiftCells'
 
