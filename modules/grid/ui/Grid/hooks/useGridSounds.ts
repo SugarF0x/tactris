@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react"
 import { Audio } from "expo-av"
-import { useGridStore } from "~/modules/grid/store"
 import { playAndUnload } from "~/utils"
+import { useRootStore } from "~/services/store"
 
 export function useGridSounds() {
-  const selectedIdsLength = useGridStore(state => state.selectedIds.length)
+  const selectedIdsLength = useRootStore(state => state.selectedIds.length)
 
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync( require('~/assets/sounds/fill.mp3'))

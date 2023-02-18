@@ -1,28 +1,21 @@
 /* eslint-disable react-native/no-raw-text,react/jsx-no-literals */
 import React from 'react'
 import { Button, Card, Counter } from "~/components"
-import { useGridStore, useTemporalGridStore } from "~/modules/grid"
-import { useTemporalScoreStore } from "~/modules/score"
 import { StyleSheet, Text, View } from "react-native"
 import { cyan, Fonts } from "~/styles"
 import { platform } from "~/utils"
+import { useTemporalStore } from "~/services/store"
 
 // TODO: implement undo score cost
 const DUMMY_SCORE_COST = 123
 
 export function Undo() {
-  const filledIdsLength = useGridStore(state => state.filledIds.length)
-  const gridTemporal = useTemporalGridStore()
-  const scoreTemporal = useTemporalScoreStore()
+  const temporalStore = useTemporalStore()
 
-  const canUndo = Boolean(gridTemporal.pastStates.length)
-
-  const previousFilledIdsLength = gridTemporal.pastStates[gridTemporal.pastStates.length - 1]?.filledIds?.length ?? 0
-  const didCollect = Boolean(filledIdsLength < previousFilledIdsLength)
+  const canUndo = Boolean(temporalStore.pastStates.length)
 
   function handleUndo() {
-    gridTemporal.undo()
-    if (didCollect) scoreTemporal.undo()
+    temporalStore.undo()
   }
 
   return (

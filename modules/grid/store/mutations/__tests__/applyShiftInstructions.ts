@@ -1,4 +1,4 @@
-import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
+import { mockRootStore } from "~/services/store/__mocks__"
 import { Axis, PositionId } from "~/utils"
 import { applyShiftInstructions } from "~/modules/grid/store/mutations"
 import { CompletionLine } from "~/modules/grid"
@@ -24,7 +24,7 @@ describe('applyShiftInstructions', () => {
       ['4/0', '4/1', '4/2', '4/3', '5/0', '5/1', '5/2', '5/3']
     ],
   ])('should shift given IDs according to given instructions %#', (filledIds, lines, output) => {
-    const { draft } = getGridStoreInitialStateMock({ filledIds })
+    const { draft } = mockRootStore({ filledIds })
 
     const instructions = getInstructionsMap(lines)
     const sortedLines = getSortedLines(lines, instructions)

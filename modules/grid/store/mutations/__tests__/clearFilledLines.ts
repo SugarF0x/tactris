@@ -1,5 +1,5 @@
 import { CompletionLine } from "~/modules/grid"
-import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
+import { mockRootStore } from "~/services/store/__mocks__"
 import { Axis, PositionId } from "~/utils"
 import { clearFilledLines } from "~/modules/grid/store/mutations"
 import { mockGridConfig } from "~/modules/grid/__mocks__"
@@ -29,7 +29,7 @@ describe('clearFilledLines', () => {
       ['2/2', '0/0', '7/7']
     ],
   ])('should clear IDs for given lines', (filledIds, lines, expected) => {
-    const { draft } = getGridStoreInitialStateMock({ filledIds })
+    const { draft } = mockRootStore({ filledIds })
 
     clearFilledLines(draft, lines)
 

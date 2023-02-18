@@ -1,10 +1,10 @@
 import { getInitialTetras } from "~/modules/grid/store/helpers"
-import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
+import { mockRootStore } from "~/services/store/__mocks__"
 import { updateMatchedTetra } from "~/modules/grid/store/mutations"
 
 describe('updateMatchedTetra', () => {
   const tetras = getInitialTetras()
-  const { state, draft } = getGridStoreInitialStateMock({ tetras })
+  const { state, draft } = mockRootStore({ tetras })
   updateMatchedTetra(draft, 0)
 
   it('should replace matched tetra with reserve tetra', () => {

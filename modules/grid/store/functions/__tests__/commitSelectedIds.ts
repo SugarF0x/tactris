@@ -1,5 +1,5 @@
 import { commitSelectedIds } from "~/modules/grid/store/functions"
-import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
+import { mockRootStore } from "~/services/store/__mocks__"
 import { getRandomTetra, TetraObject, TetraType } from "~/modules/tetra"
 import { PositionId, positionToId } from "~/utils"
 import { GRID_WIDTH } from "~/modules/grid"
@@ -10,7 +10,7 @@ describe('commitSelectedIds', () => {
   mockGridConfig()
 
   it('should do early return on selected IDs length < 4', () => {
-    const { state, draft } = getGridStoreInitialStateMock()
+    const { state, draft } = mockRootStore()
 
     commitSelectedIds(draft)
 
@@ -21,7 +21,7 @@ describe('commitSelectedIds', () => {
     const tetras: [TetraObject, TetraObject] = [{ type: TetraType.I, rotation: 0 }, getRandomTetra([{ type: TetraType.I, rotation: 0 }])]
     const selectedIds: PositionId[] = ['4/4', '4/5', '4/6', '4/7']
 
-    const { state, draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
+    const { state, draft } = mockRootStore({ tetras: { available: tetras }, selectedIds })
 
     commitSelectedIds(draft)
 
@@ -43,7 +43,7 @@ describe('commitSelectedIds', () => {
     ],
   ])('should do early return if selection does not match either tetra %#', (tetraTypes, selectedIds) => {
     const tetras = tetraTypes.map(type => ({ type, rotation: 0 })) as [TetraObject, TetraObject]
-    const { state, draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
+    const { state, draft } = mockRootStore({ tetras: { available: tetras }, selectedIds })
 
     commitSelectedIds(draft)
 
@@ -65,7 +65,7 @@ describe('commitSelectedIds', () => {
     ]
   ])('should append selectedIds to filledIds on successful match & clear selection %#', (tetraTypes, selectedIds) => {
     const tetras = tetraTypes.map(type => ({ type, rotation: 0 })) as [TetraObject, TetraObject]
-    const { draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
+    const { draft } = mockRootStore({ tetras: { available: tetras }, selectedIds })
 
     commitSelectedIds(draft)
 
@@ -89,7 +89,7 @@ describe('commitSelectedIds', () => {
       '0/5', '1/5', '2/5', '3/5'
     ]
 
-    const { draft } = getGridStoreInitialStateMock({
+    const { draft } = mockRootStore({
       tetras: {
         available: [{ type: TetraType.T, rotation: 0 }, { type: TetraType.I, rotation: 0 }]
       },
@@ -109,7 +109,7 @@ describe('commitSelectedIds', () => {
     const updateScoreMock = jest.fn(updateScore.updateScore)
     jest.spyOn(updateScore, 'updateScore').mockImplementationOnce(updateScoreMock)
 
-    const { draft } = getGridStoreInitialStateMock({
+    const { draft } = mockRootStore({
       filledIds: Array.from({ length: GRID_WIDTH - 1 }, (_, y) => positionToId({ x: 0, y: y + 1 })),
       selectedIds: ['0/0', '0/1', '0/2', '0/3'],
       tetras: {
@@ -125,7 +125,7 @@ describe('commitSelectedIds', () => {
     const updateScoreMock = jest.fn(updateScore.updateScore)
     jest.spyOn(updateScore, 'updateScore').mockImplementationOnce(updateScoreMock)
 
-    const { draft } = getGridStoreInitialStateMock()
+    const { draft } = mockRootStore()
     commitSelectedIds(draft)
 
     expect(updateScoreMock).not.toHaveBeenCalled()

@@ -1,16 +1,16 @@
-import { useGridStore } from "~/modules/grid/store"
 import { TetraObject } from "~/modules/tetra"
 import { useMemo } from "react"
 import { PositionId } from "~/utils"
 import { getAvailableTetraPosition } from "~/modules/grid/utils"
+import { useRootStore } from "~/services/store"
 
 export interface TetraGridState extends TetraObject {
   canPlace: boolean
 }
 
 export function useAvailableMoves(): [TetraGridState, TetraGridState] {
-  const tetras = useGridStore(state => state.tetras.available)
-  const filledIds = useGridStore(state => state.filledIds)
+  const tetras = useRootStore(state => state.tetras.available)
+  const filledIds = useRootStore(state => state.filledIds)
 
   const tetraToAvailablePositionsWeakMap = useMemo(() => {
     const map = new WeakMap<TetraObject, PositionId[]>()

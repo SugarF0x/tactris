@@ -1,10 +1,10 @@
-import { getScoreStoreMock } from "~/modules/score/store/__mocks__"
 import { updateScore } from "~/modules/score/store/functions"
 import { mockGridConfig } from "~/modules/grid/__mocks__"
 import { mockCompletionsToScore } from "~/modules/score/store/helpers/__mocks__"
 import { mockSetScore, mockSetHighScore } from "~/modules/score/store/mutations/__mocks__"
 import { CompletionLine } from "~/modules/grid"
 import { Axis } from "~/utils"
+import { mockRootStore } from "~/services/store/__mocks__"
 
 describe('updateScore', () => {
   mockGridConfig()
@@ -20,7 +20,7 @@ describe('updateScore', () => {
     ]
 
     const MOCK_HIGH_SCORE_VALUE = 5000
-    const { state, draft } = getScoreStoreMock({ highScore: MOCK_HIGH_SCORE_VALUE })
+    const { state, draft } = mockRootStore({ highScore: MOCK_HIGH_SCORE_VALUE })
 
     updateScore(draft, lines)
 
@@ -40,7 +40,7 @@ describe('updateScore', () => {
     const MOCK_SCORE_CALCULATION_RESULT = 30
     const completionsToScoreMock = mockCompletionsToScore(() => MOCK_SCORE_CALCULATION_RESULT)
 
-    const { draft } = getScoreStoreMock()
+    const { draft } = mockRootStore()
 
     updateScore(draft, lines)
 
