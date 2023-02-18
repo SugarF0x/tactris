@@ -1,14 +1,14 @@
 import React from 'react'
+import { useScoreStore } from "~/modules/score/store"
 import { StyleSheet } from "react-native"
 import { Card, Counter } from "~/components"
 import { cyan } from "~/styles"
 import { opacify, platform } from "~/utils"
 import { Trophy } from "~/modules/score/ui/assets"
-import { useRootStore } from "~/services/store"
 
 export function ScoreTracker() {
-  const score = useRootStore(state => state.score)
-  const highScore = useRootStore(state => state.highScore)
+  const score = useScoreStore(state => state.score)
+  const highScore = useScoreStore(state => state.highScore)
 
   return (
     <Card style={styles.wrapper}>

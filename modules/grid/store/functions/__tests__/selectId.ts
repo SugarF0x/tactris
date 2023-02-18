@@ -1,4 +1,4 @@
-import { mockRootStore } from "~/services/store/__mocks__"
+import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
 import { PositionId } from "~/utils"
 import { selectId } from "~/modules/grid/store/functions"
 
@@ -8,7 +8,7 @@ describe('selectId', () => {
     ['5/5', ['3/5', '5/5', '4/1']],
     ['2/2', ['1/1', '1/2', '2/1', '2/2']],
   ])('should do an early return if the ID is already selected %#', (id, selectedIds) => {
-    const { state, draft } = mockRootStore({ selectedIds })
+    const { state, draft } = getGridStoreInitialStateMock({ selectedIds })
 
     selectId(draft, id)
 
@@ -20,7 +20,7 @@ describe('selectId', () => {
     ['1/8', ['3/5', '1/8', '4/2']],
     ['6/7', ['1/1', '2/1', '6/7', '5/2']],
   ])('should do an early return if the ID is already filled %#', (id, filledIds) => {
-    const { state, draft } = mockRootStore({ filledIds })
+    const { state, draft } = getGridStoreInitialStateMock({ filledIds })
 
     selectId(draft, id)
 
@@ -33,7 +33,7 @@ describe('selectId', () => {
     ['7/5', ['1/1', '2/3'], ['1/1', '2/3', '7/5']],
     ['0/0', ['1/1', '2/3', '7/5'], ['1/1', '2/3', '7/5', '0/0']],
   ])('should add given ID to the selection array %#', (id, selectedIds, output) => {
-    const { state, draft } = mockRootStore({ selectedIds })
+    const { state, draft } = getGridStoreInitialStateMock({ selectedIds })
 
     selectId(draft, id)
 
@@ -48,7 +48,7 @@ describe('selectId', () => {
     ['3/7', ['2/3', '7/5', '0/0', '5/5'], ['7/5', '0/0', '5/5', '3/7']],
     ['8/8', ['7/5', '0/0', '5/5', '3/7'], ['0/0', '5/5', '3/7', '8/8']],
   ])('should shift the array if length reaches 5 (%#)', (id, selectedIds, output) => {
-    const { state, draft } = mockRootStore({ selectedIds })
+    const { state, draft } = getGridStoreInitialStateMock({ selectedIds })
 
     selectId(draft, id)
 

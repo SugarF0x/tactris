@@ -1,10 +1,10 @@
-import { mockRootStore } from "~/services/store/__mocks__"
+import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
 import { addSelectedId } from "~/modules/grid/store/mutations"
 import { PositionId } from "~/utils"
 
 describe('addSelectedId', () => {
   it('should push given ID to the selection array', () => {
-    const { draft } = mockRootStore()
+    const { draft } = getGridStoreInitialStateMock()
     expect(draft.selectedIds).toHaveLength(0)
 
     const id: PositionId = '1/1'

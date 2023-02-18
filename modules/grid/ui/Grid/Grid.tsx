@@ -1,17 +1,17 @@
 import React, { useRef } from "react"
 import { GestureResponderEvent, LayoutRectangle, StyleSheet, LayoutChangeEvent, View, useWindowDimensions } from "react-native"
 import { Position, isWithin, PositionId, positionToId } from "~/utils"
+import { useGridStore } from "~/modules/grid/store"
 import { GridCell } from "./components"
 import { GRID_WIDTH, GRID_HEIGHT } from "~/modules/grid/config"
 import { useGridSounds } from './hooks'
-import { useRootStore } from "~/services/store"
 
 export function Grid() {
   const { width } = useWindowDimensions()
   useGridSounds()
 
-  const selectId = useRootStore(state => state.selectId)
-  const commitSelectedIds = useRootStore(state => state.commitSelectedIds)
+  const selectId = useGridStore(state => state.selectId)
+  const commitSelectedIds = useGridStore(state => state.commitSelectedIds)
 
   const cellSize = width / GRID_WIDTH
 

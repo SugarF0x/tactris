@@ -2,12 +2,13 @@
 import React, { useCallback } from 'react'
 import { StyleSheet, View, Text, Animated } from "react-native"
 import { useAvailableMoves } from "~/modules/grid/ui/Grid/hooks"
+import { useScoreStore } from "~/modules/score"
+import { useGridStore } from "~/modules/grid"
 import { Button, Card } from "~/components"
 import { opacify } from "~/utils"
 import { cyan, Fonts } from "~/styles"
 import { Portal } from "@gorhom/portal"
 import { useFade } from './hooks'
-import { useRootStore } from "~/services/store"
 
 export interface RestartConfirmationModalProps {
   isOpen: boolean
@@ -20,8 +21,8 @@ export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
   const tetras = useAvailableMoves()
   const shouldRestart = tetras.every(tetra => !tetra.canPlace)
 
-  const restartScore = useRootStore(state => state.restart)
-  const restartGrid = useRootStore(state => state.restart)
+  const restartScore = useScoreStore(state => state.restart)
+  const restartGrid = useGridStore(state => state.restart)
 
   const restart = useCallback(() => {
     restartGrid()

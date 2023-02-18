@@ -1,11 +1,12 @@
 import { WritableDraft } from "immer/dist/types/types-external"
+import { GridStore } from "~/modules/grid/store/types"
 import { idToPosition } from "~/utils"
 import { doesInputMatchTetra } from "~/modules/tetra"
 import { getCompletionLines, getFilledLines, getInstructionsMap, getSortedLines } from "~/modules/grid/store/helpers"
 import { applyShiftInstructions, clearFilledLines, clearSelection, commitSelection, updateMatchedTetra } from "~/modules/grid/store/mutations"
-import { RootState } from "~/services/store"
+import { useScoreStore } from "~/modules/score"
 
-export function commitSelectedIds(state: WritableDraft<RootState>): void {
+export function commitSelectedIds(state: WritableDraft<GridStore>): void {
   if (state.selectedIds.length < 4) return
 
   const selectedTetra = state.selectedIds.map(idToPosition)
@@ -25,5 +26,5 @@ export function commitSelectedIds(state: WritableDraft<RootState>): void {
   const sortedLines = getSortedLines(filledLines, instructionsMap)
   applyShiftInstructions(state, sortedLines, instructionsMap)
 
-  state.updateScore(filledLines)
+  useScoreStore.getState().updateScore(filledLines)
 }
