@@ -1,6 +1,6 @@
 import { filterInstructedRelativeIds } from '~/modules/grid/store/helpers'
 import { Axis, PositionId } from "~/utils"
-import { CompletionLine, ShiftInstructions } from "~/modules/grid/types"
+import { CompletionLine, ShiftInstructions } from "~/modules/grid"
 
 describe('filterInstructedRelativeIds', () => {
   it.each<[PositionId[], CompletionLine]>([
