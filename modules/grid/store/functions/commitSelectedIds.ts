@@ -28,9 +28,3 @@ export function commitSelectedIds(state: WritableDraft<GridStore>): CompletionLi
 
   return filledLines
 }
-
-export function connectedCommitSelectedIds(set: (recipe: (state: WritableDraft<GridStore>) => void) => void): CompletionLine[] {
-  let lines: CompletionLine[] = []
-  set((state: WritableDraft<GridStore>) => { lines = commitSelectedIds(state) })
-  return lines
-}

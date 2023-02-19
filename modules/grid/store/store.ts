@@ -1,6 +1,6 @@
 import create from 'zustand'
 import { GridStore } from './types'
-import { connectedCommitSelectedIds, restart, selectId } from './functions'
+import { commitSelectedIds, restart, selectId } from './functions'
 import { getInitialTetras } from './helpers'
 import { immer } from 'zustand/middleware/immer'
 import { persist } from 'zustand/middleware'
@@ -8,13 +8,14 @@ import { temporal } from 'zundo'
 import { isEqual } from 'lodash'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getRandomTetra, TetraObject } from "~/modules/tetra"
+import { forwardReturn } from "~/utils"
 
 export const useGridStore = create<GridStore>()(persist(temporal(immer((set) => ({
   filledIds: [],
   selectedIds: [],
   tetras: getInitialTetras(),
   selectId: (id) => set(state => selectId(state, id)),
-  commitSelectedIds: () => connectedCommitSelectedIds(set),
+  commitSelectedIds: () => forwardReturn(set, commitSelectedIds),
   restart: () => set(restart)
 })), {
   limit: 1,
