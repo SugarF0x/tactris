@@ -14,7 +14,11 @@ export function ScoreTracker() {
     <Card style={styles.wrapper}>
       <Counter score={score} styles={{ text: styles.score }} />
       <Card style={styles.highScoreWrapper}>
-        <Counter score={highScore} styles={{ disabled: styles.highScore }} disabled />
+        <Counter
+          score={highScore}
+          disabled={score !== highScore}
+          styles={{ disabled: styles.highScore, text: styles.highScore }}
+        />
         <Trophy />
       </Card>
     </Card>
