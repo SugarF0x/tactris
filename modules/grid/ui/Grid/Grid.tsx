@@ -5,6 +5,7 @@ import { useGridStore } from "~/modules/grid/store"
 import { GridCell } from "./components"
 import { GRID_WIDTH, GRID_HEIGHT } from "~/modules/grid/config"
 import { useGridSounds } from './hooks'
+import { useScoreStore } from "~/modules/score"
 
 export function Grid() {
   const { width } = useWindowDimensions()
@@ -12,6 +13,7 @@ export function Grid() {
 
   const selectId = useGridStore(state => state.selectId)
   const commitSelectedIds = useGridStore(state => state.commitSelectedIds)
+  const updateScore = useScoreStore(state => state.updateScore)
 
   const cellSize = width / GRID_WIDTH
 
@@ -36,7 +38,8 @@ export function Grid() {
 
   function handleStopMove() {
     currentlySelectedId.current = null
-    commitSelectedIds()
+    const completedLines = commitSelectedIds()
+    updateScore(completedLines)
   }
 
   const itemLayouts = useRef<Record<PositionId, LayoutRectangle>>({})

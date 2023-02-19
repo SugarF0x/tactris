@@ -8,13 +8,20 @@ import { temporal } from 'zundo'
 import { isEqual } from 'lodash'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getRandomTetra, TetraObject } from "~/modules/tetra"
+import { CompletionLine } from "~/modules/grid"
 
 export const useGridStore = create<GridStore>()(persist(temporal(immer((set) => ({
   filledIds: [],
   selectedIds: [],
   tetras: getInitialTetras(),
   selectId: (id) => set(state => selectId(state, id)),
-  commitSelectedIds: () => set(commitSelectedIds),
+  commitSelectedIds: () => {
+    let lines: CompletionLine[] = []
+    set(state => {
+      lines = commitSelectedIds(state)
+    })
+    return lines
+  },
   restart: () => set(restart)
 })), {
   limit: 1,
