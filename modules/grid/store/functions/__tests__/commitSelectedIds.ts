@@ -1,4 +1,4 @@
-import { _commitSelectedIds } from "~/modules/grid/store/functions"
+import { commitSelectedIds } from "~/modules/grid/store/functions"
 import { getGridStoreInitialStateMock } from "~/modules/grid/store/__mocks__"
 import { getRandomTetra, TetraObject, TetraType } from "~/modules/tetra"
 import { Axis, PositionId, positionToId } from "~/utils"
@@ -11,7 +11,7 @@ describe('commitSelectedIds', () => {
   it('should do early return on selected IDs length < 4', () => {
     const { state, draft } = getGridStoreInitialStateMock()
 
-    _commitSelectedIds(draft)
+    commitSelectedIds(draft)
 
     expect(draft).toMatchObject(state)
   })
@@ -22,7 +22,7 @@ describe('commitSelectedIds', () => {
 
     const { state, draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
 
-    _commitSelectedIds(draft)
+    commitSelectedIds(draft)
 
     expect(draft.tetras.available[0]).not.toMatchObject(state.tetras.available[0])
   })
@@ -44,7 +44,7 @@ describe('commitSelectedIds', () => {
     const tetras = tetraTypes.map(type => ({ type, rotation: 0 })) as [TetraObject, TetraObject]
     const { state, draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
 
-    _commitSelectedIds(draft)
+    commitSelectedIds(draft)
 
     expect(draft).toMatchObject(state)
   })
@@ -66,7 +66,7 @@ describe('commitSelectedIds', () => {
     const tetras = tetraTypes.map(type => ({ type, rotation: 0 })) as [TetraObject, TetraObject]
     const { draft } = getGridStoreInitialStateMock({ tetras: { available: tetras }, selectedIds })
 
-    _commitSelectedIds(draft)
+    commitSelectedIds(draft)
 
     expect(draft.filledIds).toEqual(expect.arrayContaining(selectedIds))
     expect(draft.selectedIds).toHaveLength(0)
@@ -99,7 +99,7 @@ describe('commitSelectedIds', () => {
       ]
     })
 
-    _commitSelectedIds(draft)
+    commitSelectedIds(draft)
 
     expect(draft.filledIds.sort()).toEqual(expectedFilledState.sort())
   })
@@ -113,7 +113,7 @@ describe('commitSelectedIds', () => {
       }
     })
 
-    const lines = _commitSelectedIds(draft)
+    const lines = commitSelectedIds(draft)
 
     expect(lines).toEqual([{ axis: Axis.X, value: 0 }])
   })
