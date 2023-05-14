@@ -18,7 +18,11 @@ export const useScoreStore = create<ScoreStore>()(persist(temporal(immer((set) =
     const { score, highScore } = state
     return { score, highScore }
   },
-  equality: isEqual
+  equality: isEqual,
+  wrapTemporal: setup => persist(setup, {
+    name: 'score-storage-temporal',
+    getStorage: () => AsyncStorage
+  })
 }), {
   name: 'score-storage',
   getStorage: () => AsyncStorage

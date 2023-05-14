@@ -23,7 +23,11 @@ export const useGridStore = create<GridStore>()(persist(temporal(immer((set) => 
     const { filledIds, tetras } = state
     return { filledIds, tetras }
   },
-  equality: isEqual
+  equality: isEqual,
+  wrapTemporal: setup => persist(setup, {
+    name: 'grid-storage-temportal',
+    getStorage: () => AsyncStorage
+  })
 }), {
   name: 'grid-storage',
   getStorage: () => AsyncStorage,
