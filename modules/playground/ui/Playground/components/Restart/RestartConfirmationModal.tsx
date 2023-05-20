@@ -2,8 +2,8 @@
 import React, { useCallback } from 'react'
 import { StyleSheet, View, Text, Animated } from "react-native"
 import { useAvailableMoves } from "~/modules/grid/ui/Grid/hooks"
-import { useScoreStore } from "~/modules/score"
-import { useGridStore } from "~/modules/grid"
+import { useScoreStore, useTemporalScoreStore } from "~/modules/score"
+import { useGridStore, useTemporalGridStore } from "~/modules/grid"
 import { Button, Card } from "~/components"
 import { opacify } from "~/utils"
 import { cyan, Fonts } from "~/styles"
@@ -24,10 +24,16 @@ export function RestartConfirmationModal(props: RestartConfirmationModalProps) {
   const restartScore = useScoreStore(state => state.restart)
   const restartGrid = useGridStore(state => state.restart)
 
+  const clearScoreTemporal = useTemporalScoreStore(state => state.clear)
+  const clearGridTemporal = useTemporalGridStore(state => state.clear)
+
   const restart = useCallback(() => {
-    restartGrid()
     restartScore()
-  }, [restartGrid, restartScore])
+    restartGrid()
+
+    clearScoreTemporal()
+    clearGridTemporal()
+  }, [clearGridTemporal, clearScoreTemporal, restartGrid, restartScore])
 
   const { fadeValue, onConfirm, onCancel } = useFade({ isOpen, onClose, shouldRestart, restart })
 
