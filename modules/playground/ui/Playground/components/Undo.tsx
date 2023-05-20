@@ -2,33 +2,37 @@
 import React from 'react'
 import { Button, Card, Counter } from "~/components"
 import { useGridStore, useTemporalGridStore } from "~/modules/grid"
-import { useTemporalScoreStore } from "~/modules/score"
+import { getUndoCost, useScoreStore, useTemporalScoreStore } from "~/modules/score"
 import { StyleSheet, Text, View } from "react-native"
 import { cyan, Fonts } from "~/styles"
 import { platform } from "~/utils"
-
-// TODO: implement undo score cost
-const DUMMY_SCORE_COST = 123
+import { getCanAffordUndo } from "~/modules/score/store/helpers"
 
 export function Undo() {
-  const filledIdsLength = useGridStore(state => state.filledIds.length)
   const gridTemporal = useTemporalGridStore()
-  const scoreTemporal = useTemporalScoreStore()
+  const filledIdsLength = useGridStore(state => state.filledIds.length)
 
-  const canUndo = Boolean(gridTemporal.pastStates.length)
+  const scoreTemporal = useTemporalScoreStore()
+  const currentScore = useScoreStore(state => state.score)
+  const previousScore = scoreTemporal.pastStates[0]?.score ?? currentScore
+  const undoCost = useScoreStore(getUndoCost)
+  const undoScore = useScoreStore(state => state.undo)
 
   const previousFilledIdsLength = gridTemporal.pastStates[gridTemporal.pastStates.length - 1]?.filledIds?.length ?? 0
   const didCollect = Boolean(filledIdsLength < previousFilledIdsLength)
 
+  const canAffordUndo = getCanAffordUndo(currentScore, previousScore, undoCost, didCollect)
+  const canUndo = canAffordUndo && Boolean(gridTemporal.pastStates.length)
+
   function handleUndo() {
     gridTemporal.undo()
-    if (didCollect) scoreTemporal.undo()
+    undoScore(previousScore, didCollect)
   }
 
   return (
     <Card style={styles.wrapper}>
       <Text style={styles.title}>cost</Text>
-      <Counter score={DUMMY_SCORE_COST} styles={{ text: styles.counter }} />
+      <Counter score={undoCost} styles={{ text: styles.counter }} />
       <View style={styles.buttonWrapper}>
         <Button style={styles.button} size={20} disabled={!canUndo} onPress={handleUndo}>
           Undo

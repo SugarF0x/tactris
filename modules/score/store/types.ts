@@ -5,4 +5,6 @@ export interface ScoreStore {
   highScore: number
   updateScore: (lines: CompletionLine[]) => void
   restart: () => void
+  undoCount: number
+  undo: (previousScore: number, shouldApplyPreviousScore: boolean) => void
 }
